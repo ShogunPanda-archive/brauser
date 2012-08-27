@@ -4,7 +4,11 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
+require "lazier"
+
+Lazier.load!(:object)
+
 require "brauser/version" if !defined?(Brauser::Version)
-require "brauser/definitions"
+require "brauser/query"
 require "brauser/browser"
 require "brauser/hooks"

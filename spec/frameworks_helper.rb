@@ -4,8 +4,21 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-module Brauser
-  module Definitions
+require "ostruct"
 
+if !defined?(Rails) then
+  module Rails
+  end
+
+  module ActionController
+    class Base
+      def request
+        OpenStruct.new(:headers => {})
+      end
+
+      def self.helper_method(method)
+
+      end
+    end
   end
 end
