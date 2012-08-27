@@ -672,7 +672,7 @@ describe Brauser::Browser do
     end
 
     it "should transform name" do
-      expect(browser.classes(" ", true, false, false) { |name| name.to_s.upcase }).to eq("CHROME")
+      expect(browser.classes(" ", true, false, false) { |name, version, platform| name.to_s.upcase }).to eq("CHROME")
     end
   end
 
