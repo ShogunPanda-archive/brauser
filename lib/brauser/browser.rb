@@ -23,7 +23,7 @@ module Brauser
     # The current browser version.
     attr_accessor :version
 
-    # The current browser platform. Can be one of :android, :blackberry, :ios, :linux, :osx, :windows
+    # The current browser platform.
     attr_accessor :platform
 
     # Aliases
@@ -32,7 +32,7 @@ module Brauser
 
     # Returns the list of browser that can be recognized.
     #
-    # keys are the browser name, values are a array of the name matcher, the version match and the label.
+    # The keys are the browser name, the values are arrays of the name matcher, the version match and the label.
     #
     # @return [Hash] The list of browser that can be recognized.
     def self.browsers
@@ -47,7 +47,7 @@ module Brauser
 
     # Returns the list of platforms that can be recognized.
     #
-    # keys are the platform name, values are a array of the matcher and the label.
+    # The keys are the platform name, values are arrays of the matcher and the label.
     #
     # @return [Hash] The list of platform that can be recognized.
     def self.platforms
@@ -62,7 +62,7 @@ module Brauser
 
     # Returns the list of languages that can be recognized.
     #
-    # keys are the languages code, values the labels
+    # The keys are the languages code, the values the labels.
     #
     # @return [Hash] The list of languages that can be recognized.
     def self.languages
@@ -526,7 +526,7 @@ module Brauser
 
     # Gets a human-readable browser name.
     #
-    # return [String] A human-readable browser name.
+    # @return [String] A human-readable browser name.
     def readable_name
       self.parse_agent(@agent) if !@name
       self.class.browsers.fetch(@name, ["Unknown Browser"]).last.ensure_string
@@ -534,7 +534,7 @@ module Brauser
 
     # Gets a human-readable platform name.
     #
-    # return [String] A readable platform name.
+    # @return [String] A readable platform name.
     def platform_name
       self.parse_agent(@agent) if !@platform
       self.class.platforms.fetch(@platform, ["Unknown Platform"]).last.ensure_string
@@ -542,7 +542,7 @@ module Brauser
 
     # Checks if the browser is a specific name and optionally of a specific version and platform.
     #
-    # @see #version?
+    # @see #v?
     # @see #on?
     #
     # @param names [Symbol|Array] A list of specific names to match. Also, this meta-names are supported: `:capable` and `:tablet`.
@@ -582,7 +582,7 @@ module Brauser
 
     # Checks if the browser is a specific name and optionally of a specific version and platform.
     #
-    # @see #version?
+    # @see #v?
     # @see #on?
     #
     # @param names [Symbol|Array] A list of specific names to match. Also, this meta-names are supported: `:capable` and `:tablet`.
@@ -595,7 +595,7 @@ module Brauser
 
     # Checks if the brower is a specific version.
     #
-    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against. Need to be in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
     # @return [Query] A query which can evaluated for concatenation or result.
     def v(versions = {})
       self.parse_agent(@agent) if !@version
@@ -635,7 +635,7 @@ module Brauser
 
     # Checks if the brower is a specific version.
     #
-    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against. Need to be in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
     # @return [Boolean] `true` if current browser matches, `false` otherwise.
     def v?(versions = {})
       self.v(versions).result
@@ -643,7 +643,7 @@ module Brauser
 
     # Check if the browser is on a specific platform.
     #
-    # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
+    # @param platforms [Symbol|Array] A list of specific platform to match.
     # @return [Query] A query which can evaluated for concatenation or result.
     def on(platforms = [])
       self.parse_agent(@agent) if !@platform
@@ -652,7 +652,7 @@ module Brauser
 
     # Check if the browser is on a specific platform.
     #
-    # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
+    # @param platforms [Symbol|Array] A list of specific platform to match.
     # @return [Boolean] `true` if current browser matches, `false` otherwise.
     def on?(platforms = [])
       self.on(platforms).result
@@ -688,10 +688,10 @@ module Brauser
     #
     # If the syntax is invalid, a `NoMethodError` exception will be raised.
     #
-    # @param query [String] The query to issue. Use `__` to separate query and in place of `.` in the version.
+    # @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
     # @param arguments [Array] The arguments to pass the method. Unused from the query.
     # @param block [Proc] A block to pass to the method. Unused from the query.
-    # @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, NoMethodError will be raised.
+    # @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
     def method_missing(query, *arguments, &block)
       rv = nil
       oq = query
@@ -744,7 +744,7 @@ module Brauser
     # ["version-7", "version-7_0", "version-7_0_1", "version-7_0_1_2"]
     # ```
     #
-    # If you provide a block (with one argument), it will be used for translating the name name.
+    # If you provide a block (with accepts name, version and platform as arguments), it will be used for translating the name.
     #
     # @param join [String|NilClass] If non falsy, the separator to use to join information. If falsy, informations will be returned as array.
     # @param name [Boolean] If non falsy, the string to prepend to the name. If falsy, the name information will not be included.
@@ -760,7 +760,7 @@ module Brauser
 
       # Manage name
       if name then
-        final_name = block_given? ? yield(@name) : @name
+        final_name = block_given? ? yield(@name, @version, @platform) : @name
         rv << name + final_name.ensure_string
       end
 

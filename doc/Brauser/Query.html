@@ -638,13 +638,13 @@
       <pre class="lines">
 
 
-97
-98
-99
-100</pre>
+103
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_accepts'>accepts</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_accepts?'>accepts?</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span><span class='rparen'>)</span>
@@ -667,6 +667,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     <p>Check if the browser accepts the specified languages.</p>
+
+<p>This version returns a boolean and it is equal to append a call to <span class='object_link'><a href="#result-instance_method" title="Brauser::Query#result (method)">#result</a></span> to the method <span class='object_link'><a href="#accepts-instance_method" title="Brauser::Query#accepts (method)">#accepts</a></span>.</p>
 
 
   </div>
@@ -718,12 +720,12 @@
       <pre class="lines">
 
 
-106
-107
-108</pre>
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_accepts?'>accepts?</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>?</span> <span class='ivar'>@target</span><span class='period'>.</span><span class='id identifier rubyid_accepts?'>accepts?</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@result</span>
@@ -782,7 +784,7 @@
       
       
         &mdash;
-        <div class='inline'><p>An hash with specific version to match against. Need to be in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
+        <div class='inline'><p>An hash with specific version to match against. Need to be in any form that <span class='object_link'><a href="#v-instance_method" title="Brauser::Query#v (method)">#v</a></span> understands.</p>
 </div>
       
     </li>
@@ -869,6 +871,8 @@
   <div class="discussion">
     <p>Checks if the browser is a specific name and optionally of a specific version and platform.</p>
 
+<p>This version returns a boolean and it is equal to append a call to <span class='object_link'><a href="#result-instance_method" title="Brauser::Query#result (method)">#result</a></span> to the method <span class='object_link'><a href="#is-instance_method" title="Brauser::Query#is (method)">#is</a></span>.</p>
+
 
   </div>
 </div>
@@ -905,7 +909,7 @@
       
       
         &mdash;
-        <div class='inline'><p>An hash with specific version to match against. Need to be in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
+        <div class='inline'><p>An hash with specific version to match against. Need to be in any form that <span class='object_link'><a href="#v-instance_method" title="Brauser::Query#v (method)">#v</a></span> understands.</p>
 </div>
       
     </li>
@@ -962,12 +966,12 @@
       <pre class="lines">
 
 
-55
-56
-57</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is?'>is?</span><span class='lparen'>(</span><span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_versions'>versions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_platforms'>platforms</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>?</span> <span class='ivar'>@target</span><span class='period'>.</span><span class='id identifier rubyid_is?'>is?</span><span class='lparen'>(</span><span class='id identifier rubyid_names'>names</span><span class='comma'>,</span> <span class='id identifier rubyid_versions'>versions</span><span class='comma'>,</span> <span class='id identifier rubyid_platforms'>platforms</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@result</span>
@@ -1009,7 +1013,7 @@
       
       
         &mdash;
-        <div class='inline'><p>A list of specific platform to match. Valid values are all those possible for the platform attribute.</p>
+        <div class='inline'><p>A list of specific platform to match.</p>
 </div>
       
     </li>
@@ -1040,13 +1044,13 @@
       <pre class="lines">
 
 
-80
-81
-82
-83</pre>
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_on?'>on?</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span><span class='rparen'>)</span>
@@ -1070,6 +1074,8 @@
   <div class="discussion">
     <p>Check if the browser is on a specific platform.</p>
 
+<p>This version returns a boolean and it is equal to append a call to <span class='object_link'><a href="#result-instance_method" title="Brauser::Query#result (method)">#result</a></span> to the method <span class='object_link'><a href="#on-instance_method" title="Brauser::Query#on (method)">#on</a></span>.</p>
+
 
   </div>
 </div>
@@ -1089,7 +1095,7 @@
       
       
         &mdash;
-        <div class='inline'><p>A list of specific platform to match. Valid values are all those possible for the platform attribute.</p>
+        <div class='inline'><p>A list of specific platform to match.</p>
 </div>
       
     </li>
@@ -1120,12 +1126,12 @@
       <pre class="lines">
 
 
-89
-90
-91</pre>
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on?'>on?</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>?</span> <span class='ivar'>@target</span><span class='period'>.</span><span class='id identifier rubyid_on?'>on?</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@result</span>
@@ -1167,7 +1173,7 @@
       
       
         &mdash;
-        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against. Need to be in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
+        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against, in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
 </div>
       
     </li>
@@ -1198,13 +1204,13 @@
       <pre class="lines">
 
 
-63
-64
 65
-66</pre>
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_v'>v</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_v?'>v?</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span><span class='rparen'>)</span>
@@ -1228,6 +1234,8 @@
   <div class="discussion">
     <p>Checks if the brower is a specific version.</p>
 
+<p>This version returns a boolean and it is equal to append a call to <span class='object_link'><a href="#result-instance_method" title="Brauser::Query#result (method)">#result</a></span> to the method <span class='object_link'><a href="#v-instance_method" title="Brauser::Query#v (method)">#v</a></span>.</p>
+
 
   </div>
 </div>
@@ -1247,7 +1255,7 @@
       
       
         &mdash;
-        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against. Need to be in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
+        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against, in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
 </div>
       
     </li>
@@ -1278,12 +1286,12 @@
       <pre class="lines">
 
 
-72
-73
-74</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_v?'>v?</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>?</span> <span class='ivar'>@target</span><span class='period'>.</span><span class='id identifier rubyid_v?'>v?</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@result</span>
@@ -1298,7 +1306,7 @@
 </div>
 
     <div id="footer">
-  Generated on Mon Aug 27 10:19:17 2012 by
+  Generated on Mon Aug 27 10:46:32 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.2).
 </div>

@@ -35,7 +35,7 @@ module Brauser
     # @see #on?
     #
     # @param names [Symbol|Array] A list of specific names to match. Also, this meta-names are supported: `:capable` and `:tablet`.
-    # @param versions [Hash] An hash with specific version to match against. Need to be in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+    # @param versions [Hash] An hash with specific version to match against. Need to be in any form that {#v} understands.
     # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
     # @return [Query] The query itself.
     def is(names = [], versions = {}, platforms = [])
@@ -45,11 +45,13 @@ module Brauser
 
     # Checks if the browser is a specific name and optionally of a specific version and platform.
     #
+    # This version returns a boolean and it is equal to append a call to {#result} to the method {#is}.
+    #
     # @see #version?
     # @see #on?
     #
     # @param names [Symbol|Array] A list of specific names to match. Also, this meta-names are supported: `:capable` and `:tablet`.
-    # @param versions [Hash] An hash with specific version to match against. Need to be in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+    # @param versions [Hash] An hash with specific version to match against. Need to be in any form that {#v} understands.
     # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
     # @return [Boolean] `true` if current browser matches, `false` otherwise.
     def is?(names = [], versions = {}, platforms = [])
@@ -58,7 +60,7 @@ module Brauser
 
     # Checks if the brower is a specific version.
     #
-    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against. Need to be in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
     # @return [Query] The query itself.
     def v(versions = {})
       @result = self.v?(versions)
@@ -67,7 +69,9 @@ module Brauser
 
     # Checks if the brower is a specific version.
     #
-    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against. Need to be in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+    # This version returns a boolean and it is equal to append a call to {#result} to the method {#v}.
+    #
+    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
     # @return [Boolean] `true` if current browser matches, `false` otherwise.
     def v?(versions = {})
       @result ? @target.v?(versions) : @result
@@ -75,7 +79,7 @@ module Brauser
 
     # Check if the browser is on a specific platform.
     #
-    # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
+    # @param platforms [Symbol|Array] A list of specific platform to match.
     # @return [Query] The query itself.
     def on(platforms = [])
       @result = self.on?(platforms)
@@ -84,7 +88,9 @@ module Brauser
 
     # Check if the browser is on a specific platform.
     #
-    # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
+    # This version returns a boolean and it is equal to append a call to {#result} to the method {#on}.
+    #
+    # @param platforms [Symbol|Array] A list of specific platform to match.
     # @return [Boolean] `true` if current browser matches, `false` otherwise.
     def on?(platforms = [])
       @result ? @target.on?(platforms) : @result
@@ -100,6 +106,8 @@ module Brauser
     end
 
     # Check if the browser accepts the specified languages.
+    #
+    # This version returns a boolean and it is equal to append a call to {#result} to the method {#accepts}.
     #
     # @param langs [String|Array] A list of languages to match against.
     # @return [Boolean] `true` if current browser matches, `false` otherwise.
