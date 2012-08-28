@@ -555,7 +555,7 @@ module Brauser
       platforms = platforms.ensure_array
 
       # Adjust names
-      names = names.ensure_array
+      names = names.ensure_array.uniq.compact.collect {|n| n.ensure_string.to_sym }
       names << [:msie] if names.include?(:ie)
       names << [:chromium] if names.include?(:chrome)
 
@@ -647,7 +647,7 @@ module Brauser
     # @return [Query] A query which can evaluated for concatenation or result.
     def on(platforms = [])
       self.parse_agent(@agent) if !@platform
-      ::Brauser::Query.new(self, platforms.blank? || platforms.ensure_array.collect {|p| p.ensure_string.to_sym }.include?(@platform))
+      ::Brauser::Query.new(self, platforms.blank? || platforms.ensure_array.uniq.compact.collect {|p| p.ensure_string.to_sym }.include?(@platform))
     end
 
     # Check if the browser is on a specific platform.
@@ -664,7 +664,7 @@ module Brauser
     # @return [Query] A query which can evaluated for concatenation or result.
     def accepts(langs = [])
       self.parse_accept_language(@accept_language) if !@languages
-      ::Brauser::Query.new(self, (@languages & langs.ensure_array).present?)
+      ::Brauser::Query.new(self, (@languages & langs.ensure_array.uniq.compact.collect {|l| l.to_s }).present?)
     end
 
     # Check if the browser accepts the specified languages.
