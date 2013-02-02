@@ -780,11 +780,8 @@ module Brauser
     # @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
     def method_missing(query, *arguments, &block)
       begin
-        rv = parse_query(query.ensure_string).inject(Brauser::Query.new(self, true)) { |rv, call|
-          break if !rv.result
-          rv.send(call[0], *call[1])
-        } || Brauser::Query.new(self, false)
-
+        parsed_query = parse_query(query.ensure_string)
+        rv = execute_query(parsed_query) || Brauser::Query.new(self, false)
         query.ensure_string =~ /\?$/ ? rv.result : rv
       rescue NoMethodError
         super(query, *arguments, &block)
@@ -841,6 +838,17 @@ module Brauser
           ["_", "."], # Dot notation
           [/\s+/, " "]
         ].inject(version) { |current, parse| current.gsub(parse[0], parse[1])}.strip
+      end
+
+      # Executes a parsed query
+      #
+      # @param query [Array] And array of `[method, arguments]` entries.
+      # @return [Brauser::Query] The result of the query.
+      def execute_query(query)
+        query.inject(Brauser::Query.new(self, true)) { |rv, call|
+          break if !rv.result
+          rv.send(call[0], *call[1])
+        }
       end
   end
 end
