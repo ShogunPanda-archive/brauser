@@ -779,22 +779,16 @@ module Brauser
     # @param block [Proc] A block to pass to the method. Unused from the query.
     # @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
     def method_missing(query, *arguments, &block)
-      rv = nil
-      oq = query
-      oa = arguments
+      begin
+        rv = parse_query(query.ensure_string).inject(Brauser::Query.new(self, true)) { |rv, call|
+          break if !rv.result
+          rv.send(call[0], *call[1])
+        } || Brauser::Query.new(self, false)
 
-      query = query.ensure_string
-      # See if return a boolean in case of valid query
-      as_result = query =~ /\?$/
-
-      # Parse the query
-      query.gsub(/\?$/, "").split("__").each do |part|
-        rv = handle_query_part(rv, part)
-        break if !rv || rv.result == false
+        query.ensure_string =~ /\?$/ ? rv.result : rv
+      rescue NoMethodError
+        super(query, *arguments, &block)
       end
-
-      rv = rv.result if !rv.nil? && as_result
-      !rv.nil? ? rv : super(oq, *oa, &block)
     end
 
     # Returns the current browser as a string.
@@ -807,40 +801,46 @@ module Brauser
     end
 
     private
-      # Handles a part of a query.
-      #
-      # @param rv [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
-      # @param part [String] A part of a query.
-      # @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
-      def handle_query_part(rv, part)
-        tokens = part.split("_")
-        method = tokens[0]
-        arguments = tokens[1, tokens.length].join("_")
-        rv = ["is", "v", "on"].include?(method) ? execute_method(rv, method, arguments) : nil
+      # Parse query, getting all arguments.
+      # @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+      # @return [Array] And array of `[method, arguments]` entries.
+      def parse_query(query)
+        query.gsub(/\?$/, "").split("__").collect do |part|
+          parse_query_part(part)
+        end
       end
 
-      # Executes a querying method.
+      # Handles a part of a query.
       #
-      # @param rv [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
-      # @param method [String] The method to execute.
-      # @param arguments [Array|String] The arguments to pass to method.
+      # @param part [String] A part of a query.
       # @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
-      def execute_method(rv, method, arguments)
+      def parse_query_part(part)
+        method, arguments = part.split("_", 2)
+
         if method == "v" then
-          arguments = [
-            [/_?eq_?/, " == "], # Parse ==
-            [/_?lte_?/, " <= "], # Parse <=
-            [/_?gte_?/, " >= "], # Parse >=
-            [/_?lt_?/, " < "], # Parse <
-            [/_?gt_?/, " > "], # Parse >
-            [/_?and_?/, " && "], # Parse &&
-            ["_", "."], # Dot notation
-            [/\s+/, " "]
-          ].inject(arguments) { |current, parse| current.gsub(parse[0], parse[1])}.strip
+          arguments = parse_query_version(arguments)
+        elsif !["is", "on"].include?(method)
+          raise NoMethodError
         end
 
-        rv = Brauser::Query.new(self, true) if !rv
-        rv.send(method, *arguments)
+        [method, arguments]
+      end
+
+      # Parses the version for a query.
+      #
+      # @param version [String] The version to parse.
+      # @return [String] The parsed version.
+      def parse_query_version(version)
+        [
+          [/_?eq_?/, " == "], # Parse ==
+          [/_?lte_?/, " <= "], # Parse <=
+          [/_?gte_?/, " >= "], # Parse >=
+          [/_?lt_?/, " < "], # Parse <
+          [/_?gt_?/, " > "], # Parse >
+          [/_?and_?/, " && "], # Parse &&
+          ["_", "."], # Dot notation
+          [/\s+/, " "]
+        ].inject(version) { |current, parse| current.gsub(parse[0], parse[1])}.strip
       end
   end
 end

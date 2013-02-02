@@ -631,17 +631,15 @@ describe Brauser::Browser do
       expect(browser.is_opera_mobile__v_eq_3_4_5alpha_is_3?).to be_false
     end
 
-    it "calling methods unless the result is valid and invalidating a query" do
-      browser.should_receive(:is?).with("opera_mobile", {}, []).and_return(true)
-      browser.should_not_receive(:v?)
-      browser.should_not_receive(:on?)
+    it "immediately invalidate a query if one of the methods is invalid" do
+      browser.should_not_receive(:is)
+      browser.should_not_receive(:v)
+      browser.should_not_receive(:on)
 
       expect{ browser.is_opera_mobile__vv_lt_3__on_windows? }.to raise_error(NoMethodError)
     end
 
     it "raising an exception for invalid finder" do
-      browser.should_receive(:is?).with("opera_mobile", {}, []).and_return(true)
-
       expect{ browser._is__a? }.to raise_error(NoMethodError)
       expect{ browser.aa? }.to raise_error(NoMethodError)
       expect{ browser.isa_opera_mobile__vv_lt_3__on_windows? }.to raise_error(NoMethodError)
