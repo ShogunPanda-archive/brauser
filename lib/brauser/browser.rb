@@ -507,36 +507,9 @@ module Brauser
       def parse_agent(agent = nil)
         agent = agent.ensure_string
 
-        # At first, detect name and version. Tries order is important to avoid false positives.
-        @name = catch(:name) do
-          ::Brauser::Browser.browsers.each do |name, definitions|
-            matched = match_definition(definitions[0], agent)
-
-            if matched then
-              @version = match_definition(definitions[1], name, agent)
-              throw(:name, name)
-            end
-          end
-
-          :unknown
-        end
-
-        # Adjust version
-        if @version.blank? then
-          @version = "0.0"
-        elsif @version.is_a?(::MatchData) then
-          @version = @version.to_a.last
-        end
-
-        # At last, detect platform
-        @platform = catch(:platform) do
-          ::Brauser::Browser.platforms.each do |platform, definitions|
-            matched = match_definition(definitions[0], @name, agent)
-            throw(:platform, platform) if matched
-          end
-
-          :unknown
-        end
+        @name, version = match_name_and_version(agent)
+        @version = adjust_version(@version)
+        @platform = match_platform(agent)
 
         (@name != :unknown) ? true : false
       end
@@ -550,6 +523,52 @@ module Brauser
       end
 
       private
+        # Matches a browser name and version.
+        #
+        # @param agent [String] The User-Agent header.
+        # @return [String|Symbol] The browser name or `:unknown`, if no match was found.
+        def match_name_and_version(agent)
+          catch(:name) do
+            ::Brauser::Browser.browsers.each do |name, definitions|
+              matched = match_definition(definitions[0], agent)
+
+              if matched then
+                @version = match_definition(definitions[1], name, agent)
+                throw(:name, name)
+              end
+            end
+
+            :unknown
+          end
+        end
+
+        # Adjusts a browser version.
+        def adjust_version(version)
+          # Adjust version
+          if version.blank? then
+            version = "0.0"
+          elsif version.is_a?(::MatchData) then
+            version = version.to_a.last
+          else
+            version
+          end
+        end
+
+        # Matches a browser platform.
+        #
+        # @param agent [String] The User-Agent header.
+        # @return [String|Symbol] The browser platform or `:unknown`, if no match was found.
+        def match_platform(agent)
+          catch(:platform) do
+            ::Brauser::Browser.platforms.each do |platform, definitions|
+              matched = match_definition(definitions[0], @name, agent)
+              throw(:platform, platform) if matched
+            end
+
+            :unknown
+          end
+        end
+
         # Matches a subject against a definition
         #
         # @param subject [Array] The subject to match.
