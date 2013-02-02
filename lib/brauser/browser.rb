@@ -510,47 +510,28 @@ module Brauser
         # At first, detect name and version. Tries order is important to avoid false positives.
         @name = catch(:name) do
           ::Brauser::Browser.browsers.each do |name, definitions|
-            matched = false
+            matched = match_definition(definitions[0], agent)
 
-            if definitions[0].is_a?(::Regexp) then
-              matched = definitions[0].match(agent) ? true : false
-            elsif definitions[0].respond_to?(:call) then
-              matched = (definitions[0].call(agent) ? true : false)
-            else
-              matched = (agent == definitions[0].ensure_string)
+            if matched then
+              @version = match_definition(definitions[1], name, agent)
+              throw(:name, name)
             end
-
-            if matched then # Found a match, go through version
-              if definitions[1].is_a?(::Regexp) then
-                @version = definitions[1].match(agent)
-                @version = @version.to_a.last if @version.is_a?(::MatchData)
-              elsif @version = definitions[1].respond_to?(:call) then
-                @version = definitions[1].call(name, agent).ensure_string
-              else
-                @version = definitions[1].ensure_string
-              end
-            end
-
-            throw(:name, name) if matched
           end
 
           :unknown
         end
 
         # Adjust version
-        @version = "0.0" if @version.blank?
+        if @version.blank? then
+          @version = "0.0"
+        elsif @version.is_a?(::MatchData) then
+          @version = @version.to_a.last
+        end
 
         # At last, detect platform
         @platform = catch(:platform) do
           ::Brauser::Browser.platforms.each do |platform, definitions|
-            if definitions[0].is_a?(::Regexp) then
-              matched = definitions[0].match(agent) ? true : false
-            elsif definitions[0].respond_to?(:call) then
-              matched = (definitions[0].call(@name, agent) ? true : false)
-            else
-              matched = (agent == definitions[0].ensure_string)
-            end
-
+            matched = match_definition(definitions[0], @name, agent)
             throw(:platform, platform) if matched
           end
 
@@ -567,6 +548,21 @@ module Brauser
       def parse_accept_language(accept_language = nil)
         accept_language.ensure_string.gsub(/;q=[\d.]+/, "").split(",").collect {|l| l.downcase.strip }.select{|l| l.present? }
       end
+
+      private
+        # Matches a subject against a definition
+        #
+        # @param subject [Array] The subject to match.
+        # @param definition [StringRegexp|Block] The definition. If a block, it will be yielded with the subject must return `true` if the subject was recognized.
+        def match_definition(definition, *subject)
+          if definition.is_a?(::Regexp) then
+            definition.match(subject.last)
+          elsif definition.respond_to?(:call) then
+            definition.call(*subject)
+          else
+            subject.last == definition.ensure_string ? subject.last : nil
+          end
+        end
     end
 
     # Methods to query with chaining.
