@@ -790,27 +790,13 @@ module Brauser
       query = query.gsub(/\?$/, "")
 
       # Parse the query
-      query.ensure_string.split("__").each do |parts|
+      query.split("__").each do |parts|
         tokens = parts.split("_")
         method = tokens[0]
         arguments = tokens[1, tokens.length].join("_")
 
-        if method == "v" then
-          arguments.gsub("_", ".")
-        end
-
         if ["is", "v", "on"].include?(method) then
-          if method == "v" then
-            arguments = arguments.gsub(/_?eq_?/, " == ") # Parse ==
-            arguments = arguments.gsub(/_?lte_?/, " <= ").gsub(/_?gte_?/, " >= ") # Parse <= and >=
-            arguments = arguments.gsub(/_?lt_?/, " < ").gsub(/_?gt_?/, " > ") # Parse < and >
-            arguments = arguments.gsub(/_?and_?/, " && ") # Parse &&
-            arguments = arguments.gsub("_", ".").gsub(/\s+/, " ").strip # Replace _ and spaces, then strip
-          end
-
-          rv = Brauser::Query.new(self, true) if !rv
-          rv = rv.send(method, *arguments)
-
+          rv = execute_method(rv, method, arguments)
           break if rv.result == false
         else # Invalid finder
           rv = nil
@@ -830,5 +816,30 @@ module Brauser
     def to_s
       self.classes
     end
+
+    private
+      # Executes a querying method.
+      #
+      # @param rv [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+      # @param method [String] The method to execute.
+      # @param arguments [Array|String] The arguments to pass to method.
+      # @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+      def execute_method(rv, method, arguments)
+        if method == "v" then
+          arguments = [
+            [/_?eq_?/, " == "], # Parse ==
+            [/_?lte_?/, " <= "], # Parse <=
+            [/_?gte_?/, " >= "], # Parse >=
+            [/_?lt_?/, " < "], # Parse <
+            [/_?gt_?/, " > "], # Parse >
+            [/_?and_?/, " && "], # Parse &&
+            ["_", "."], # Dot notation
+            [/\s+/, " "]
+          ].inject(arguments) { |current, parse| current.gsub(parse[0], parse[1])}.strip
+        end
+
+        rv = Brauser::Query.new(self, true) if !rv
+        rv.send(method, *arguments)
+      end
   end
 end
