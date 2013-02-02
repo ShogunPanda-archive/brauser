@@ -372,65 +372,33 @@ module Brauser
         # @param v2 [Symbol] The second version to compare.
         # @return [Boolean] true if comparison is valid, `false` otherwise.
         def compare_versions(v1 = "", operator = :eq, v2 = "")
-          rv = true
+          valid_results = {lt: [-1], lte: [-1, 0], eq: [0], gte: [0, 1], gt: [1]}.fetch(operator, [])
 
-          if [:lt, :lte, :eq, :gte, :gt].include?(operator) && v1.ensure_string.present? then
-            # At first, split versions
-            vv1 = v1.ensure_string.split(".").reverse
-            vv2 = v2.ensure_string.split(".").reverse
+          if valid_results.present? && v1.ensure_string.present? then
+            v1 = v1.ensure_string.strip.split(".")
+            v2 = v2.ensure_string.strip.split(".")
 
-            left = vv1.pop
-            right = vv2.pop
-
-            # Start comparison, picking from length
-            rv = catch(:result) do
-              while true do
-                left = (left || "0").ensure_string
-                right = (right || "0").ensure_string
-
-                # Adjust for alpha, beta, etc
-                if !left.is_integer? then
-                  ll = left.length
-                  left = right + left
-                  right = right + ("z" * ll)
-                end
-
-                # Pad arguments to make correct string comparisons
-                len = [left.length, right.length].max
-                left = left.rjust(len, "0")
-                right = right.rjust(len, "0")
-
-                if left == right then # If we have still an equal version
-                                      # Goto next tokens
-                  left = vv1.pop
-                  right = vv2.pop
-
-                  # We end the left version, so until now all tokens were equal. Check what to do.
-                  if left.blank? then
-                    case operator
-                      when :lt then throw(:result, right.present? && right.to_integer > 0) # The comparison is true if there is at least another right version number greater than 0.
-                      when :lte then throw(:result, right.blank? || right.is_integer?) # The comparison is true if there is no other right version or that is a integer (so it means no alpha, beta etc).
-                      when :eq then throw(:result, right.blank? || ([right] + vv2).uniq.first == "0") # The comparison is true if also right version ends or only zero are left.
-                      when :gte then throw(:result, right.blank? || !right.is_integer?) # The comparison is true if there is no other right version or that is not a integer (so it means alpha, beta etc).
-                      when :gt then throw(:result, right.present? && !right.is_integer?) # The comparison is true if there is at least another right version not a integer (so it means alpha, beta etc).
-                    end
-                  end
-
-                  throw(:result, [:lte, :eq, :gte].include?(operator)) if left.blank? # If we end the left version, it means that all tokens were equal. Return accordingly
-                else # We can compare a different token
-                  case operator
-                    when :lt, :lte then throw(:result, left < right)
-                    when :eq then throw(:result, false)
-                    when :gt, :gte then throw(:result, left > right)
-                  end
-                end
-              end
+            p1 = nil
+            p2 = nil
+            [v1.length, v2.length].max.times do |i|
+              p1 = v1[i]
+              p2 = v2[i]
+              break if !p1 && !p2 || p1 != p2
             end
-          else
-            rv = false
-          end
 
-          rv
+            p1 ||= "0"
+            p2 ||= "0"
+
+            if !p1.is_integer? then
+              ll = p1.length
+              p1 = p2 + p1
+              p2 = p2 + ("z" * ll)
+            end
+
+            valid_results.include?(p1 <=> p2)
+          else
+            false
+          end
         end
       end
     end

@@ -238,6 +238,7 @@ describe Brauser::Browser do
       expect(Brauser::Browser.compare_versions("3", :lt, "3")).to be_false
       expect(Brauser::Browser.compare_versions("3", :lt, "3.4")).to be_true
       expect(Brauser::Browser.compare_versions("3.4.5", :lt, "3.4.5")).to be_false
+      expect(Brauser::Browser.compare_versions("3.4.5", :lt, "3.2")).to be_false
       expect(Brauser::Browser.compare_versions("3.4.5", :lt, "3.4.6")).to be_true
       expect(Brauser::Browser.compare_versions("3.4.beta", :lt, "3.4")).to be_true
       expect(Brauser::Browser.compare_versions("3.4.alpha", :lt, "3.4beta")).to be_true
@@ -248,6 +249,7 @@ describe Brauser::Browser do
       expect(Brauser::Browser.compare_versions("4.1", :lte, "3.4")).to be_false
       expect(Brauser::Browser.compare_versions("3.4.5", :lte, "3.4.5")).to be_true
       expect(Brauser::Browser.compare_versions("3.4.5", :lte, "3.4.4")).to be_false
+      expect(Brauser::Browser.compare_versions("3.4.5", :lt, "3.2")).to be_false
       expect(Brauser::Browser.compare_versions("3.4.beta", :lte, "3.4")).to be_true
 
       expect(Brauser::Browser.compare_versions("3", :gt, "3")).to be_false
@@ -255,6 +257,7 @@ describe Brauser::Browser do
       expect(Brauser::Browser.compare_versions("3.4.5", :gt, "3.4.3")).to be_true
       expect(Brauser::Browser.compare_versions("3.4.5", :gt, "3.4.5")).to be_false
       expect(Brauser::Browser.compare_versions("3.4.5", :gt, "3.4.6")).to be_false
+      expect(Brauser::Browser.compare_versions("3.5", :gt, "3")).to be_true
       expect(Brauser::Browser.compare_versions("3.4.beta", :gt, "3.4")).to be_false
       expect(Brauser::Browser.compare_versions("3.4.alpha", :gt, "3.4beta")).to be_false
 
@@ -265,6 +268,7 @@ describe Brauser::Browser do
       expect(Brauser::Browser.compare_versions("3.4.5", :gte, "3.4.5")).to be_true
       expect(Brauser::Browser.compare_versions("3.4.5", :gte, "3.4.4")).to be_true
       expect(Brauser::Browser.compare_versions("3.4.beta", :gte, "3.4")).to be_false
+      expect(Brauser::Browser.compare_versions("3.5", :gt, "3")).to be_true
     end
   end
 
