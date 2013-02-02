@@ -467,37 +467,36 @@ module Brauser
       # @param name [Boolean] If non falsy, the string to prepend to the name. If falsy, the name information will not be included.
       # @param version [String|NilClass] If non falsy, the string to prepend to the version. If falsy, the version information will not be included.
       # @param platform [String|NilClass] If non falsy, the string to prepend to the platform. If falsy, the platform information will not be included.
+      # @param block [Proc] A block to translate browser name.
       # @return [String|Array] CSS ready information of the current browser.
-      def classes(join = " ", name = "", version = "version-", platform = "platform-")
-        self.parse_agent(@agent) if !@name
-        rv = []
-        name = "" if name == true
-        version = "version-" if version == true
+      def classes(join = " ", name = "", version = "version-", platform = "platform-", &block)
         platform = "platform-" if platform == true
-
-        # Manage name
-        if name then
-          final_name = block_given? ? yield(@name, @version, @platform) : @name
-          rv << name + final_name.ensure_string
-        end
-
-        # Manage platform
-        if version then
-          vbuffer = []
-          vtokens = @version.split(".")
-
-          vtokens.each do |v|
-            vbuffer << v
-            rv << (version + vbuffer.join("_"))
-          end
-        end
-
-        rv << (platform + @platform.to_s) if platform
-
-        # Return
+        rv = [stringify_name(name, &block), stringify_version(version), !platform ? nil : (platform + @platform.to_s)].compact.flatten
         join ? rv.join(join) : rv
       end
       alias :meta :classes
+
+      private
+        # Stringifies a browser name.
+        #
+        # @param name [Boolean] If non falsy, the string to prepend to the name. If falsy, the name information will not be included.
+        # @param block [Proc] A block to translate browser name.
+        # @return [String|nil] The browser name or `nil`, if it was set to be skipped
+        def stringify_name(name, &block)
+          name = "" if name == true
+          !name ? nil : "#{name}#{block_given? ? yield(@name, @version, @platform) : (@name || self.parse_agent(@agent))}"
+        end
+
+        # Stringifies a browser version.
+        #
+        # @param version [String|NilClass] If non falsy, the string to prepend to the version. If falsy, the version information will not be included.
+        # @return [Array] The version strings or `nil`, if it was set to be skipped
+        def stringify_version(version)
+          version = "version-" if version == true
+          others = @version.split(".")
+          major = others.shift
+          !version ? nil : others.inject([version + major]) {|prev, current| prev + [prev.last + "_" + current] }.flatten
+        end
     end
 
     # Methods to parse the user agent.
