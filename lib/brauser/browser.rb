@@ -784,24 +784,13 @@ module Brauser
       oa = arguments
 
       query = query.ensure_string
-
       # See if return a boolean in case of valid query
       as_result = query =~ /\?$/
-      query = query.gsub(/\?$/, "")
 
       # Parse the query
-      query.split("__").each do |parts|
-        tokens = parts.split("_")
-        method = tokens[0]
-        arguments = tokens[1, tokens.length].join("_")
-
-        if ["is", "v", "on"].include?(method) then
-          rv = execute_method(rv, method, arguments)
-          break if rv.result == false
-        else # Invalid finder
-          rv = nil
-          break
-        end
+      query.gsub(/\?$/, "").split("__").each do |part|
+        rv = handle_query_part(rv, part)
+        break if !rv || rv.result == false
       end
 
       rv = rv.result if !rv.nil? && as_result
@@ -818,6 +807,18 @@ module Brauser
     end
 
     private
+      # Handles a part of a query.
+      #
+      # @param rv [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+      # @param part [String] A part of a query.
+      # @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+      def handle_query_part(rv, part)
+        tokens = part.split("_")
+        method = tokens[0]
+        arguments = tokens[1, tokens.length].join("_")
+        rv = ["is", "v", "on"].include?(method) ? execute_method(rv, method, arguments) : nil
+      end
+
       # Executes a querying method.
       #
       # @param rv [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
