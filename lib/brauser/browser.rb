@@ -375,19 +375,7 @@ module Brauser
           valid_results = {lt: [-1], lte: [-1, 0], eq: [0], gte: [0, 1], gt: [1]}.fetch(operator, [])
 
           if valid_results.present? && v1.ensure_string.present? then
-            v1 = v1.ensure_string.strip.split(".")
-            v2 = v2.ensure_string.strip.split(".")
-
-            p1 = nil
-            p2 = nil
-            [v1.length, v2.length].max.times do |i|
-              p1 = v1[i]
-              p2 = v2[i]
-              break if !p1 && !p2 || p1 != p2
-            end
-
-            p1 ||= "0"
-            p2 ||= "0"
+            p1, p2 = find_relevant_tokens(v1.ensure_string.strip, v2.ensure_string.strip)
 
             if !p1.is_integer? then
               ll = p1.length
@@ -400,6 +388,27 @@ module Brauser
             false
           end
         end
+
+        private
+          # Find relevant tokens (that is, the first two which are not equals) in a string for comparison.
+          #
+          # @param v1 [String] The first versions to compare.
+          # @param v2 [String] The second version to compare.
+          # @return [Array] The tokens to compare.
+          def find_relevant_tokens(v1, v2)
+            v1 = v1.split(".")
+            v2 = v2.split(".")
+
+            p1 = nil
+            p2 = nil
+            [v1.length, v2.length].max.times do |i|
+              p1 = v1[i]
+              p2 = v2[i]
+              break if !p1 && !p2 || p1 != p2
+            end
+
+            [p1 || "0", p2 || "0"]
+          end
       end
     end
 
