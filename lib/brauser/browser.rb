@@ -376,13 +376,7 @@ module Brauser
 
           if valid_results.present? && v1.ensure_string.present? then
             p1, p2 = find_relevant_tokens(v1.ensure_string.strip, v2.ensure_string.strip)
-
-            if !p1.is_integer? then
-              ll = p1.length
-              p1 = p2 + p1
-              p2 = p2 + ("z" * ll)
-            end
-
+            p1, p2 = normalize_tokens(p1, p2)
             valid_results.include?(p1 <=> p2)
           else
             false
@@ -408,6 +402,21 @@ module Brauser
             end
 
             [p1 || "0", p2 || "0"]
+          end
+
+          # Normalizes token for comparison.
+          #
+          # @param p1 [String] The first token to normalize.
+          # @param p2 [String] The second token to normalize.
+          # @return [Array] The tokens to compare.
+          def normalize_tokens(p1, p2)
+            if !p1.is_integer? then
+              ll = p1.length
+              p1 = p2 + p1
+              p2 = p2 + ("z" * ll)
+            end
+
+            [p1, p2]
           end
       end
     end
