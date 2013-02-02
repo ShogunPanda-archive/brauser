@@ -6,7 +6,9 @@
 
 A framework agnostic browser detection and querying helper.
 
-http://github.com/ShogunPanda/brauser
+http://sw.cow.tc/brauser
+
+http://rdoc.info/gems/brauser
 
 ## Description
 
@@ -203,5 +205,6 @@ browser.register_language("it", "Italian")
 
 ## Copyright
 
-Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+Copyright (C) 2013 and above Shogun (shogun_panda@me.com).
+
 Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.

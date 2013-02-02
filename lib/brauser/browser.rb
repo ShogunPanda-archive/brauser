@@ -1,29 +1,31 @@
 # encoding: utf-8
 #
-# This file is part of the brauser gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the brauser gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
 # A framework agnostic browser detection and querying helper.
 module Brauser
   # This class represents a detection of the current user browser.
+  #
+  # @attribute agent
+  #   @return [String] The raw User-Agent HTTP header.
+  # @attribute accept_language
+  #   @return [String] The raw Accept-Language HTTP header.
+  # @attribute languages
+  #   @return [Array] The accepted languages.
+  # @attribute name
+  #   @return [String] The current browser name.
+  # @attribute version
+  #   @return [String] The current browser version.
+  # @attribute platform
+  #   @return [String] The current browser platform.
   class Browser
-    # The raw User-Agent HTTP header.
     attr_accessor :agent
-
-    # The raw Accept-Language HTTP header.
     attr_accessor :accept_language
-
-    # The accepted languages.
     attr_accessor :languages
-
-    # The current browser name.
     attr_accessor :name
-
-    # The current browser version.
     attr_accessor :version
-
-    # The current browser platform.
     attr_accessor :platform
 
     # Aliases
@@ -106,7 +108,7 @@ module Brauser
         [:firefox, /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i, "Mozilla Firefox"],
         [:safari, Proc.new{ |agent| agent =~ /safari/i && agent !~ /((chrome)|(chromium))/i }, /(.+Version\/)([a-z0-9.]+)/i, "Apple Safari"],
 
-          [:msie_compatibility, /trident/i, Proc.new { |name, agent|
+        [:msie_compatibility, /trident/i, Proc.new { |name, agent|
           version = /(.+Trident\/)([a-z0-9.]+)/i.match(agent)
 
           if version.is_a?(::MatchData) then
@@ -446,9 +448,9 @@ module Brauser
     # @param agent [String] The User-Agent HTTP header.
     # @param accept_language [String] The Accept-Language HTTP header.
     def initialize(agent = "", accept_language = "")
-      self.class.register_default_browsers
-      self.class.register_default_platforms
-      self.class.register_default_languages
+      ::Brauser::Browser.register_default_browsers
+      ::Brauser::Browser.register_default_platforms
+      ::Brauser::Browser.register_default_languages
 
       @agent = agent
       @accept_language = accept_language
@@ -465,7 +467,7 @@ module Brauser
 
       # At first, detect name and version. Tries order is important to avoid false positives.
       @name = catch(:name) do
-        self.class.browsers.each do |name, definitions|
+        ::Brauser::Browser.browsers.each do |name, definitions|
           matched = false
 
           if definitions[0].is_a?(::Regexp) then
@@ -498,7 +500,7 @@ module Brauser
 
       # At last, detect platform
       @platform = catch(:platform) do
-        self.class.platforms.each do |platform, definitions|
+        ::Brauser::Browser.platforms.each do |platform, definitions|
           if definitions[0].is_a?(::Regexp) then
             matched = definitions[0].match(agent) ? true : false
           elsif definitions[0].respond_to?(:call) then
@@ -529,7 +531,7 @@ module Brauser
     # @return [String] A human-readable browser name.
     def readable_name
       self.parse_agent(@agent) if !@name
-      self.class.browsers.fetch(@name, ["Unknown Browser"]).last.ensure_string
+      ::Brauser::Browser.browsers.fetch(@name, ["Unknown Browser"]).last.ensure_string
     end
 
     # Gets a human-readable platform name.
@@ -537,7 +539,7 @@ module Brauser
     # @return [String] A readable platform name.
     def platform_name
       self.parse_agent(@agent) if !@platform
-      self.class.platforms.fetch(@platform, ["Unknown Platform"]).last.ensure_string
+      ::Brauser::Browser.platforms.fetch(@platform, ["Unknown Platform"]).last.ensure_string
     end
 
     # Checks if the browser is a specific name and optionally of a specific version and platform.

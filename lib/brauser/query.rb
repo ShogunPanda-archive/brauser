@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# This file is part of the brauser gem. Copyright (C) 2012 and above Shogun <shogun_panda@me.com>.
+# This file is part of the brauser gem. Copyright (C) 2013 and above Shogun <shogun_panda@me.com>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
@@ -13,11 +13,13 @@ module Brauser
   # ```
   #
   # To end concatenation, use the `?` form of the queries or call `.result`.
+  #
+  # @attribute target
+  #   @return [Browser] The current browser.
+  # @attribute result
+  #   @return [Boolean] The current result.
   class Query
-    # The current browser.
     attr_accessor :target
-
-    # The current result.
     attr_accessor :result
 
     # Creates a new query.
