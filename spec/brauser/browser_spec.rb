@@ -465,7 +465,7 @@ describe Brauser::Browser do
       expect(browser.is(:capable)).to be_true_query
 
       browser.instance_variable_set("@name", :ipad)
-      expect(browser.is([:tablet, :blackberry])).to be_false_query
+      expect(browser.is([:tablet, :blackberry])).to be_true_query
 
       browser.instance_variable_set("@name", :msie)
       browser.instance_variable_set("@version", "7.0")
@@ -476,6 +476,7 @@ describe Brauser::Browser do
       browser.should_receive(:v?).exactly(2).and_return(true)
       browser.should_receive(:on?).and_return(false)
       expect(browser.is(:capable, {:gte => 8})).to be_true_query
+      browser.instance_variable_set("@platform", :windows)
       expect(browser.is(:capable, {:gt => 10}, [:windows])).to be_false_query
     end
   end

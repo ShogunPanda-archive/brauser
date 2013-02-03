@@ -578,38 +578,21 @@ module Brauser
       # @see #on?
       #
       # @param names [Symbol|Array] A list of specific names to match. Also, this meta-names are supported: `:capable` and `:tablet`.
-      # @param versions [Hash] An hash with specific version to match against. Need to be in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+      # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
       # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
       # @return [Query] A query which can evaluated for concatenation or result.
       def is(names = [], versions = {}, platforms = [])
         self.parse_agent(@agent) if !@name
-        versions = {} if !versions.is_a?(::Hash)
+
+        names = adjust_names(names)
+        versions = parse_versions_query(versions)
         platforms = platforms.ensure_array
 
-        # Adjust names
-        names = names.ensure_array.uniq.compact.collect {|n| n.ensure_string.to_sym }
-        names << [:msie] if names.include?(:ie)
-        names << [:chromium] if names.include?(:chrome)
-
-        if names.delete(:capable) then
-          names += [:chrome, :firefox, :safari, :opera, :msie]
-
-          # Add version 9 as minimum for IE if capable is specified
-          versions[:gte] = 9 if @name == :msie
-        end
-
-        names << [:ipad, :android, :kindle] if names.delete(:tablet)
-        names.compact!
-
-        rv = names.blank? || names.include?(@name)
-
-        # Look also for version
-        rv = rv && self.v?(versions) if rv && versions.present?
-
-        # Look also for platforms
-        rv = rv && self.on?(platforms) if rv && platforms.present?
-
-        ::Brauser::Query.new(self, rv)
+        ::Brauser::Query.new(self,
+          (names.blank? || (names.include?(@name) && check_capable(names))) &&
+          (versions.blank? || self.v?(versions)) &&
+          (platforms.blank? || self.on?(platforms))
+        )
       end
 
       # Checks if the brower is a specific version.
@@ -621,15 +604,7 @@ module Brauser
         rv = true
 
         versions = if versions.is_a?(String) then
-          operators = {"<" => :lt, "<=" => :lte, "=" => :eq, "==" => :eq, ">" => :gt, ">=" => :gte}
-          versions_s = versions
-
-          versions.split(/\s*&&\s*/).inject({}) do |prev, token|
-            operator, version = token.strip.split(/\s+/, 2).collect(&:strip)
-            operator = operators.fetch(operator, nil)
-            prev[operator] = version if operator.present? || version.present?
-            prev
-          end
+          parse_versions_query(versions)
         elsif !versions.is_a?(::Hash) then
           {}
         else
@@ -656,6 +631,44 @@ module Brauser
         self.parse_accept_language(@accept_language) if !@languages
         ::Brauser::Query.new(self, (@languages & langs.ensure_array.uniq.compact.collect {|l| l.to_s }).present?)
       end
+
+      private
+        # Adjusts names for correct matching.
+        #
+        # @param names [Array] A list of names.
+        # @return [Array] The adjusted list of names.
+        def adjust_names(names)
+          # Adjust names
+          names = names.ensure_array.compact.collect {|n| n.ensure_string.to_sym }
+          names << [:msie] if names.include?(:ie)
+          names << [:chromium] if names.include?(:chrome)
+          names << [:chrome, :firefox, :safari, :opera, :msie] if names.include?(:capable)
+          names << [:ipad, :android, :kindle] if names.include?(:tablet)
+          names.flatten.compact.uniq
+        end
+
+        # Checks if the browser is capable.
+        #
+        # @param names [Array] A list of names.
+        # @return [Boolean] `true` if the browser is capable, `false` otherwise.
+        def check_capable(names)
+          !names.include?(:capable) || @name != :msie || Brauser::Browser.compare_versions(@version, :gte, 9)
+        end
+
+        # Parses a version query.
+        #
+        # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+        # @return [Hash] The hash representation of the query.
+        def parse_versions_query(versions)
+          operators = {"<" => :lt, "<=" => :lte, "=" => :eq, "==" => :eq, ">" => :gt, ">=" => :gte}
+
+          versions.is_a?(::Hash) ? versions : versions.ensure_string.split(/\s*&&\s*/).inject({}) do |prev, token|
+            operator, version = token.strip.split(/\s+/, 2).collect(&:strip)
+            operator = operators.fetch(operator, nil)
+            prev[operator] = version if operator.present? || version.present?
+            prev
+          end
+        end
     end
 
     # Methods to end querying.
