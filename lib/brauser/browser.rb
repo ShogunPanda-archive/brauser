@@ -620,36 +620,23 @@ module Brauser
         self.parse_agent(@agent) if !@version
         rv = true
 
-        if versions.is_a?(String) then
+        versions = if versions.is_a?(String) then
+          operators = {"<" => :lt, "<=" => :lte, "=" => :eq, "==" => :eq, ">" => :gt, ">=" => :gte}
           versions_s = versions
-          versions = {}
 
-          versions_s.split(/\s*&&\s*/).each do |token|
-            next if token.strip.empty?
-            tokens = token.strip.split(/\s+/).collect {|t| t.strip}
-            operator = case tokens[0]
-              when "<" then :lt
-              when "<=" then :lte
-              when "=" then :eq
-              when "==" then :eq
-              when ">=" then :gte
-              when ">" then :gt
-              else tokens[0].downcase.to_sym
-            end
-
-            versions[operator] = tokens[1]
+          versions.split(/\s*&&\s*/).inject({}) do |prev, token|
+            operator, version = token.strip.split(/\s+/, 2).collect(&:strip)
+            operator = operators.fetch(operator, nil)
+            prev[operator] = version if operator.present? || version.present?
+            prev
           end
+        elsif !versions.is_a?(::Hash) then
+          {}
         else
-          versions = {} if !versions.is_a?(::Hash)
+          versions
         end
 
-        versions.each do |operator, value|
-          value = value.ensure_string
-          rv = rv && Brauser::Browser.compare_versions(@version, operator, value)
-          break if !rv
-        end
-
-        ::Brauser::Query.new(self, rv)
+        ::Brauser::Query.new(self, versions.all? { |operator, value| Brauser::Browser.compare_versions(@version, operator, value) })
       end
 
       # Check if the browser is on a specific platform.
