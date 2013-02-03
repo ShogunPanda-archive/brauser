@@ -232,33 +232,8 @@ module Brauser
         # @param label [String] A human readable name of the browser.
         # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
         def register_browser(name, name_match = nil, version_match = nil, label = nil)
-          if !@browsers then
-            @browsers = []
-            @browsers_indexes = {}
-          end
-
-          rv = false
-          name = [[name.ensure_string.to_sym, name_match, version_match, label]] if !name.is_a?(Array)
-
-          name.each do |browser|
-            browser[0] = browser[0].to_sym
-
-            index = @browsers.index do |item|
-              item[0] == browser[0]
-            end
-
-            # Replace a previous entry
-            if index then
-              @browsers[index] = browser
-            else
-              @browsers << browser
-              @browsers_indexes[browser[0]] = @browsers.length - 1
-            end
-
-            rv = true
-          end
-
-          rv
+          @browsers ||= []
+          register_entries(@browsers, (name.is_a?(Array) ? name : [[name.ensure_string, name_match, version_match, label]]))
         end
 
         # Registers a new platform that can be recognized.
@@ -268,34 +243,8 @@ module Brauser
         # @param label [String] A human readable name of the platform.
         # @return [Boolean] `true` if at least one platform has been added, `false` otherwise.
         def register_platform(name, matcher = nil, label = nil)
-          if !@platforms then
-            @platforms = []
-            @platforms_indexes = {}
-          end
-
-
-          rv = false
-          name = [[name.ensure_string.to_sym, matcher, label]] if !name.is_a?(Array)
-
-          name.each do |platform|
-            platform[0] = platform[0].to_sym
-
-            index = @platforms.index do |item|
-              item[0] == platform[0]
-            end
-
-            # Replace a previous entry
-            if index then
-              @platforms[index] = platform
-            else
-              @platforms << platform
-              @platforms_indexes[platform[0]] = @platforms.length - 1
-            end
-
-            rv = true
-          end
-
-          rv
+          @platforms ||= []
+          register_entries(@platforms, (name.is_a?(Array) ? name : [[name.ensure_string, matcher, label]]))
         end
 
         # Registers a new language that can be recognized.
@@ -317,6 +266,30 @@ module Brauser
 
           rv
         end
+
+        private
+          # Register a new set of entries to a collection.
+          #
+          # @param collection [Array] The collection which add entries to.
+          # @param entries [Array] The entries to add.
+          def register_entries(collection, entries)
+            rv = false
+
+            entries.each do |entry|
+              entry[0] = entry[0].to_sym
+              index = collection.find_index { |item| item[0] == entry[0] }
+
+              # Replace a previous entry
+              if index then
+                collection[index] = entry
+              else
+                collection << entry
+                rv = true
+              end
+            end
+
+            rv
+          end
       end
     end
 

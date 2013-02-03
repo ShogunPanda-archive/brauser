@@ -92,15 +92,12 @@ describe Brauser::Browser do
   describe ".register_browser" do
     before(:each) do
       Brauser::Browser.instance_variable_set("@browsers", nil)
-      Brauser::Browser.instance_variable_set("@browsers_indexes", nil)
     end
 
     it "should initialize data" do
       expect(Brauser::Browser.instance_variable_get("@browsers")).to be_nil
-      expect(Brauser::Browser.instance_variable_get("@browsers_indexes")).to be_nil
       Brauser::Browser.register_browser([])
       expect(Brauser::Browser.instance_variable_get("@browsers")).to be_a(Array)
-      expect(Brauser::Browser.instance_variable_get("@browsers_indexes")).to be_a(Hash)
     end
 
     it "should return good return values" do
@@ -118,22 +115,12 @@ describe Brauser::Browser do
       expect(Brauser::Browser.instance_variable_get("@browsers")).to eq([[:"NAME 1", //i, //i, "LABEL 1"], [:"NAME 2", //i, //i, "LABEL 2"]])
     end
 
-    it "should update indexes" do
-      Brauser::Browser.register_browser("NAME 1", //i, //i, "LABEL 1")
-      Brauser::Browser.register_browser("NAME 2", //i, //i, "LABEL 2")
-
-      expect(Brauser::Browser.instance_variable_get("@browsers_indexes")[:"NAME 1"]).to eq(0)
-      expect(Brauser::Browser.instance_variable_get("@browsers_indexes")[:"NAME 2"]).to eq(1)
-    end
-
     it "should update existing entries" do
       Brauser::Browser.register_browser("NAME 1", //i, //i, "LABEL 1")
       Brauser::Browser.register_browser("NAME 2", //i, //i, "LABEL 2")
       Brauser::Browser.register_browser("NAME 3", //i, //i, "LABEL 3")
 
-      expect(Brauser::Browser.register_browser("NAME 2", //i, //i, "LABEL 4")).to be_true
-      expect(Brauser::Browser.instance_variable_get("@browsers_indexes").length).to eq(3)
-      expect(Brauser::Browser.instance_variable_get("@browsers_indexes")[:"NAME 2"]).to eq(1)
+      expect(Brauser::Browser.register_browser("NAME 2", //i, //i, "LABEL 4")).to be_false
       expect(Brauser::Browser.instance_variable_get("@browsers").length).to eq(3)
       expect(Brauser::Browser.instance_variable_get("@browsers")[1].last).to eq("LABEL 4")
     end
@@ -142,15 +129,12 @@ describe Brauser::Browser do
   describe ".register_platform" do
     before(:each) do
       Brauser::Browser.instance_variable_set("@platforms", nil)
-      Brauser::Browser.instance_variable_set("@platforms_indexes", nil)
     end
 
     it "should initialize data" do
       expect(Brauser::Browser.instance_variable_get("@platforms")).to be_nil
-      expect(Brauser::Browser.instance_variable_get("@platforms_indexes")).to be_nil
       Brauser::Browser.register_platform([])
       expect(Brauser::Browser.instance_variable_get("@platforms")).to be_a(Array)
-      expect(Brauser::Browser.instance_variable_get("@platforms_indexes")).to be_a(Hash)
     end
 
     it "should return good return values" do
@@ -168,22 +152,12 @@ describe Brauser::Browser do
       expect(Brauser::Browser.instance_variable_get("@platforms")).to eq([[:"NAME 1", //i, "LABEL 1"], [:"NAME 2", //i, "LABEL 2"]])
     end
 
-    it "should update indexes" do
-      Brauser::Browser.register_platform("NAME 1", //i, "LABEL 1")
-      Brauser::Browser.register_platform("NAME 2", //i, "LABEL 2")
-
-      expect(Brauser::Browser.instance_variable_get("@platforms_indexes")[:"NAME 1"]).to eq(0)
-      expect(Brauser::Browser.instance_variable_get("@platforms_indexes")[:"NAME 2"]).to eq(1)
-    end
-
     it "should update existing entries" do
       Brauser::Browser.register_platform("NAME 1", //i, "LABEL 1")
       Brauser::Browser.register_platform("NAME 2", //i, "LABEL 2")
       Brauser::Browser.register_platform("NAME 3", //i, "LABEL 3")
 
-      expect(Brauser::Browser.register_platform("NAME 2", //i, "LABEL 4")).to be_true
-      expect(Brauser::Browser.instance_variable_get("@platforms_indexes").length).to eq(3)
-      expect(Brauser::Browser.instance_variable_get("@platforms_indexes")[:"NAME 2"]).to eq(1)
+      expect(Brauser::Browser.register_platform("NAME 2", //i, "LABEL 4")).to be_false
       expect(Brauser::Browser.instance_variable_get("@platforms").length).to eq(3)
       expect(Brauser::Browser.instance_variable_get("@platforms")[1].last).to eq("LABEL 4")
     end
