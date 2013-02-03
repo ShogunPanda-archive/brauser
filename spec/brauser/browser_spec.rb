@@ -514,8 +514,8 @@ describe Brauser::Browser do
       expect(browser.v(:foo => "3")).to be_false_query
       expect(browser.v(">= 3.5")).to be_false_query
       expect(browser.v("< 7 && > 3")).to be_true_query
-      expect(browser.v("< 7 && > 3 && FOO NO")).to be_false_query
-      expect(browser.v("<= 7 && >= 3 && FOO NO")).to be_false_query
+      expect(browser.v("< 7 && > 3 && FOO NO")).to be_true_query
+      expect(browser.v("<= 7 && >= 3 && FOO NO")).to be_true_query
       expect(browser.v("= 7 && == 3 && FOO NO")).to be_false_query
     end
   end

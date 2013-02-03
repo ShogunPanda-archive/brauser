@@ -660,14 +660,20 @@ module Brauser
         # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
         # @return [Hash] The hash representation of the query.
         def parse_versions_query(versions)
-          operators = {"<" => :lt, "<=" => :lte, "=" => :eq, "==" => :eq, ">" => :gt, ">=" => :gte}
-
           versions.is_a?(::Hash) ? versions : versions.ensure_string.split(/\s*&&\s*/).inject({}) do |prev, token|
-            operator, version = token.strip.split(/\s+/, 2).collect(&:strip)
-            operator = operators.fetch(operator, nil)
-            prev[operator] = version if operator.present? || version.present?
+            operator, version = parse_versions_query_component(token)
+            prev[operator] = version if operator.present? && version.present?
             prev
           end
+        end
+
+        # Parses a token of a version query.
+        #
+        # @param token [String] The token to parse.
+        # @return [Array] An operator and an argument.
+        def parse_versions_query_component(token)
+          operator, version = token.strip.split(/\s+/, 2).collect(&:strip)
+          [{"<" => :lt, "<=" => :lte, "=" => :eq, "==" => :eq, ">" => :gt, ">=" => :gte}.fetch(operator, nil), version]
         end
     end
 
