@@ -20,55 +20,8 @@ module Brauser
         def register_default_browsers
           @browsers = nil
 
-          self.register_browser([
-            [:coremedia, /coremedia/i, /.+CoreMedia v([a-z0-9.]+)/i, "Apple CoreMedia"],
-
-            [:opera_mobile, /opera mobi/i, /.+Opera Mobi.+((.+Opera )|(Version\/))([a-z0-9.]+)/i, "Opera Mobile"],
-            [:opera, /opera/i, Proc.new{ |name, agent|
-              regexp = (agent !~ /wii/i) ? /((.+Opera )|(Version\/))([a-z0-9.]+)/i : /(.+Nintendo Wii; U; ; )([a-z0-9.]+)/i
-
-              version = regexp.match(agent)
-              version = version.to_a.last if version.is_a?(MatchData)
-              version
-            }, "Opera"],
-
-            [:android, /android/i, /(.+Android )([a-z0-9.]+)/i, "Android"],
-            [:blackberry, /blackberry/i, /(.+Version\/)([a-z0-9.]+)/i, "RIM BlackBerry"],
-            [:kindle, /(kindle)/i, /(.+(Kindle|Silk)\/)([a-z0-9.]+)/i, "Amazon Kindle"],
-            [:psp, /psp/i, /(.+PlayStation Portable\); )([a-z0-9.]+)/i, "Sony Playstation Portable"],
-            [:ps3, /playstation 3/i, /(.+PLAYSTATION 3; )([a-z0-9.]+)/i, "Sony Playstation 3"],
-            [:windows_phone, /windows phone/i, /(.+IEMobile\/)([a-z0-9.]+)/i, "Microsoft Windows Phone"],
-            [:wii, /nintendo wii/, /(.+Nintendo Wii; U; ; )([a-z0-9.]+)/i, "Nintendo Wii"],
-
-            [:ipod, /ipod/i, /(.+Version\/)([a-z0-9.]+)/i, "Apple iPod"],
-            [:iphone, /iphone/i, /(.+Version\/)([a-z0-9.]+)/i, "Apple iPhone"],
-            [:ipad, /ipad/i, /(.+Version\/)([a-z0-9.]+)/i, "Apple iPad"],
-
-            [:mobile, /(mobile|symbian|midp|windows ce)/i, /.+\/([a-z0-9.]+)/i, "Other Mobile Browser"],
-
-            [:chrome, /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i, "Google Chrome"],
-            [:netscape, /(netscape|navigator)\//i, /((Netscape|Navigator)\/)([a-z0-9.]+)/i, "Netscape Navigator"],
-            [:firefox, /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i, "Mozilla Firefox"],
-            [:safari, Proc.new{ |agent| agent =~ /safari/i && agent !~ /((chrome)|(chromium))/i }, /(.+Version\/)([a-z0-9.]+)/i, "Apple Safari"],
-
-            [:msie_compatibility, /trident/i, Proc.new { |name, agent|
-              version = /(.+Trident\/)([a-z0-9.]+)/i.match(agent)
-
-              if version.is_a?(::MatchData) then
-                v = version.to_a.last.split(".")
-                v[0] = v[0].to_integer + 4
-                version = v.join(".")
-              end
-
-              version
-            }, "Microsoft Internet Explorer (Compatibility View)"],
-            [:msie, Proc.new{ |agent| agent =~ /msie/i && agent !~ /opera/i }, /(.+MSIE )([a-z0-9.]+)/i, "Microsoft Internet Explorer"],
-
-            [:quicktime, /quicktime/i, /(.+((QuickTime\/)|(qtver=)))([a-z0-9.]+)/i, "Apple QuickTime"],
-
-            [:webkit, /webkit/i, /(.+WebKit\/)([a-z0-9.]+)/i, "WebKit Browser"],
-            [:gecko, /gecko/i, /(.+rv:|Gecko\/)([a-z0-9.]+)/i, "Gecko Browser"],
-          ])
+          register_mobile_browsers
+          register_desktop_browsers
 
           @browsers.present? ? true : false
         end
@@ -268,7 +221,67 @@ module Brauser
         end
 
         private
-          # Register a new set of entries to a collection.
+          # Register the most common desktop browsers.
+          # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
+          def register_desktop_browsers
+            self.register_browser([
+              [:chrome, /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i, "Google Chrome"],
+              [:netscape, /(netscape|navigator)\//i, /((Netscape|Navigator)\/)([a-z0-9.]+)/i, "Netscape Navigator"],
+              [:firefox, /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i, "Mozilla Firefox"],
+              [:safari, Proc.new{ |agent| agent =~ /safari/i && agent !~ /((chrome)|(chromium))/i }, /(.+Version\/)([a-z0-9.]+)/i, "Apple Safari"],
+
+              [:msie_compatibility, /trident/i, Proc.new { |name, agent|
+                version = /(.+Trident\/)([a-z0-9.]+)/i.match(agent)
+
+                if version.is_a?(::MatchData) then
+                  v = version.to_a.last.split(".")
+                  v[0] = v[0].to_integer + 4
+                  version = v.join(".")
+                end
+
+                version
+              }, "Microsoft Internet Explorer (Compatibility View)"],
+              [:msie, Proc.new{ |agent| agent =~ /msie/i && agent !~ /opera/i }, /(.+MSIE )([a-z0-9.]+)/i, "Microsoft Internet Explorer"],
+
+              [:quicktime, /quicktime/i, /(.+((QuickTime\/)|(qtver=)))([a-z0-9.]+)/i, "Apple QuickTime"],
+
+              [:webkit, /webkit/i, /(.+WebKit\/)([a-z0-9.]+)/i, "WebKit Browser"],
+              [:gecko, /gecko/i, /(.+rv:|Gecko\/)([a-z0-9.]+)/i, "Gecko Browser"],
+            ])
+          end
+
+          # Register the most common mobile and console browsers.
+          # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
+          def register_mobile_browsers
+            self.register_browser([
+              [:coremedia, /coremedia/i, /.+CoreMedia v([a-z0-9.]+)/i, "Apple CoreMedia"],
+
+              [:opera_mobile, /opera mobi/i, /.+Opera Mobi.+((.+Opera )|(Version\/))([a-z0-9.]+)/i, "Opera Mobile"],
+              [:opera, /opera/i, Proc.new{ |name, agent|
+                regexp = (agent !~ /wii/i) ? /((.+Opera )|(Version\/))([a-z0-9.]+)/i : /(.+Nintendo Wii; U; ; )([a-z0-9.]+)/i
+
+                version = regexp.match(agent)
+                version = version.to_a.last if version.is_a?(MatchData)
+                version
+              }, "Opera"],
+
+              [:android, /android/i, /(.+Android )([a-z0-9.]+)/i, "Android"],
+              [:blackberry, /blackberry/i, /(.+Version\/)([a-z0-9.]+)/i, "RIM BlackBerry"],
+              [:kindle, /(kindle)/i, /(.+(Kindle|Silk)\/)([a-z0-9.]+)/i, "Amazon Kindle"],
+              [:psp, /psp/i, /(.+PlayStation Portable\); )([a-z0-9.]+)/i, "Sony Playstation Portable"],
+              [:ps3, /playstation 3/i, /(.+PLAYSTATION 3; )([a-z0-9.]+)/i, "Sony Playstation 3"],
+              [:windows_phone, /windows phone/i, /(.+IEMobile\/)([a-z0-9.]+)/i, "Microsoft Windows Phone"],
+              [:wii, /nintendo wii/, /(.+Nintendo Wii; U; ; )([a-z0-9.]+)/i, "Nintendo Wii"],
+
+              [:ipod, /ipod/i, /(.+Version\/)([a-z0-9.]+)/i, "Apple iPod"],
+              [:iphone, /iphone/i, /(.+Version\/)([a-z0-9.]+)/i, "Apple iPhone"],
+              [:ipad, /ipad/i, /(.+Version\/)([a-z0-9.]+)/i, "Apple iPad"],
+
+              [:mobile, /(mobile|symbian|midp|windows ce)/i, /.+\/([a-z0-9.]+)/i, "Other Mobile Browser"],
+            ])
+          end
+
+          # Registers a new set of entries to a collection.
           #
           # @param collection [Array] The collection which add entries to.
           # @param entries [Array] The entries to add.
@@ -305,13 +318,7 @@ module Brauser
         #
         # @return [Hash] The list of browser that can be recognized.
         def browsers
-          rv = ActiveSupport::OrderedHash.new
-
-          @browsers.each do |browser|
-            rv[browser[0]] = browser[1, browser.length]
-          end
-
-          rv
+          registered_to_hash(@browsers)
         end
 
         # Returns the list of platforms that can be recognized.
@@ -320,13 +327,7 @@ module Brauser
         #
         # @return [Hash] The list of platform that can be recognized.
         def platforms
-          rv = ActiveSupport::OrderedHash.new
-
-          @platforms.each do |platform|
-            rv[platform[0]] = platform[1, platform.length]
-          end
-
-          rv
+          registered_to_hash(@platforms)
         end
 
         # Returns the list of languages that can be recognized.
@@ -390,6 +391,17 @@ module Brauser
             end
 
             [p1, p2]
+          end
+
+          # Converts a list of register entries to an ordered hash.
+          #
+          # @param entries [Array] The array to convert.
+          # @return [OrderedHash] An ordered hash.
+          def registered_to_hash(entries)
+            entries.inject(ActiveSupport::OrderedHash.new) do |rv, entry|
+              rv[entry[0]] = entry[1, entry.length]
+              rv
+            end
           end
       end
     end
