@@ -1,0 +1,2568 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Brauser::Browser
+  
+    &mdash; Documentation by YARD 0.8.3
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (B)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Brauser.html" title="Brauser (module)">Brauser</a></span></span>
+     &raquo; 
+    <span class="title">Browser</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Brauser::Browser
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Brauser::Browser</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="BrowserMethods/Attributes.html" title="Brauser::BrowserMethods::Attributes (module)">Brauser::BrowserMethods::Attributes</a></span>, <span class='object_link'><a href="BrowserMethods/General.html" title="Brauser::BrowserMethods::General (module)">Brauser::BrowserMethods::General</a></span>, <span class='object_link'><a href="BrowserMethods/Parsing.html" title="Brauser::BrowserMethods::Parsing (module)">Brauser::BrowserMethods::Parsing</a></span>, <span class='object_link'><a href="BrowserMethods/PartialQuerying.html" title="Brauser::BrowserMethods::PartialQuerying (module)">Brauser::BrowserMethods::PartialQuerying</a></span>, <span class='object_link'><a href="BrowserMethods/Querying.html" title="Brauser::BrowserMethods::Querying (module)">Brauser::BrowserMethods::Querying</a></span>, <span class='object_link'><a href="BrowserMethods/Register.html" title="Brauser::BrowserMethods::Register (module)">Brauser::BrowserMethods::Register</a></span></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/brauser/browser.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>This class represents a detection of the current user browser.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#accept_language-instance_method" title="#accept_language (instance method)">- (String) <strong>accept_language</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The raw Accept-Language HTTP header.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#agent-instance_method" title="#agent (instance method)">- (String) <strong>agent</strong> </a>
+    
+
+    
+      (also: #ua)
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The raw User-Agent HTTP header.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#languages-instance_method" title="#languages (instance method)">- (Array) <strong>languages</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The accepted languages.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-instance_method" title="#name (instance method)">- (String) <strong>name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The current browser name.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#platform-instance_method" title="#platform (instance method)">- (String) <strong>platform</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The current browser platform.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#version-instance_method" title="#version (instance method)">- (String) <strong>version</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The current browser version.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Browser) <strong>initialize</strong>(agent = &quot;&quot;, accept_language = &quot;&quot;) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Creates a new browser.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#method_missing-instance_method" title="#method_missing (instance method)">- (Boolean|Query|nil) <strong>method_missing</strong>(query, *arguments, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>This method enables the use of dynamic queries in just one method.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_s-instance_method" title="#to_s (instance method)">- (String) <strong>to_s</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the current browser as a string.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="BrowserMethods/Querying.html" title="Brauser::BrowserMethods::Querying (module)">Brauser::BrowserMethods::Querying</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="BrowserMethods/Querying.html#accepts%3F-instance_method" title="Brauser::BrowserMethods::Querying#accepts? (method)">#accepts?</a></span>, <span class='object_link'><a href="BrowserMethods/Querying.html#is%3F-instance_method" title="Brauser::BrowserMethods::Querying#is? (method)">#is?</a></span>, <span class='object_link'><a href="BrowserMethods/Querying.html#on%3F-instance_method" title="Brauser::BrowserMethods::Querying#on? (method)">#on?</a></span>, <span class='object_link'><a href="BrowserMethods/Querying.html#v%3F-instance_method" title="Brauser::BrowserMethods::Querying#v? (method)">#v?</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="BrowserMethods/PartialQuerying.html" title="Brauser::BrowserMethods::PartialQuerying (module)">Brauser::BrowserMethods::PartialQuerying</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="BrowserMethods/PartialQuerying.html#accepts-instance_method" title="Brauser::BrowserMethods::PartialQuerying#accepts (method)">#accepts</a></span>, <span class='object_link'><a href="BrowserMethods/PartialQuerying.html#is-instance_method" title="Brauser::BrowserMethods::PartialQuerying#is (method)">#is</a></span>, <span class='object_link'><a href="BrowserMethods/PartialQuerying.html#on-instance_method" title="Brauser::BrowserMethods::PartialQuerying#on (method)">#on</a></span>, <span class='object_link'><a href="BrowserMethods/PartialQuerying.html#v-instance_method" title="Brauser::BrowserMethods::PartialQuerying#v (method)">#v</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="BrowserMethods/Parsing.html" title="Brauser::BrowserMethods::Parsing (module)">Brauser::BrowserMethods::Parsing</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="BrowserMethods/Parsing.html#parse_accept_language-instance_method" title="Brauser::BrowserMethods::Parsing#parse_accept_language (method)">#parse_accept_language</a></span>, <span class='object_link'><a href="BrowserMethods/Parsing.html#parse_agent-instance_method" title="Brauser::BrowserMethods::Parsing#parse_agent (method)">#parse_agent</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="BrowserMethods/Attributes.html" title="Brauser::BrowserMethods::Attributes (module)">Brauser::BrowserMethods::Attributes</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="BrowserMethods/Attributes.html#classes-instance_method" title="Brauser::BrowserMethods::Attributes#classes (method)">#classes</a></span>, <span class='object_link'><a href="BrowserMethods/Attributes.html#platform_name-instance_method" title="Brauser::BrowserMethods::Attributes#platform_name (method)">#platform_name</a></span>, <span class='object_link'><a href="BrowserMethods/Attributes.html#readable_name-instance_method" title="Brauser::BrowserMethods::Attributes#readable_name (method)">#readable_name</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Brauser::Browser (class)">Browser</a></span></tt>) <strong>initialize</strong>(agent = &quot;&quot;, accept_language = &quot;&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Creates a new browser.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>agent</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The User-Agent HTTP header.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>accept_language</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The Accept-Language HTTP header.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 743</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_agent'>agent</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_accept_language'>accept_language</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_browsers'>register_default_browsers</span>
+  <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_platforms'>register_default_platforms</span>
+  <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_languages'>register_default_languages</span>
+
+  <span class='ivar'>@agent</span> <span class='op'>=</span> <span class='id identifier rubyid_agent'>agent</span>
+  <span class='ivar'>@accept_language</span> <span class='op'>=</span> <span class='id identifier rubyid_accept_language'>accept_language</span>
+
+  <span class='ivar'>@languages</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_accept_language'>parse_accept_language</span><span class='lparen'>(</span><span class='ivar'>@accept_language</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@accept_language</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@agent</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+<div id="method_missing_details" class="method_details_list">
+  <h2>Dynamic Method Handling</h2>
+  <p class="notice this">
+    This class handles dynamic methods through the <tt>method_missing</tt> method
+    
+  </p>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="method_missing-instance_method">
+  
+    - (<tt>Boolean|<span class='object_link'><a href="Query.html" title="Brauser::Query (class)">Query</a></span>|nil</tt>) <strong>method_missing</strong>(query, *arguments, &amp;block) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>This method enables the use of dynamic queries in just one method.</p>
+
+<p>For example:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_browser'>browser</span><span class='period'>.</span><span class='id identifier rubyid_is_msie_gt_4_1__on_windows?'>is_msie_gt_4_1__on_windows?</span>
+<span class='comment'>#=&gt; true
+</span></code></pre>
+
+<p>If you don&#39;t provide a trailing <code>?</code>, you will get a Brauser::Query.</p>
+
+<p>If the syntax is invalid, a <code>NoMethodError</code> exception will be raised.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>query</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The query to issue. Use <code>__</code> to separate query and <code>_</code> in place of <code>.</code> in the version.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>arguments</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The arguments to pass the method. Unused from the query.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>block</span>
+      
+      
+        <span class='type'>(<tt>Proc</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A block to pass to the method. Unused from the query.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean|<span class='object_link'><a href="Query.html" title="Brauser::Query (class)">Query</a></span>|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A query or a boolean value (if <code>method</code> ends with <code>?</code>). If the query is not valid, <code>NoMethodError</code> will be raised.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+772
+773
+774
+775
+776
+777
+778
+779
+780</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 772</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_parsed_query'>parsed_query</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_parsed_query'>parsed_query</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span> <span class='op'>?</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+  <span class='kw'>rescue</span> <span class='const'>NoMethodError</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="accept_language=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="accept_language-instance_method">
+  
+    - (<tt>String</tt>) <strong>accept_language</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The raw Accept-Language HTTP header.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The raw Accept-Language HTTP header.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 720</span>
+
+<span class='kw'>class</span> <span class='const'>Browser</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:agent</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:accept_language</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:languages</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:platform</span>
+
+  <span class='comment'># Aliases
+</span>  <span class='kw'>alias</span> <span class='symbol'>:ua</span> <span class='symbol'>:agent</span>
+  <span class='kw'>alias</span> <span class='symbol'>:ua=</span> <span class='symbol'>:agent=</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>General</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Attributes</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Register</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Parsing</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>PartialQuerying</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Querying</span>
+
+  <span class='comment'># Creates a new browser.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param agent [String] The User-Agent HTTP header.
+</span>  <span class='comment'># @param accept_language [String] The Accept-Language HTTP header.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_agent'>agent</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_accept_language'>accept_language</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_browsers'>register_default_browsers</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_platforms'>register_default_platforms</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_languages'>register_default_languages</span>
+
+    <span class='ivar'>@agent</span> <span class='op'>=</span> <span class='id identifier rubyid_agent'>agent</span>
+    <span class='ivar'>@accept_language</span> <span class='op'>=</span> <span class='id identifier rubyid_accept_language'>accept_language</span>
+
+    <span class='ivar'>@languages</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_accept_language'>parse_accept_language</span><span class='lparen'>(</span><span class='ivar'>@accept_language</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@accept_language</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@agent</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># This method enables the use of dynamic queries in just one method.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># For example:
+</span>  <span class='comment'>#
+</span>  <span class='comment'># ```ruby
+</span>  <span class='comment'># browser.is_msie_gt_4_1__on_windows?
+</span>  <span class='comment'># #=&gt; true
+</span>  <span class='comment'># ```
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If you don't provide a trailing `?`, you will get a Brauser::Query.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If the syntax is invalid, a `NoMethodError` exception will be raised.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>  <span class='comment'># @param arguments [Array] The arguments to pass the method. Unused from the query.
+</span>  <span class='comment'># @param block [Proc] A block to pass to the method. Unused from the query.
+</span>  <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_parsed_query'>parsed_query</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_parsed_query'>parsed_query</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span> <span class='op'>?</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+    <span class='kw'>rescue</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Returns the current browser as a string.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see #classes
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] A string representation of the current browser.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_classes'>classes</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Parse query, getting all arguments.
+</span>    <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>    <span class='comment'># @return [Array] And array of `[method, arguments]` entries.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>__</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
+        <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Handles a part of a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param part [String] A part of a query.
+</span>    <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_part'>part</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>v</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
+      <span class='kw'>elsif</span> <span class='op'>!</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>is</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>on</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>end</span>
+
+      <span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Parses the version for a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param version [String] The version to parse.
+</span>    <span class='comment'># @return [String] The parsed version.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span>
+        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?eq_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> == </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse ==
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?and_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &amp;&amp; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &amp;&amp;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Dot notation
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+      <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='op'>|</span> <span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Executes a parsed query
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param query [Array] And array of `[method, arguments]` entries.
+</span>    <span class='comment'># @return [Brauser::Query] The result of the query.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_call'>call</span><span class='op'>|</span>
+        <span class='kw'>break</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span>
+        <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="agent=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="agent-instance_method">
+  
+    - (<tt>String</tt>) <strong>agent</strong> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='ua-instance_method'>ua</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The raw User-Agent HTTP header.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The raw User-Agent HTTP header.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 720</span>
+
+<span class='kw'>class</span> <span class='const'>Browser</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:agent</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:accept_language</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:languages</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:platform</span>
+
+  <span class='comment'># Aliases
+</span>  <span class='kw'>alias</span> <span class='symbol'>:ua</span> <span class='symbol'>:agent</span>
+  <span class='kw'>alias</span> <span class='symbol'>:ua=</span> <span class='symbol'>:agent=</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>General</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Attributes</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Register</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Parsing</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>PartialQuerying</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Querying</span>
+
+  <span class='comment'># Creates a new browser.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param agent [String] The User-Agent HTTP header.
+</span>  <span class='comment'># @param accept_language [String] The Accept-Language HTTP header.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_agent'>agent</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_accept_language'>accept_language</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_browsers'>register_default_browsers</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_platforms'>register_default_platforms</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_languages'>register_default_languages</span>
+
+    <span class='ivar'>@agent</span> <span class='op'>=</span> <span class='id identifier rubyid_agent'>agent</span>
+    <span class='ivar'>@accept_language</span> <span class='op'>=</span> <span class='id identifier rubyid_accept_language'>accept_language</span>
+
+    <span class='ivar'>@languages</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_accept_language'>parse_accept_language</span><span class='lparen'>(</span><span class='ivar'>@accept_language</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@accept_language</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@agent</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># This method enables the use of dynamic queries in just one method.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># For example:
+</span>  <span class='comment'>#
+</span>  <span class='comment'># ```ruby
+</span>  <span class='comment'># browser.is_msie_gt_4_1__on_windows?
+</span>  <span class='comment'># #=&gt; true
+</span>  <span class='comment'># ```
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If you don't provide a trailing `?`, you will get a Brauser::Query.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If the syntax is invalid, a `NoMethodError` exception will be raised.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>  <span class='comment'># @param arguments [Array] The arguments to pass the method. Unused from the query.
+</span>  <span class='comment'># @param block [Proc] A block to pass to the method. Unused from the query.
+</span>  <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_parsed_query'>parsed_query</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_parsed_query'>parsed_query</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span> <span class='op'>?</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+    <span class='kw'>rescue</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Returns the current browser as a string.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see #classes
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] A string representation of the current browser.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_classes'>classes</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Parse query, getting all arguments.
+</span>    <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>    <span class='comment'># @return [Array] And array of `[method, arguments]` entries.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>__</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
+        <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Handles a part of a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param part [String] A part of a query.
+</span>    <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_part'>part</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>v</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
+      <span class='kw'>elsif</span> <span class='op'>!</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>is</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>on</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>end</span>
+
+      <span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Parses the version for a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param version [String] The version to parse.
+</span>    <span class='comment'># @return [String] The parsed version.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span>
+        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?eq_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> == </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse ==
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?and_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &amp;&amp; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &amp;&amp;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Dot notation
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+      <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='op'>|</span> <span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Executes a parsed query
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param query [Array] And array of `[method, arguments]` entries.
+</span>    <span class='comment'># @return [Brauser::Query] The result of the query.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_call'>call</span><span class='op'>|</span>
+        <span class='kw'>break</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span>
+        <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="languages=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="languages-instance_method">
+  
+    - (<tt>Array</tt>) <strong>languages</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The accepted languages.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The accepted languages.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 720</span>
+
+<span class='kw'>class</span> <span class='const'>Browser</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:agent</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:accept_language</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:languages</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:platform</span>
+
+  <span class='comment'># Aliases
+</span>  <span class='kw'>alias</span> <span class='symbol'>:ua</span> <span class='symbol'>:agent</span>
+  <span class='kw'>alias</span> <span class='symbol'>:ua=</span> <span class='symbol'>:agent=</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>General</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Attributes</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Register</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Parsing</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>PartialQuerying</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Querying</span>
+
+  <span class='comment'># Creates a new browser.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param agent [String] The User-Agent HTTP header.
+</span>  <span class='comment'># @param accept_language [String] The Accept-Language HTTP header.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_agent'>agent</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_accept_language'>accept_language</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_browsers'>register_default_browsers</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_platforms'>register_default_platforms</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_languages'>register_default_languages</span>
+
+    <span class='ivar'>@agent</span> <span class='op'>=</span> <span class='id identifier rubyid_agent'>agent</span>
+    <span class='ivar'>@accept_language</span> <span class='op'>=</span> <span class='id identifier rubyid_accept_language'>accept_language</span>
+
+    <span class='ivar'>@languages</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_accept_language'>parse_accept_language</span><span class='lparen'>(</span><span class='ivar'>@accept_language</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@accept_language</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@agent</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># This method enables the use of dynamic queries in just one method.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># For example:
+</span>  <span class='comment'>#
+</span>  <span class='comment'># ```ruby
+</span>  <span class='comment'># browser.is_msie_gt_4_1__on_windows?
+</span>  <span class='comment'># #=&gt; true
+</span>  <span class='comment'># ```
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If you don't provide a trailing `?`, you will get a Brauser::Query.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If the syntax is invalid, a `NoMethodError` exception will be raised.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>  <span class='comment'># @param arguments [Array] The arguments to pass the method. Unused from the query.
+</span>  <span class='comment'># @param block [Proc] A block to pass to the method. Unused from the query.
+</span>  <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_parsed_query'>parsed_query</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_parsed_query'>parsed_query</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span> <span class='op'>?</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+    <span class='kw'>rescue</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Returns the current browser as a string.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see #classes
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] A string representation of the current browser.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_classes'>classes</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Parse query, getting all arguments.
+</span>    <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>    <span class='comment'># @return [Array] And array of `[method, arguments]` entries.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>__</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
+        <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Handles a part of a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param part [String] A part of a query.
+</span>    <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_part'>part</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>v</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
+      <span class='kw'>elsif</span> <span class='op'>!</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>is</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>on</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>end</span>
+
+      <span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Parses the version for a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param version [String] The version to parse.
+</span>    <span class='comment'># @return [String] The parsed version.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span>
+        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?eq_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> == </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse ==
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?and_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &amp;&amp; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &amp;&amp;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Dot notation
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+      <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='op'>|</span> <span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Executes a parsed query
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param query [Array] And array of `[method, arguments]` entries.
+</span>    <span class='comment'># @return [Brauser::Query] The result of the query.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_call'>call</span><span class='op'>|</span>
+        <span class='kw'>break</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span>
+        <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="name=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="name-instance_method">
+  
+    - (<tt>String</tt>) <strong>name</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The current browser name.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The current browser name.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 720</span>
+
+<span class='kw'>class</span> <span class='const'>Browser</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:agent</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:accept_language</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:languages</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:platform</span>
+
+  <span class='comment'># Aliases
+</span>  <span class='kw'>alias</span> <span class='symbol'>:ua</span> <span class='symbol'>:agent</span>
+  <span class='kw'>alias</span> <span class='symbol'>:ua=</span> <span class='symbol'>:agent=</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>General</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Attributes</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Register</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Parsing</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>PartialQuerying</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Querying</span>
+
+  <span class='comment'># Creates a new browser.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param agent [String] The User-Agent HTTP header.
+</span>  <span class='comment'># @param accept_language [String] The Accept-Language HTTP header.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_agent'>agent</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_accept_language'>accept_language</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_browsers'>register_default_browsers</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_platforms'>register_default_platforms</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_languages'>register_default_languages</span>
+
+    <span class='ivar'>@agent</span> <span class='op'>=</span> <span class='id identifier rubyid_agent'>agent</span>
+    <span class='ivar'>@accept_language</span> <span class='op'>=</span> <span class='id identifier rubyid_accept_language'>accept_language</span>
+
+    <span class='ivar'>@languages</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_accept_language'>parse_accept_language</span><span class='lparen'>(</span><span class='ivar'>@accept_language</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@accept_language</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@agent</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># This method enables the use of dynamic queries in just one method.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># For example:
+</span>  <span class='comment'>#
+</span>  <span class='comment'># ```ruby
+</span>  <span class='comment'># browser.is_msie_gt_4_1__on_windows?
+</span>  <span class='comment'># #=&gt; true
+</span>  <span class='comment'># ```
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If you don't provide a trailing `?`, you will get a Brauser::Query.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If the syntax is invalid, a `NoMethodError` exception will be raised.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>  <span class='comment'># @param arguments [Array] The arguments to pass the method. Unused from the query.
+</span>  <span class='comment'># @param block [Proc] A block to pass to the method. Unused from the query.
+</span>  <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_parsed_query'>parsed_query</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_parsed_query'>parsed_query</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span> <span class='op'>?</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+    <span class='kw'>rescue</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Returns the current browser as a string.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see #classes
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] A string representation of the current browser.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_classes'>classes</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Parse query, getting all arguments.
+</span>    <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>    <span class='comment'># @return [Array] And array of `[method, arguments]` entries.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>__</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
+        <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Handles a part of a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param part [String] A part of a query.
+</span>    <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_part'>part</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>v</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
+      <span class='kw'>elsif</span> <span class='op'>!</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>is</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>on</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>end</span>
+
+      <span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Parses the version for a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param version [String] The version to parse.
+</span>    <span class='comment'># @return [String] The parsed version.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span>
+        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?eq_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> == </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse ==
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?and_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &amp;&amp; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &amp;&amp;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Dot notation
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+      <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='op'>|</span> <span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Executes a parsed query
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param query [Array] And array of `[method, arguments]` entries.
+</span>    <span class='comment'># @return [Brauser::Query] The result of the query.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_call'>call</span><span class='op'>|</span>
+        <span class='kw'>break</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span>
+        <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="platform=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="platform-instance_method">
+  
+    - (<tt>String</tt>) <strong>platform</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The current browser platform.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The current browser platform.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 720</span>
+
+<span class='kw'>class</span> <span class='const'>Browser</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:agent</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:accept_language</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:languages</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:platform</span>
+
+  <span class='comment'># Aliases
+</span>  <span class='kw'>alias</span> <span class='symbol'>:ua</span> <span class='symbol'>:agent</span>
+  <span class='kw'>alias</span> <span class='symbol'>:ua=</span> <span class='symbol'>:agent=</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>General</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Attributes</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Register</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Parsing</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>PartialQuerying</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Querying</span>
+
+  <span class='comment'># Creates a new browser.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param agent [String] The User-Agent HTTP header.
+</span>  <span class='comment'># @param accept_language [String] The Accept-Language HTTP header.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_agent'>agent</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_accept_language'>accept_language</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_browsers'>register_default_browsers</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_platforms'>register_default_platforms</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_languages'>register_default_languages</span>
+
+    <span class='ivar'>@agent</span> <span class='op'>=</span> <span class='id identifier rubyid_agent'>agent</span>
+    <span class='ivar'>@accept_language</span> <span class='op'>=</span> <span class='id identifier rubyid_accept_language'>accept_language</span>
+
+    <span class='ivar'>@languages</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_accept_language'>parse_accept_language</span><span class='lparen'>(</span><span class='ivar'>@accept_language</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@accept_language</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@agent</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># This method enables the use of dynamic queries in just one method.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># For example:
+</span>  <span class='comment'>#
+</span>  <span class='comment'># ```ruby
+</span>  <span class='comment'># browser.is_msie_gt_4_1__on_windows?
+</span>  <span class='comment'># #=&gt; true
+</span>  <span class='comment'># ```
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If you don't provide a trailing `?`, you will get a Brauser::Query.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If the syntax is invalid, a `NoMethodError` exception will be raised.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>  <span class='comment'># @param arguments [Array] The arguments to pass the method. Unused from the query.
+</span>  <span class='comment'># @param block [Proc] A block to pass to the method. Unused from the query.
+</span>  <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_parsed_query'>parsed_query</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_parsed_query'>parsed_query</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span> <span class='op'>?</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+    <span class='kw'>rescue</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Returns the current browser as a string.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see #classes
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] A string representation of the current browser.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_classes'>classes</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Parse query, getting all arguments.
+</span>    <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>    <span class='comment'># @return [Array] And array of `[method, arguments]` entries.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>__</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
+        <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Handles a part of a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param part [String] A part of a query.
+</span>    <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_part'>part</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>v</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
+      <span class='kw'>elsif</span> <span class='op'>!</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>is</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>on</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>end</span>
+
+      <span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Parses the version for a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param version [String] The version to parse.
+</span>    <span class='comment'># @return [String] The parsed version.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span>
+        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?eq_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> == </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse ==
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?and_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &amp;&amp; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &amp;&amp;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Dot notation
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+      <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='op'>|</span> <span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Executes a parsed query
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param query [Array] And array of `[method, arguments]` entries.
+</span>    <span class='comment'># @return [Brauser::Query] The result of the query.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_call'>call</span><span class='op'>|</span>
+        <span class='kw'>break</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span>
+        <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="version=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="version-instance_method">
+  
+    - (<tt>String</tt>) <strong>version</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The current browser version.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The current browser version.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 720</span>
+
+<span class='kw'>class</span> <span class='const'>Browser</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:agent</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:accept_language</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:languages</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:version</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:platform</span>
+
+  <span class='comment'># Aliases
+</span>  <span class='kw'>alias</span> <span class='symbol'>:ua</span> <span class='symbol'>:agent</span>
+  <span class='kw'>alias</span> <span class='symbol'>:ua=</span> <span class='symbol'>:agent=</span>
+
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>General</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Attributes</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Register</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Parsing</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>PartialQuerying</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>BrowserMethods</span><span class='op'>::</span><span class='const'>Querying</span>
+
+  <span class='comment'># Creates a new browser.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param agent [String] The User-Agent HTTP header.
+</span>  <span class='comment'># @param accept_language [String] The Accept-Language HTTP header.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_agent'>agent</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_accept_language'>accept_language</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_browsers'>register_default_browsers</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_platforms'>register_default_platforms</span>
+    <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_register_default_languages'>register_default_languages</span>
+
+    <span class='ivar'>@agent</span> <span class='op'>=</span> <span class='id identifier rubyid_agent'>agent</span>
+    <span class='ivar'>@accept_language</span> <span class='op'>=</span> <span class='id identifier rubyid_accept_language'>accept_language</span>
+
+    <span class='ivar'>@languages</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_accept_language'>parse_accept_language</span><span class='lparen'>(</span><span class='ivar'>@accept_language</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@accept_language</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@agent</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># This method enables the use of dynamic queries in just one method.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># For example:
+</span>  <span class='comment'>#
+</span>  <span class='comment'># ```ruby
+</span>  <span class='comment'># browser.is_msie_gt_4_1__on_windows?
+</span>  <span class='comment'># #=&gt; true
+</span>  <span class='comment'># ```
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If you don't provide a trailing `?`, you will get a Brauser::Query.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># If the syntax is invalid, a `NoMethodError` exception will be raised.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>  <span class='comment'># @param arguments [Array] The arguments to pass the method. Unused from the query.
+</span>  <span class='comment'># @param block [Proc] A block to pass to the method. Unused from the query.
+</span>  <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_parsed_query'>parsed_query</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_parsed_query'>parsed_query</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span> <span class='op'>?</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
+    <span class='kw'>rescue</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Returns the current browser as a string.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @see #classes
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] A string representation of the current browser.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_classes'>classes</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+    <span class='comment'># Parse query, getting all arguments.
+</span>    <span class='comment'># @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+</span>    <span class='comment'># @return [Array] And array of `[method, arguments]` entries.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query'>parse_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\?$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>__</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
+        <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Handles a part of a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param part [String] A part of a query.
+</span>    <span class='comment'># @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_part'>parse_query_part</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_part'>part</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>v</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span>
+        <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='rparen'>)</span>
+      <span class='kw'>elsif</span> <span class='op'>!</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>is</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>on</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NoMethodError</span>
+      <span class='kw'>end</span>
+
+      <span class='lbracket'>[</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Parses the version for a query.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param version [String] The version to parse.
+</span>    <span class='comment'># @return [String] The parsed version.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_parse_query_version'>parse_query_version</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+      <span class='lbracket'>[</span>
+        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?eq_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> == </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse ==
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gte_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt;= </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;=
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?lt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &lt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &lt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?gt_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &gt; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &gt;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_?and_?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> &amp;&amp; </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Parse &amp;&amp;
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'># Dot notation
+</span>        <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+      <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='op'>|</span> <span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_parse'>parse</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+    <span class='kw'>end</span>
+
+    <span class='comment'># Executes a parsed query
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @param query [Array] And array of `[method, arguments]` entries.
+</span>    <span class='comment'># @return [Brauser::Query] The result of the query.
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_execute_query'>execute_query</span><span class='lparen'>(</span><span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Query</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_rv'>rv</span><span class='comma'>,</span> <span class='id identifier rubyid_call'>call</span><span class='op'>|</span>
+        <span class='kw'>break</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span>
+        <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_call'>call</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="to_s-instance_method">
+  
+    - (<tt>String</tt>) <strong>to_s</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the current browser as a string.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A string representation of the current browser.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="BrowserMethods/Attributes.html#classes-instance_method" title="Brauser::BrowserMethods::Attributes#classes (method)">Brauser::BrowserMethods::Attributes#classes</a></span></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+787
+788
+789</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 787</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_classes'>classes</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Sat Feb  2 17:47:19 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.3 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
