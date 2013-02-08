@@ -6,7 +6,7 @@
 <title>
   Class: Brauser::Query
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.4.1
   
 </title>
 
@@ -103,8 +103,9 @@
   <div class="discussion">
     <p>A query to a browser. This class enables concatenation, like:</p>
 
-<pre class="code ruby"><code><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_is'>is</span><span class='lparen'>(</span><span class='symbol'>:msie</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_v'>v</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&gt;= 7</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_on?'>on?</span><span class='lparen'>(</span><span class='symbol'>:windows</span><span class='rparen'>)</span>
-</code></pre>
+<p><code>ruby
+Brauser::Browser.new.is(:msie).v("&gt;= 7").on?(:windows)
+</code></p>
 
 <p>To end concatenation, use the <code>?</code> form of the queries or call <code>.result</code>.</p>
 
@@ -1724,9 +1725,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Feb  2 17:47:19 2013 by
+  Generated on Fri Feb  8 08:12:32 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.9.3).
+  0.8.4.1 (ruby-1.9.3).
 </div>
 
   </body>
