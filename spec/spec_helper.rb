@@ -5,9 +5,7 @@
 #
 
 require "rubygems"
-require "coverage_helper"
 require "bundler/setup"
-
 require "frameworks_helper"
 require "brauser"
 

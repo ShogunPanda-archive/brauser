@@ -7,7 +7,6 @@
 require "pathname"
 require "simplecov"
 
-
 SimpleCov.start do
   root = Pathname.new(File.dirname(__FILE__)) + ".."
 
