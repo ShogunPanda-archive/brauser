@@ -648,8 +648,13 @@ describe Brauser::Browser do
       expect(browser.classes("@")).to eq("chrome@version-1@version-1_2@version-1_2_A@version-1_2_A_4@platform-osx")
     end
 
+    it "should handle msie compatibility" do
+      browser.instance_variable_set("@name", :msie_compatibility)
+      expect(browser.classes(false, true, false, false)).to eq(["msie_compatibility", "msie"])
+    end
+
     it "should transform name" do
-      expect(browser.classes(" ", true, false, false) { |name, version, platform| name.to_s.upcase }).to eq("CHROME")
+      expect(browser.classes(" ", true, false, false) { |name, *| name.to_s.upcase }).to eq("CHROME")
     end
   end
 

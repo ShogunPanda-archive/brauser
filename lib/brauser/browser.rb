@@ -448,14 +448,22 @@ module Brauser
       alias :meta :classes
 
       private
-        # Stringifies a browser name.
+        # Stringifies a browser name(s).
         #
         # @param name [Boolean] If non falsy, the string to prepend to the name. If falsy, the name information will not be included.
         # @param block [Proc] A block to translate browser name.
-        # @return [String|nil] The browser name or `nil`, if it was set to be skipped
+        # @return [String|Array|nil] The browser name(s) or `nil`, if it was set to be skipped
         def stringify_name(name, &block)
-          name = "" if name == true
-          !name ? nil : "#{name}#{block_given? ? yield(@name, @version, @platform) : (@name || self.parse_agent(@agent))}"
+          if !name then
+            nil
+          else
+            name = "" if name == true
+            self.parse_agent(@agent) if !@name
+            block ||= Proc.new {|name, *| name == :msie_compatibility ? [:msie_compatibility, :msie] : name }
+
+            names = block.call(@name, @version, @platform).ensure_array.collect {|n| "#{name}#{n}" }
+            names.length > 1 ? names : names.first
+          end
         end
 
         # Stringifies a browser version.
@@ -625,7 +633,7 @@ module Brauser
         def adjust_names(names)
           # Adjust names
           names = names.ensure_array.compact.collect {|n| n.ensure_string.to_sym }
-          names << [:msie] if names.include?(:ie)
+          names << [:msie, :msie_compatibility] if names.include?(:ie)
           names << [:chromium] if names.include?(:chrome)
           names << [:chrome, :firefox, :safari, :opera, :msie] if names.include?(:capable)
           names << [:ipad, :android, :kindle] if names.include?(:tablet)
