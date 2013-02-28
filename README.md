@@ -97,7 +97,7 @@ browser.is?("< 2 && > 1")
 # => true
 ```
 
-The method `on` check is the current browser in one of the specifed platform. The platform should be passed as `Symbol`.
+The method `on` check is the current browser in one of the specified platform. The platform should be passed as `Symbol`.
 
 ```ruby
 browser.on?(:osx)

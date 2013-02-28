@@ -60,7 +60,7 @@ module Brauser
       @result ? @target.is?(names, versions, platforms) : @result
     end
 
-    # Checks if the brower is a specific version.
+    # Checks if the browser is a specific version.
     #
     # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
     # @return [Query] The query itself.
@@ -69,7 +69,7 @@ module Brauser
       self
     end
 
-    # Checks if the brower is a specific version.
+    # Checks if the browser is a specific version.
     #
     # This version returns a boolean and it is equal to append a call to {#result} to the method {#v}.
     #

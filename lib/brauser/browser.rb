@@ -35,7 +35,7 @@ module Brauser
           self.register_platform([
             [:symbian, /s60|symb/i, "Symbian"],
             [:windows_phone, /windows phone/i, "Microsoft Windows Phone"],
-            [:kindle, Proc.new { |name, agent| name == :kindle }, "Nokia Symbian"],
+            [:kindle, Proc.new { |name, _| name == :kindle }, "Nokia Symbian"],
             [:ios, Proc.new { |name, agent| [:iphone, :ipad, :ipod].include?(name) || agent =~ /ipad|iphone|ipod/i }, "Apple iOS"],
             [:android, /android/i, "Android"],
             [:blackberry, /blackberry/i, "RIM BlackBerry"],
@@ -230,7 +230,7 @@ module Brauser
               [:firefox, /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i, "Mozilla Firefox"],
               [:safari, Proc.new{ |agent| agent =~ /safari/i && agent !~ /((chrome)|(chromium))/i }, /(.+Version\/)([a-z0-9.]+)/i, "Apple Safari"],
 
-              [:msie_compatibility, /trident/i, Proc.new { |name, agent|
+              [:msie_compatibility, /trident/i, Proc.new { |_, agent|
                 version = /(.+Trident\/)([a-z0-9.]+)/i.match(agent)
 
                 if version.is_a?(::MatchData) then
@@ -257,7 +257,7 @@ module Brauser
               [:coremedia, /coremedia/i, /.+CoreMedia v([a-z0-9.]+)/i, "Apple CoreMedia"],
 
               [:opera_mobile, /opera mobi/i, /.+Opera Mobi.+((.+Opera )|(Version\/))([a-z0-9.]+)/i, "Opera Mobile"],
-              [:opera, /opera/i, Proc.new{ |name, agent|
+              [:opera, /opera/i, Proc.new{ |_, agent|
                 regexp = (agent !~ /wii/i) ? /((.+Opera )|(Version\/))([a-z0-9.]+)/i : /(.+Nintendo Wii; U; ; )([a-z0-9.]+)/i
 
                 version = regexp.match(agent)
@@ -441,7 +441,7 @@ module Brauser
       # @param block [Proc] A block to translate browser name.
       # @return [String|Array] CSS ready information of the current browser.
       def classes(join = " ", name = "", version = "version-", platform = "platform-", &block)
-        platform = "platform-" if platform == true
+        platform = "platform-" if platform.is_a?(TrueClass)
         rv = [stringify_name(name, &block), stringify_version(version), !platform ? nil : (platform + @platform.to_s)].compact.flatten
         join ? rv.join(join) : rv
       end
@@ -457,9 +457,9 @@ module Brauser
           if !name then
             nil
           else
-            name = "" if name == true
+            name = "" if name.is_a?(TrueClass)
             self.parse_agent(@agent) if !@name
-            block ||= Proc.new {|name, *| name == :msie_compatibility ? [:msie_compatibility, :msie] : name }
+            block ||= Proc.new {|n, *| n == :msie_compatibility ? [:msie_compatibility, :msie] : n }
 
             names = block.call(@name, @version, @platform).ensure_array.collect {|n| "#{name}#{n}" }
             names.length > 1 ? names : names.first
@@ -471,7 +471,7 @@ module Brauser
         # @param version [String|NilClass] If non falsy, the string to prepend to the version. If falsy, the version information will not be included.
         # @return [Array] The version strings or `nil`, if it was set to be skipped
         def stringify_version(version)
-          version = "version-" if version == true
+          version = "version-" if version.is_a?(TrueClass)
           others = @version.split(".")
           major = others.shift
           !version ? nil : others.inject([version + major]) {|prev, current| prev + [prev.last + "_" + current] }.flatten
@@ -486,7 +486,7 @@ module Brauser
       def parse_agent(agent = nil)
         agent = agent.ensure_string
 
-        @name, version = match_name_and_version(agent)
+        @name, _ = match_name_and_version(agent)
         @version = adjust_version(@version)
         @platform = match_platform(agent)
 
@@ -525,9 +525,9 @@ module Brauser
         def adjust_version(version)
           # Adjust version
           if version.blank? then
-            version = "0.0"
+            "0.0"
           elsif version.is_a?(::MatchData) then
-            version = version.to_a.last
+            version.to_a.last
           else
             version
           end
@@ -588,13 +588,12 @@ module Brauser
         )
       end
 
-      # Checks if the brower is a specific version.
+      # Checks if the browser is a specific version.
       #
       # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
       # @return [Query] A query which can evaluated for concatenation or result.
       def v(versions = {})
         self.parse_agent(@agent) if !@version
-        rv = true
 
         versions = if versions.is_a?(String) then
           parse_versions_query(versions)
@@ -685,7 +684,7 @@ module Brauser
         self.is(names, versions, platforms).result
       end
 
-      # Checks if the brower is a specific version.
+      # Checks if the browser is a specific version.
       #
       # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
       # @return [Boolean] `true` if current browser matches, `false` otherwise.
