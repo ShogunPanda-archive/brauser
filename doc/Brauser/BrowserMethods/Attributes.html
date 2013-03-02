@@ -334,17 +334,17 @@
       <pre class="lines">
 
 
+442
 443
 444
 445
-446
-447</pre>
+446</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 443</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 442</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_classes'>classes</span><span class='lparen'>(</span><span class='id identifier rubyid_join'>join</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_version'>version</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>version-</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform'>platform</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>platform-</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_platform'>platform</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>platform-</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_platform'>platform</span> <span class='op'>==</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_platform'>platform</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>platform-</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_platform'>platform</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>TrueClass</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_stringify_name'>stringify_name</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_stringify_version'>stringify_version</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>!</span><span class='id identifier rubyid_platform'>platform</span> <span class='op'>?</span> <span class='kw'>nil</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_platform'>platform</span> <span class='op'>+</span> <span class='ivar'>@platform</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span>
   <span class='id identifier rubyid_join'>join</span> <span class='op'>?</span> <span class='id identifier rubyid_rv'>rv</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_join'>join</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span>
 <span class='kw'>end</span></pre>
@@ -395,13 +395,13 @@
       <pre class="lines">
 
 
+421
 422
 423
-424
-425</pre>
+424</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 422</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 421</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_platform_name'>platform_name</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@platform</span>
@@ -454,13 +454,13 @@
       <pre class="lines">
 
 
+413
 414
 415
-416
-417</pre>
+416</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 414</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 413</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_readable_name'>readable_name</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@name</span>
@@ -476,7 +476,7 @@
 </div>
 
     <div id="footer">
-  Generated on Wed Feb 27 09:17:04 2013 by
+  Generated on Fri Mar  1 17:26:25 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

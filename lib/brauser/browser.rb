@@ -134,7 +134,6 @@ module Brauser
             "ro-mo" => "Romanian/Moldavia",
             "ru" => "Russian",
             "ru-mo" => "Russian /Moldavia",
-            "gd" => "Scots Gaelic",
             "sr" => "Serbian",
             "sk" => "Slovack",
             "sl" => "Slovenian",
