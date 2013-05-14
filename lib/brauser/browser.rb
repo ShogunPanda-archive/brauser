@@ -229,8 +229,8 @@ module Brauser
               [:firefox, /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i, "Mozilla Firefox"],
               [:safari, Proc.new{ |agent| agent =~ /safari/i && agent !~ /((chrome)|(chromium))/i }, /(.+Version\/)([a-z0-9.]+)/i, "Apple Safari"],
 
-              [:msie_compatibility, /trident/i, Proc.new { |_, agent|
-                version = /(MSIE 7\.0).+(.+Trident\/)([a-z0-9.]+)/i.match(agent)
+              [:msie_compatibility, /(msie 7\.0).+(trident)/i, Proc.new { |_, agent|
+                version = /(.+Trident\/)([a-z0-9.]+)/i.match(agent)
 
                 if version.is_a?(::MatchData) then
                   v = version.to_a.last.split(".")
