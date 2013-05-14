@@ -230,7 +230,7 @@ module Brauser
               [:safari, Proc.new{ |agent| agent =~ /safari/i && agent !~ /((chrome)|(chromium))/i }, /(.+Version\/)([a-z0-9.]+)/i, "Apple Safari"],
 
               [:msie_compatibility, /trident/i, Proc.new { |_, agent|
-                version = /(.+Trident\/)([a-z0-9.]+)/i.match(agent)
+                version = /(MSIE 7\.0).+(.+Trident\/)([a-z0-9.]+)/i.match(agent)
 
                 if version.is_a?(::MatchData) then
                   v = version.to_a.last.split(".")
@@ -631,7 +631,7 @@ module Brauser
         def adjust_names(names)
           # Adjust names
           names = names.ensure_array.compact.collect {|n| n.ensure_string.to_sym }
-          names << [:msie, :msie_compatibility] if names.include?(:ie)
+          names << [:msie, :msie_compatibility] if names.include?(:ie) || names.include?(:msie)
           names << [:chromium] if names.include?(:chrome)
           names << [:chrome, :firefox, :safari, :opera, :msie] if names.include?(:capable)
           names << [:ipad, :android, :kindle] if names.include?(:tablet)
