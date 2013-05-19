@@ -44,7 +44,7 @@ describe Brauser::Query do
   describe "#v?" do
     it "should call the browser's corresponding method and update the result" do
       browser.should_receive(:v?).with(">= 9").and_call_original
-      expect(query.v?(">= 9")).to be_false
+      expect(query.v?(">= 9")).to be_true
     end
   end
 

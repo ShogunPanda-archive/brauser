@@ -21,15 +21,15 @@ describe Brauser::Definition do
 
   describe "#match" do
     it "should apply the correct matcher and return the correct value" do
-      expect(definition.match(:primary, "ABC")).to eq("ABC")
-      expect(definition.match(:primary, "CDE")).to be_nil
-      expect(definition.match(:secondary, "abcabc")).to be_a(MatchData)
-      expect(definition.match(:secondary, "abx")).to be_nil
+      expect(definition.match(:primary, nil, "ABC")).to eq("ABC")
+      expect(definition.match(:primary, nil, "CDE")).to be_nil
+      expect(definition.match(:secondary, nil, "abcabc")).to be_a(MatchData)
+      expect(definition.match(:secondary, nil, "abx")).to be_nil
     end
 
     it "should support a block matcher" do
-      definition.primary = Proc.new { |a, b, c| a + b + c }
-      expect(definition.match(:primary, 1, 2, 3)).to eq(6)
+      definition.primary = Proc.new { |definition, a, b, c| a + b + c }
+      expect(definition.match(:primary, nil, 1, 2, 3)).to eq(6)
     end
 
     it "should return nil when the matcher is not valid" do
