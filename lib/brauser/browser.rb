@@ -62,7 +62,7 @@ module Brauser
             [:linux, "Linux", /linux/i],
             [:osx, "Apple MacOS X", /mac|macintosh|mac os x/i],
             [:windows, "Microsoft Windows", /windows/i]
-          ].collect { |platform| ::Brauser::Definition.new(platform[0], platform[1], platform[2]) }
+          ].collect { |platform| ::Brauser::Definition.send(:new, *platform) }
 
           add(:platforms, definitions)
         end
@@ -217,7 +217,7 @@ module Brauser
 
               [:webkit, "WebKit Browser", /webkit/i, /(.+WebKit\/)([a-z0-9.]+)/i],
               [:gecko, "Gecko Browser", /gecko/i, /(.+rv:|Gecko\/)([a-z0-9.]+)/i],
-            ].collect { |browser| ::Brauser::Definition.new(browser[0], browser[1], browser[2], browser[3]) }
+            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) }
 
             add(:browsers, definitions)
           end
@@ -250,7 +250,7 @@ module Brauser
               [:ipad, "Apple iPad", /ipad/i, /(.+Version\/)([a-z0-9.]+)/i],
 
               [:mobile, "Other Mobile Browser", /(mobile|symbian|midp|windows ce)/i, /.+\/([a-z0-9.]+)/i],
-            ].collect { |browser| ::Brauser::Definition.new(browser[0], browser[1], browser[2], browser[3]) }
+            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) }
 
             add(:browsers, definitions)
           end
