@@ -205,15 +205,15 @@ module Brauser
           def add_msie_browsers
             add(:browsers, [
               [:msie_compatibility, "Microsoft Internet Explorer (Compatibility View)", /(msie 7\.0).+(trident)/i, Proc.new { |_, agent|
-                version = /(.+Trident\/)([a-z0-9.]+)/i.match(agent)
+                version = /(.+Trident\/)(?<version>[a-z0-9.]+)/i.match(agent)
 
-                if version.is_a?(::MatchData) then
-                  v = version.to_a.last.split(".")
+                if version then
+                  v = version["version"].split(".")
                   v[0] = v[0].to_integer + 4
-                  version = v.join(".")
+                  v.join(".")
+                else
+                  nil
                 end
-
-                version
               }],
               [:msie, "Microsoft Internet Explorer", Proc.new{ |_, agent| agent =~ /msie/i && agent !~ /opera/i }, /(.+MSIE )([a-z0-9.]+)/i],
             ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
@@ -239,11 +239,8 @@ module Brauser
 
               [:opera_mobile, "Opera Mobile", /opera mobi/i, /.+Opera Mobi.+((.+Opera )|(Version\/))([a-z0-9.]+)/i],
               [:opera, "Opera", /opera/i, Proc.new{ |_, agent|
-                regexp = (agent !~ /wii/i) ? /((.+Opera )|(Version\/))([a-z0-9.]+)/i : /(.+Nintendo Wii; U; ; )([a-z0-9.]+)/i
-
-                version = regexp.match(agent)
-                version = version.to_a.last if version.is_a?(MatchData)
-                version
+                version = ((agent !~ /wii/i) ? /((.+Opera )|(Version\/))(?<version>[a-z0-9.]+)/i : /(.+Nintendo Wii; U; ; )(?<version>[a-z0-9.]+)/i).match(agent)
+                version ? version["version"] : nil
               }],
 
               [:android, "Android", /android/i, /(.+Android )([a-z0-9.]+)/i],
