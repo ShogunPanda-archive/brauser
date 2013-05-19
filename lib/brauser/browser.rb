@@ -48,7 +48,7 @@ module Brauser
         #
         # @return [Boolean] `true` if at least one platform has been added, `false` otherwise.
         def add_default_platforms
-          definitions = [
+          add(:platforms, [
             [:symbian, "Symbian", /s60|symb/i],
             [:windows_phone, "Microsoft Windows Phone", /windows phone/i],
             [:kindle, "Nokia Symbian", /kindle|silk/i, ],
@@ -62,16 +62,14 @@ module Brauser
             [:linux, "Linux", /linux/i],
             [:osx, "Apple MacOS X", /mac|macintosh|mac os x/i],
             [:windows, "Microsoft Windows", /windows/i]
-          ].collect { |platform| ::Brauser::Definition.send(:new, *platform) }
-
-          add(:platforms, definitions)
+          ].collect { |platform| ::Brauser::Definition.send(:new, *platform) })
         end
 
         # Adds a default list of languages that can be recognized.
         #
         # @return [Boolean] `true` if at least one language has been added, `false` otherwise.
         def add_default_languages
-          definitions = {
+          add(:languages, {
             "af" => "Afrikaans",
             "sq" => "Albanian",
             "eu" => "Basque",
@@ -185,16 +183,14 @@ module Brauser
             "xh" => "Xshosa",
             "ji" => "Yiddish",
             "zu" => "Zulu"
-          }.collect { |code, name| ::Brauser::Definition.new(code, name, code) }
-
-          add(:languages, definitions)
+          }.collect { |code, name| ::Brauser::Definition.new(code, name, code) })
         end
 
         private
           # Register the most common desktop browsers.
           # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
           def add_desktop_browsers
-            definitions = [
+            add(:browsers, [
               [:chrome, "Google Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i],
               [:netscape, "Netscape Navigator", /(netscape|navigator)\//i, /((Netscape|Navigator)\/)([a-z0-9.]+)/i],
               [:firefox, "Mozilla Firefox", /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i],
@@ -217,15 +213,13 @@ module Brauser
 
               [:webkit, "WebKit Browser", /webkit/i, /(.+WebKit\/)([a-z0-9.]+)/i],
               [:gecko, "Gecko Browser", /gecko/i, /(.+rv:|Gecko\/)([a-z0-9.]+)/i],
-            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) }
-
-            add(:browsers, definitions)
+            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
           end
 
           # Register the most common mobile and console browsers.
           # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
           def add_mobile_browsers
-            definitions = [
+            add(:browsers, [
               [:coremedia, "Apple CoreMedia", /coremedia/i, /.+CoreMedia v([a-z0-9.]+)/i],
 
               [:opera_mobile, "Opera Mobile", /opera mobi/i, /.+Opera Mobi.+((.+Opera )|(Version\/))([a-z0-9.]+)/i],
@@ -250,9 +244,7 @@ module Brauser
               [:ipad, "Apple iPad", /ipad/i, /(.+Version\/)([a-z0-9.]+)/i],
 
               [:mobile, "Other Mobile Browser", /(mobile|symbian|midp|windows ce)/i, /.+\/([a-z0-9.]+)/i],
-            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) }
-
-            add(:browsers, definitions)
+            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
           end
       end
     end
