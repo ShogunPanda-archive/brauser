@@ -334,14 +334,14 @@
       <pre class="lines">
 
 
-442
-443
-444
-445
-446</pre>
+385
+386
+387
+388
+389</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 442</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 385</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_classes'>classes</span><span class='lparen'>(</span><span class='id identifier rubyid_join'>join</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_version'>version</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>version-</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform'>platform</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>platform-</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_platform'>platform</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>platform-</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_platform'>platform</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>TrueClass</span><span class='rparen'>)</span>
@@ -395,17 +395,17 @@
       <pre class="lines">
 
 
-421
-422
-423
-424</pre>
+364
+365
+366
+367</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 421</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 364</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_platform_name'>platform_name</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@platform</span>
-  <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_platforms'>platforms</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='ivar'>@platform</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unknown Platform</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span>
+  <span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@platform</span>
+  <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_platforms'>platforms</span><span class='lbracket'>[</span><span class='ivar'>@platform</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:label</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unknown Platform</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -454,17 +454,17 @@
       <pre class="lines">
 
 
-413
-414
-415
-416</pre>
+356
+357
+358
+359</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 413</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 356</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_readable_name'>readable_name</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@name</span>
-  <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_browsers'>browsers</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='ivar'>@name</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unknown Browser</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_ensure_string'>ensure_string</span>
+  <span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@name</span>
+  <span class='op'>::</span><span class='const'>Brauser</span><span class='op'>::</span><span class='const'>Browser</span><span class='period'>.</span><span class='id identifier rubyid_browsers'>browsers</span><span class='lbracket'>[</span><span class='ivar'>@name</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:label</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unknown Browser</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -476,7 +476,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue May 14 10:41:55 2013 by
+  Generated on Sun May 19 12:02:56 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>

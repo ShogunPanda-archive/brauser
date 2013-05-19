@@ -196,7 +196,7 @@ browser.is(:chrome).v({:lt =&gt; "2"}).on(:osx).result
 
 <p>Finally, Brauser support dynamic query operator to write simple queries without using concatenation.</p>
 
-<p>You construct the method just using operator specified above, separating method name and method arguments with a <code>_</code> and different methods with a <code>__</code>.</p>
+<p>You construct the method just using operator specified above, separating method name and method arguments with a <code>_</code>.</p>
 
 <p>For the version, use the expression form but use symbol operators and replace <code>.</code> with <code>_</code> and <code>&amp;&amp;</code> with <code>and</code>.</p>
 
@@ -205,11 +205,11 @@ browser.is(:chrome).v({:lt =&gt; "2"}).on(:osx).result
 <p>```ruby
 # These expressions are equivalent.
 browser.is(:chrome).v(&#8220;&lt; 2 &amp;&amp; &gt; 1.2&#8221;).on(:osx).result
-browser.is_chrome__v_lt<em>2_and_gt</em>1_2__on_osx.result</p>
+browser.is_chrome_v_lt<em>2_and_gt</em>1_2_on_osx.result</p>
 
 <h1 id="these-expressions-are-equivalent">These expressions are equivalent.</h1>
 <p>browser.is(:chrome).v(&#8220;&lt; 2 &amp;&amp; &gt; 1.2&#8221;).on?(:osx)
-browser.is_chrome__v_lt<em>2_and_gt</em>1_2__on_osx?
+browser.is_chrome_v_lt<em>2_and_gt</em>1_2_on_osx?
 ```</p>
 
 <h3 id="adding-new-browsers">Adding new browsers</h3>
@@ -281,7 +281,7 @@ browser.register_language("it", "Italian")
 </div></div>
 
     <div id="footer">
-  Generated on Tue May 14 10:41:55 2013 by
+  Generated on Sun May 19 12:02:56 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-1.9.3).
 </div>

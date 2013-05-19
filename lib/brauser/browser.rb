@@ -205,15 +205,9 @@ module Brauser
           def add_msie_browsers
             add(:browsers, [
               [:msie_compatibility, "Microsoft Internet Explorer (Compatibility View)", /(msie 7\.0).+(trident)/i, Proc.new { |_, agent|
-                version = /(.+Trident\/)(?<version>[a-z0-9.]+)/i.match(agent)
-
-                if version then
-                  v = version["version"].split(".")
-                  v[0] = v[0].to_integer + 4
-                  v.join(".")
-                else
-                  nil
-                end
+                version = /(.+trident\/)(?<version>[a-z0-9.]+)/i.match(agent)["version"].split(".")
+                version[0] = version[0].to_integer + 4
+                version.join(".")
               }],
               [:msie, "Microsoft Internet Explorer", Proc.new{ |_, agent| agent =~ /msie/i && agent !~ /opera/i }, /(.+MSIE )([a-z0-9.]+)/i],
             ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
