@@ -46,7 +46,7 @@ describe Brauser::Browser do
 
   describe ".add_default_browsers" do
     it "should call .add many times" do
-      ::Brauser::Browser.should_receive(:add).with(:browsers, an_instance_of(Array)).exactly(2).and_call_original
+      ::Brauser::Browser.should_receive(:add).with(:browsers, an_instance_of(Array)).exactly(4).and_call_original
       ::Brauser::Browser.add_default_browsers
     end
 

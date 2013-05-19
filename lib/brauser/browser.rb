@@ -41,7 +41,7 @@ module Brauser
         #
         # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
         def add_default_browsers
-          add_mobile_browsers && add_desktop_browsers
+          add_mobile_browsers && add_major_desktop_browsers && add_msie_browsers && add_minor_desktop_browsers
         end
 
         # Adds a default list of platforms that can be recognized.
@@ -187,15 +187,23 @@ module Brauser
         end
 
         private
-          # Register the most common desktop browsers.
+          # Registers the most common desktop browsers.
+          #
           # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
-          def add_desktop_browsers
+          def add_major_desktop_browsers
             add(:browsers, [
               [:chrome, "Google Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i],
               [:netscape, "Netscape Navigator", /(netscape|navigator)\//i, /((Netscape|Navigator)\/)([a-z0-9.]+)/i],
               [:firefox, "Mozilla Firefox", /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i],
               [:safari, "Apple Safari", Proc.new{ |_, agent| agent =~ /safari/i && agent !~ /((chrome)|(chromium))/i }, /(.+Version\/)([a-z0-9.]+)/i],
+            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
+          end
 
+          # Registers definitions for MSIE browsers.
+          #
+          # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
+          def add_msie_browsers
+            add(:browsers, [
               [:msie_compatibility, "Microsoft Internet Explorer (Compatibility View)", /(msie 7\.0).+(trident)/i, Proc.new { |_, agent|
                 version = /(.+Trident\/)([a-z0-9.]+)/i.match(agent)
 
@@ -208,15 +216,22 @@ module Brauser
                 version
               }],
               [:msie, "Microsoft Internet Explorer", Proc.new{ |_, agent| agent =~ /msie/i && agent !~ /opera/i }, /(.+MSIE )([a-z0-9.]+)/i],
+            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
+          end
 
+          # Registers the least common desktop browsers.
+          #
+          # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
+          def add_minor_desktop_browsers
+            add(:browsers, [
               [:quicktime, "Apple QuickTime", /quicktime/i, /(.+((QuickTime\/)|(qtver=)))([a-z0-9.]+)/i],
-
               [:webkit, "WebKit Browser", /webkit/i, /(.+WebKit\/)([a-z0-9.]+)/i],
               [:gecko, "Gecko Browser", /gecko/i, /(.+rv:|Gecko\/)([a-z0-9.]+)/i],
             ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
           end
 
           # Register the most common mobile and console browsers.
+          #
           # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
           def add_mobile_browsers
             add(:browsers, [
