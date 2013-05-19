@@ -10,5 +10,6 @@ Lazier.load!(:object)
 
 require "brauser/version" if !defined?(Brauser::Version)
 require "brauser/query"
+require "brauser/definition"
 require "brauser/browser"
 require "brauser/hooks"

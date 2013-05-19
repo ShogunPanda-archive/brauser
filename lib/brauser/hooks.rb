@@ -13,7 +13,7 @@ module Brauser
       #
       # @param base [Class] The base controller class.
       def self.included(base)
-        base.send :helper_method, :browser
+        base.send(:helper_method, :browser)
       end
 
       # Detects the current browser.

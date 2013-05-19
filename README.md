@@ -133,7 +133,7 @@ browser.is(:chrome).v({:lt => "2"}).on(:osx).result
 
 Finally, Brauser support dynamic query operator to write simple queries without using concatenation.
 
-You construct the method just using operator specified above, separating method name and method arguments with a `_` and different methods with a `__`.
+You construct the method just using operator specified above, separating method name and method arguments with a `_`.
 
 For the version, use the expression form but use symbol operators and replace `.` with `_` and `&&` with `and`.
 
@@ -142,11 +142,11 @@ Example:
 ```ruby
 # These expressions are equivalent.
 browser.is(:chrome).v("< 2 && > 1.2").on(:osx).result
-browser.is_chrome__v_lt_2_and_gt_1_2__on_osx.result
+browser.is_chrome_v_lt_2_and_gt_1_2_on_osx.result
 
 # These expressions are equivalent.
 browser.is(:chrome).v("< 2 && > 1.2").on?(:osx)
-browser.is_chrome__v_lt_2_and_gt_1_2__on_osx?
+browser.is_chrome_v_lt_2_and_gt_1_2_on_osx?
 ```
 
 ### Adding new browsers

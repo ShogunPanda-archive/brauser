@@ -15,13 +15,12 @@ describe Brauser::Hooks::RubyOnRails do
 
   it "should memoize browser" do
     browser = controller.browser
-    expect(browser).to be_a(Brauser::Browser)
+    expect(browser).to be_a(::Brauser::Browser)
     expect(controller.browser).to eq(browser)
   end
 
-  it "should redetect browser" do
+  it "should detect browser again" do
     browser = controller.browser
     expect(controller.browser(true)).not_to eq(browser)
-
   end
 end

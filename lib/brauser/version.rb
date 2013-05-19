@@ -10,13 +10,13 @@ module Brauser
   # @see http://semver.org
   module Version
     # The major version.
-    MAJOR = 2
+    MAJOR = 3
 
     # The minor version.
-    MINOR = 1
+    MINOR = 0
 
     # The patch version.
-    PATCH = 4
+    PATCH = 0
 
     # The current version of brauser.
     STRING = [MAJOR, MINOR, PATCH].compact.join(".")

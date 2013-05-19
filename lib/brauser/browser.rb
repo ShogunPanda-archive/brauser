@@ -14,50 +14,64 @@ module Brauser
 
       # Class methods.
       module ClassMethods
-        # Registers the default list of browsers that can be recognized.
+        # Adds a definitions for recognition.
+        #
+        # @param type [Symbol] The type of the definition. Can be `:browsers`, `:platforms` or `:languages`.
+        # @param definition [Definition|Array] The definition to add. Can be also an array of definitions.
+        # @return [Boolean] `true` if at least one definition has been added, `false` otherwise.
+        def add(type, definition)
+          rv = false
+
+          if [:browsers, :platforms, :languages].include?(type) then
+            @definitions ||= {}
+            @definitions[type] ||= {}
+
+            definition.ensure_array.each do |d|
+              if d.is_a?(::Brauser::Definition) then
+                @definitions[type][d.tag] = d
+                rv = true
+              end
+            end
+          end
+
+          rv
+        end
+
+        # Adds definitions for a default list of browsers that can be recognized.
         #
         # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
-        def register_default_browsers
-          @browsers = nil
-
-          register_mobile_browsers
-          register_desktop_browsers
-
-          @browsers.present? ? true : false
+        def add_default_browsers
+          add_mobile_browsers && add_desktop_browsers
         end
 
-        # Registers the default list of platforms that can be recognized.
+        # Adds a default list of platforms that can be recognized.
         #
         # @return [Boolean] `true` if at least one platform has been added, `false` otherwise.
-        def register_default_platforms
-          @platforms = nil
+        def add_default_platforms
+          definitions = [
+            [:symbian, "Symbian", /s60|symb/i],
+            [:windows_phone, "Microsoft Windows Phone", /windows phone/i],
+            [:kindle, "Nokia Symbian", /kindle|silk/i, ],
+            [:ios, "Apple iOS", Proc.new { |_, agent| [:iphone, :ipad, :ipod].include?(name) || agent =~ /ipad|iphone|ipod/i }],
+            [:android, "Android", /android/i],
+            [:blackberry, "RIM BlackBerry", /blackberry/i],
+            [:psp, "Sony Playstation Portable", /psp/i],
+            [:ps3, "Sony Playstation 3", /playstation 3/i],
+            [:wii, "Nintendo Wii", /wii/i],
 
-          self.register_platform([
-            [:symbian, /s60|symb/i, "Symbian"],
-            [:windows_phone, /windows phone/i, "Microsoft Windows Phone"],
-            [:kindle, Proc.new { |name, _| name == :kindle }, "Nokia Symbian"],
-            [:ios, Proc.new { |name, agent| [:iphone, :ipad, :ipod].include?(name) || agent =~ /ipad|iphone|ipod/i }, "Apple iOS"],
-            [:android, /android/i, "Android"],
-            [:blackberry, /blackberry/i, "RIM BlackBerry"],
-            [:psp, /psp/i, "Sony Playstation Portable"],
-            [:ps3, /playstation 3/i, "Sony Playstation 3"],
-            [:wii, /wii/i, "Nintendo Wii"],
+            [:linux, "Linux", /linux/i],
+            [:osx, "Apple MacOS X", /mac|macintosh|mac os x/i],
+            [:windows, "Microsoft Windows", /windows/i]
+          ].collect { |platform| ::Brauser::Definition.new(platform[0], platform[1], platform[2]) }
 
-            [:linux, /linux/i, "Linux"],
-            [:osx, /mac|macintosh|mac os x/i, "Apple MacOS X"],
-            [:windows, /windows/i, "Microsoft Windows"]
-          ])
-
-          @platforms.present? ? true : false
+          add(:platforms, definitions)
         end
 
-        # Registers the default list of languages that can be recognized.
+        # Adds a default list of languages that can be recognized.
         #
         # @return [Boolean] `true` if at least one language has been added, `false` otherwise.
-        def register_default_languages
-          @languages = nil
-
-          self.register_language({
+        def add_default_languages
+          definitions = {
             "af" => "Afrikaans",
             "sq" => "Albanian",
             "eu" => "Basque",
@@ -171,65 +185,22 @@ module Brauser
             "xh" => "Xshosa",
             "ji" => "Yiddish",
             "zu" => "Zulu"
-          })
+          }.collect { |code, name| ::Brauser::Definition.new(code, name, code) }
 
-          @languages.present? ? true : false
-        end
-
-        # Registers a new browser that can be recognized.
-        #
-        # @param name [Symbol|Array] The browser name or a list of browser (a list of array with `[name, name_match, version_match, label]` entries).
-        # @param name_match [String|Regexp|Block] The matcher for the name. If a block, it will be yield with the user agent and must return `true` if the name was recognized.
-        # @param version_match [String|Regexp|Block] The match for the version. If a block, it will be yield with the browser name and the user agent and must return the browser version.
-        # @param label [String] A human readable name of the browser.
-        # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
-        def register_browser(name, name_match = nil, version_match = nil, label = nil)
-          @browsers ||= []
-          register_entries(@browsers, (name.is_a?(Array) ? name : [[name.ensure_string, name_match, version_match, label]]))
-        end
-
-        # Registers a new platform that can be recognized.
-        #
-        # @param name [Symbol|Array] The platform name or a list of platforms (a list of array with `[name, matcher, label]` entries).
-        # @param matcher [StringRegexp|Block] The matcher for the platform. If a block, it will be yielded with the browser name and the user agent and must return `true` if the platform was recognized.
-        # @param label [String] A human readable name of the platform.
-        # @return [Boolean] `true` if at least one platform has been added, `false` otherwise.
-        def register_platform(name, matcher = nil, label = nil)
-          @platforms ||= []
-          register_entries(@platforms, (name.is_a?(Array) ? name : [[name.ensure_string, matcher, label]]))
-        end
-
-        # Registers a new language that can be recognized.
-        #
-        # @param code [String|Hash] The language code or an hash with codes as keys and label as values.
-        # @param label [String] The language name. Ignored if code is an Hash.
-        # @return [Boolean] `true` if at least one language has been added, `false` otherwise.
-        def register_language(code, label = nil)
-          @languages ||= {}
-          rv = false
-          code = {code.ensure_string => label.ensure_string} if !code.is_a?(Hash)
-
-          code.each_pair do |c, l|
-            if c.present? && l.present? then
-              @languages[c] = l
-              rv = true
-            end
-          end
-
-          rv
+          add(:languages, definitions)
         end
 
         private
           # Register the most common desktop browsers.
           # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
-          def register_desktop_browsers
-            self.register_browser([
-              [:chrome, /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i, "Google Chrome"],
-              [:netscape, /(netscape|navigator)\//i, /((Netscape|Navigator)\/)([a-z0-9.]+)/i, "Netscape Navigator"],
-              [:firefox, /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i, "Mozilla Firefox"],
-              [:safari, Proc.new{ |agent| agent =~ /safari/i && agent !~ /((chrome)|(chromium))/i }, /(.+Version\/)([a-z0-9.]+)/i, "Apple Safari"],
+          def add_desktop_browsers
+            definitions = [
+              [:chrome, "Google Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i],
+              [:netscape, "Netscape Navigator", /(netscape|navigator)\//i, /((Netscape|Navigator)\/)([a-z0-9.]+)/i],
+              [:firefox, "Mozilla Firefox", /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i],
+              [:safari, "Apple Safari", Proc.new{ |_, agent| agent =~ /safari/i && agent !~ /((chrome)|(chromium))/i }, /(.+Version\/)([a-z0-9.]+)/i],
 
-              [:msie_compatibility, /(msie 7\.0).+(trident)/i, Proc.new { |_, agent|
+              [:msie_compatibility, "Microsoft Internet Explorer (Compatibility View)", /(msie 7\.0).+(trident)/i, Proc.new { |_, agent|
                 version = /(.+Trident\/)([a-z0-9.]+)/i.match(agent)
 
                 if version.is_a?(::MatchData) then
@@ -239,68 +210,49 @@ module Brauser
                 end
 
                 version
-              }, "Microsoft Internet Explorer (Compatibility View)"],
-              [:msie, Proc.new{ |agent| agent =~ /msie/i && agent !~ /opera/i }, /(.+MSIE )([a-z0-9.]+)/i, "Microsoft Internet Explorer"],
+              }],
+              [:msie, "Microsoft Internet Explorer", Proc.new{ |_, agent| agent =~ /msie/i && agent !~ /opera/i }, /(.+MSIE )([a-z0-9.]+)/i],
 
-              [:quicktime, /quicktime/i, /(.+((QuickTime\/)|(qtver=)))([a-z0-9.]+)/i, "Apple QuickTime"],
+              [:quicktime, "Apple QuickTime", /quicktime/i, /(.+((QuickTime\/)|(qtver=)))([a-z0-9.]+)/i],
 
-              [:webkit, /webkit/i, /(.+WebKit\/)([a-z0-9.]+)/i, "WebKit Browser"],
-              [:gecko, /gecko/i, /(.+rv:|Gecko\/)([a-z0-9.]+)/i, "Gecko Browser"],
-            ])
+              [:webkit, "WebKit Browser", /webkit/i, /(.+WebKit\/)([a-z0-9.]+)/i],
+              [:gecko, "Gecko Browser", /gecko/i, /(.+rv:|Gecko\/)([a-z0-9.]+)/i],
+            ].collect { |browser| ::Brauser::Definition.new(browser[0], browser[1], browser[2], browser[3]) }
+
+            add(:browsers, definitions)
           end
 
           # Register the most common mobile and console browsers.
           # @return [Boolean] `true` if at least one browser has been added, `false` otherwise.
-          def register_mobile_browsers
-            self.register_browser([
-              [:coremedia, /coremedia/i, /.+CoreMedia v([a-z0-9.]+)/i, "Apple CoreMedia"],
+          def add_mobile_browsers
+            definitions = [
+              [:coremedia, "Apple CoreMedia", /coremedia/i, /.+CoreMedia v([a-z0-9.]+)/i],
 
-              [:opera_mobile, /opera mobi/i, /.+Opera Mobi.+((.+Opera )|(Version\/))([a-z0-9.]+)/i, "Opera Mobile"],
-              [:opera, /opera/i, Proc.new{ |_, agent|
+              [:opera_mobile, "Opera Mobile", /opera mobi/i, /.+Opera Mobi.+((.+Opera )|(Version\/))([a-z0-9.]+)/i],
+              [:opera, "Opera", /opera/i, Proc.new{ |_, agent|
                 regexp = (agent !~ /wii/i) ? /((.+Opera )|(Version\/))([a-z0-9.]+)/i : /(.+Nintendo Wii; U; ; )([a-z0-9.]+)/i
 
                 version = regexp.match(agent)
                 version = version.to_a.last if version.is_a?(MatchData)
                 version
-              }, "Opera"],
+              }],
 
-              [:android, /android/i, /(.+Android )([a-z0-9.]+)/i, "Android"],
-              [:blackberry, /blackberry/i, /(.+Version\/)([a-z0-9.]+)/i, "RIM BlackBerry"],
-              [:kindle, /(kindle)/i, /(.+(Kindle|Silk)\/)([a-z0-9.]+)/i, "Amazon Kindle"],
-              [:psp, /psp/i, /(.+PlayStation Portable\); )([a-z0-9.]+)/i, "Sony Playstation Portable"],
-              [:ps3, /playstation 3/i, /(.+PLAYSTATION 3; )([a-z0-9.]+)/i, "Sony Playstation 3"],
-              [:windows_phone, /windows phone/i, /(.+IEMobile\/)([a-z0-9.]+)/i, "Microsoft Windows Phone"],
-              [:wii, /nintendo wii/, /(.+Nintendo Wii; U; ; )([a-z0-9.]+)/i, "Nintendo Wii"],
+              [:android, "Android", /android/i, /(.+Android )([a-z0-9.]+)/i],
+              [:blackberry, "RIM BlackBerry", /blackberry/i, /(.+Version\/)([a-z0-9.]+)/i],
+              [:kindle, "Amazon Kindle", /(kindle)/i, /(.+(Kindle|Silk)\/)([a-z0-9.]+)/i],
+              [:psp, "Sony Playstation Portable", /psp/i, /(.+PlayStation Portable\); )([a-z0-9.]+)/i],
+              [:ps3, "Sony Playstation 3", /playstation 3/i, /(.+PLAYSTATION 3; )([a-z0-9.]+)/i],
+              [:windows_phone, "Microsoft Windows Phone", /windows phone/i, /(.+IEMobile\/)([a-z0-9.]+)/i],
+              [:wii, "Nintendo Wii", /nintendo wii/, /(.+Nintendo Wii; U; ; )([a-z0-9.]+)/i],
 
-              [:ipod, /ipod/i, /(.+Version\/)([a-z0-9.]+)/i, "Apple iPod"],
-              [:iphone, /iphone/i, /(.+Version\/)([a-z0-9.]+)/i, "Apple iPhone"],
-              [:ipad, /ipad/i, /(.+Version\/)([a-z0-9.]+)/i, "Apple iPad"],
+              [:ipod, "Apple iPod", /ipod/i, /(.+Version\/)([a-z0-9.]+)/i],
+              [:iphone, "Apple iPhone", /iphone/i, /(.+Version\/)([a-z0-9.]+)/i],
+              [:ipad, "Apple iPad", /ipad/i, /(.+Version\/)([a-z0-9.]+)/i],
 
-              [:mobile, /(mobile|symbian|midp|windows ce)/i, /.+\/([a-z0-9.]+)/i, "Other Mobile Browser"],
-            ])
-          end
+              [:mobile, "Other Mobile Browser", /(mobile|symbian|midp|windows ce)/i, /.+\/([a-z0-9.]+)/i],
+            ].collect { |browser| ::Brauser::Definition.new(browser[0], browser[1], browser[2], browser[3]) }
 
-          # Registers a new set of entries to a collection.
-          #
-          # @param collection [Array] The collection which add entries to.
-          # @param entries [Array] The entries to add.
-          def register_entries(collection, entries)
-            rv = false
-
-            entries.each do |entry|
-              entry[0] = entry[0].to_sym
-              index = collection.find_index { |item| item[0] == entry[0] }
-
-              # Replace a previous entry
-              if index then
-                collection[index] = entry
-              else
-                collection << entry
-                rv = true
-              end
-            end
-
-            rv
+            add(:browsers, definitions)
           end
       end
     end
@@ -317,7 +269,7 @@ module Brauser
         #
         # @return [Hash] The list of browser that can be recognized.
         def browsers
-          registered_to_hash(@browsers)
+          @definitions[:browsers]
         end
 
         # Returns the list of platforms that can be recognized.
@@ -326,7 +278,7 @@ module Brauser
         #
         # @return [Hash] The list of platform that can be recognized.
         def platforms
-          registered_to_hash(@platforms)
+          @definitions[:platforms]
         end
 
         # Returns the list of languages that can be recognized.
@@ -335,7 +287,7 @@ module Brauser
         #
         # @return [Hash] The list of languages that can be recognized.
         def languages
-          @languages
+          @definitions[:languages]
         end
 
         # Compares two versions.
@@ -348,7 +300,7 @@ module Brauser
           valid_results = {lt: [-1], lte: [-1, 0], eq: [0], gte: [0, 1], gt: [1]}.fetch(operator, [])
 
           if valid_results.present? && v1.ensure_string.present? then
-            p1, p2 = find_relevant_tokens(v1.ensure_string.strip, v2.ensure_string.strip)
+            p1, p2 = find_relevant_tokens(v1, v2)
             p1, p2 = normalize_tokens(p1, p2)
             valid_results.include?(p1 <=> p2)
           else
@@ -363,8 +315,8 @@ module Brauser
           # @param v2 [String] The second version to compare.
           # @return [Array] The tokens to compare.
           def find_relevant_tokens(v1, v2)
-            v1 = v1.split(".")
-            v2 = v2.split(".")
+            v1 = v1.ensure_string.strip.split(".")
+            v2 = v2.ensure_string.strip.split(".")
 
             p1 = nil
             p2 = nil
@@ -387,20 +339,13 @@ module Brauser
               ll = p1.length
               p1 = p2 + p1
               p2 = p2 + ("z" * ll)
+            else
+              ll = [p1.length, p2.length].max
+              p1 = p1.rjust(ll, "0")
+              p2 = p2.rjust(ll, "0")
             end
 
             [p1, p2]
-          end
-
-          # Converts a list of register entries to an ordered hash.
-          #
-          # @param entries [Array] The array to convert.
-          # @return [OrderedHash] An ordered hash.
-          def registered_to_hash(entries)
-            entries.inject(ActiveSupport::OrderedHash.new) do |rv, entry|
-              rv[entry[0]] = entry[1, entry.length]
-              rv
-            end
           end
       end
     end
@@ -411,16 +356,16 @@ module Brauser
       #
       # @return [String] A human-readable browser name.
       def readable_name
-        self.parse_agent(@agent) if !@name
-        ::Brauser::Browser.browsers.fetch(@name, ["Unknown Browser"]).last.ensure_string
+        parse_agent(@agent) if !@name
+        ::Brauser::Browser.browsers[@name].try(:label) || "Unknown Browser"
       end
 
       # Gets a human-readable platform name.
       #
       # @return [String] A readable platform name.
       def platform_name
-        self.parse_agent(@agent) if !@platform
-        ::Brauser::Browser.platforms.fetch(@platform, ["Unknown Platform"]).last.ensure_string
+        parse_agent(@agent) if !@platform
+        ::Brauser::Browser.platforms[@platform].try(:label) || "Unknown Platform"
       end
 
       # Returns an array of information about the browser. Information are strings which are suitable to use as CSS classes.
@@ -451,29 +396,31 @@ module Brauser
         #
         # @param name [Boolean] If non falsy, the string to prepend to the name. If falsy, the name information will not be included.
         # @param block [Proc] A block to translate browser name.
-        # @return [String|Array|nil] The browser name(s) or `nil`, if it was set to be skipped
+        # @return [String|Array|nil] The browser name(s) or `nil`, if it was set to be skipped.
         def stringify_name(name, &block)
-          if !name then
-            nil
-          else
+          if name then
             name = "" if name.is_a?(TrueClass)
             self.parse_agent(@agent) if !@name
             block ||= Proc.new {|n, *| n == :msie_compatibility ? [:msie_compatibility, :msie] : n }
 
             names = block.call(@name, @version, @platform).ensure_array.collect {|n| "#{name}#{n}" }
             names.length > 1 ? names : names.first
+          else
+            nil
           end
         end
 
         # Stringifies a browser version.
         #
         # @param version [String|NilClass] If non falsy, the string to prepend to the version. If falsy, the version information will not be included.
-        # @return [Array] The version strings or `nil`, if it was set to be skipped
+        # @return [Array] The version strings or `nil`, if it was set to be skipped.
         def stringify_version(version)
           version = "version-" if version.is_a?(TrueClass)
-          others = @version.split(".")
-          major = others.shift
-          !version ? nil : others.inject([version + major]) {|prev, current| prev + [prev.last + "_" + current] }.flatten
+          tokens = @version.split(".")
+
+          !version ? nil : tokens.inject([version + tokens.shift]) {|prev, current|
+            prev + [prev.last + "_" + current]
+          }.flatten
         end
     end
 
@@ -507,12 +454,12 @@ module Brauser
         # @return [String|Symbol] The browser name or `:unknown`, if no match was found.
         def match_name_and_version(agent)
           catch(:name) do
-            ::Brauser::Browser.browsers.each do |name, definitions|
-              matched = match_definition(definitions[0], agent)
+            ::Brauser::Browser.browsers.each do |tag, definition|
+              matched = definition.match(:primary, definition, agent)
 
               if matched then
-                @version = match_definition(definitions[1], name, agent)
-                throw(:name, name)
+                @version = definition.match(:secondary, definition, agent)
+                throw(:name, tag)
               end
             end
 
@@ -521,6 +468,9 @@ module Brauser
         end
 
         # Adjusts a browser version.
+        #
+        # @param version [String] The version to adjust.
+        # @return [String] The adjusted version.
         def adjust_version(version)
           # Adjust version
           if version.blank? then
@@ -538,26 +488,11 @@ module Brauser
         # @return [String|Symbol] The browser platform or `:unknown`, if no match was found.
         def match_platform(agent)
           catch(:platform) do
-            ::Brauser::Browser.platforms.each do |platform, definitions|
-              matched = match_definition(definitions[0], @name, agent)
-              throw(:platform, platform) if matched
+            ::Brauser::Browser.platforms.each do |tag, definition|
+              throw(:platform, tag) if definition.match(:primary, definition, agent)
             end
 
             :unknown
-          end
-        end
-
-        # Matches a subject against a definition
-        #
-        # @param subject [Array] The subject to match.
-        # @param definition [StringRegexp|Block] The definition. If a block, it will be yielded with the subject must return `true` if the subject was recognized.
-        def match_definition(definition, *subject)
-          if definition.is_a?(::Regexp) then
-            definition.match(subject.last)
-          elsif definition.respond_to?(:call) then
-            definition.call(*subject)
-          else
-            subject.last == definition.ensure_string ? subject.last : nil
           end
         end
     end
@@ -574,7 +509,7 @@ module Brauser
       # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
       # @return [Query] A query which can evaluated for concatenation or result.
       def is(names = [], versions = {}, platforms = [])
-        self.parse_agent(@agent) if !@name
+        parse_agent(@agent) if !@name
 
         names = adjust_names(names)
         versions = parse_versions_query(versions)
@@ -582,8 +517,8 @@ module Brauser
 
         ::Brauser::Query.new(self,
           (names.blank? || (names.include?(@name) && check_capable(names))) &&
-          (versions.blank? || self.v?(versions)) &&
-          (platforms.blank? || self.on?(platforms))
+          (versions.blank? || v?(versions)) &&
+          (platforms.blank? || on?(platforms))
         )
       end
 
@@ -592,15 +527,8 @@ module Brauser
       # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
       # @return [Query] A query which can evaluated for concatenation or result.
       def v(versions = {})
-        self.parse_agent(@agent) if !@version
-
-        versions = if versions.is_a?(String) then
-          parse_versions_query(versions)
-        elsif !versions.is_a?(::Hash) then
-          {}
-        else
-          versions
-        end
+        parse_agent(@agent) if !@version
+        versions = versions.is_a?(String) ? parse_versions_query(versions) : versions.ensure_hash
 
         ::Brauser::Query.new(self, versions.all? { |operator, value| Brauser::Browser.compare_versions(@version, operator, value) })
       end
@@ -610,8 +538,9 @@ module Brauser
       # @param platforms [Symbol|Array] A list of specific platform to match.
       # @return [Query] A query which can evaluated for concatenation or result.
       def on(platforms = [])
-        self.parse_agent(@agent) if !@platform
-        ::Brauser::Query.new(self, platforms.blank? || platforms.ensure_array.uniq.compact.collect {|p| p.ensure_string.to_sym }.include?(@platform))
+        parse_agent(@agent) if !@platform
+
+        ::Brauser::Query.new(self, platforms.blank? || platforms.ensure_array(nil, true, true, :to_sym).include?(@platform))
       end
 
       # Check if the browser accepts the specified languages.
@@ -619,8 +548,9 @@ module Brauser
       # @param langs [String|Array] A list of languages to match against.
       # @return [Query] A query which can evaluated for concatenation or result.
       def accepts(langs = [])
-        self.parse_accept_language(@accept_language) if !@languages
-        ::Brauser::Query.new(self, (@languages & langs.ensure_array.uniq.compact.collect {|l| l.to_s }).present?)
+        parse_accept_language(@accept_language) if !@languages
+
+        ::Brauser::Query.new(self, (@languages & langs.ensure_array(nil, true, true, :to_s)).present?)
       end
 
       private
@@ -630,7 +560,7 @@ module Brauser
         # @return [Array] The adjusted list of names.
         def adjust_names(names)
           # Adjust names
-          names = names.ensure_array.compact.collect {|n| n.ensure_string.to_sym }
+          names = names.ensure_array(nil, true, true, :to_sym)
           names << [:msie, :msie_compatibility] if names.include?(:ie) || names.include?(:msie)
           names << [:chromium] if names.include?(:chrome)
           names << [:chrome, :firefox, :safari, :opera, :msie] if names.include?(:capable)
@@ -680,7 +610,7 @@ module Brauser
       # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
       # @return [Boolean] `true` if current browser matches, `false` otherwise.
       def is?(names = [], versions = {}, platforms = [])
-        self.is(names, versions, platforms).result
+        is(names, versions, platforms).result
       end
 
       # Checks if the browser is a specific version.
@@ -688,7 +618,7 @@ module Brauser
       # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
       # @return [Boolean] `true` if current browser matches, `false` otherwise.
       def v?(versions = {})
-        self.v(versions).result
+        v(versions).result
       end
 
       # Check if the browser is on a specific platform.
@@ -696,7 +626,7 @@ module Brauser
       # @param platforms [Symbol|Array] A list of specific platform to match.
       # @return [Boolean] `true` if current browser matches, `false` otherwise.
       def on?(platforms = [])
-        self.on(platforms).result
+        on(platforms).result
       end
 
       # Check if the browser accepts the specified languages.
@@ -704,7 +634,7 @@ module Brauser
       # @param langs [String|Array] A list of languages to match against.
       # @return [Boolean] `true` if current browser matches, `false` otherwise.
       def accepts?(langs = [])
-        self.accepts(langs).result
+        accepts(langs).result
       end
     end
   end
@@ -747,15 +677,15 @@ module Brauser
     # @param agent [String] The User-Agent HTTP header.
     # @param accept_language [String] The Accept-Language HTTP header.
     def initialize(agent = "", accept_language = "")
-      ::Brauser::Browser.register_default_browsers
-      ::Brauser::Browser.register_default_platforms
-      ::Brauser::Browser.register_default_languages
+      ::Brauser::Browser.add_default_browsers
+      ::Brauser::Browser.add_default_platforms
+      ::Brauser::Browser.add_default_languages
 
       @agent = agent
       @accept_language = accept_language
 
-      @languages = self.parse_accept_language(@accept_language) if @accept_language
-      self.parse_agent(@agent) if @agent
+      @languages = parse_accept_language(@accept_language) if @accept_language
+      parse_agent(@agent) if @agent
     end
 
     # This method enables the use of dynamic queries in just one method.
@@ -763,7 +693,7 @@ module Brauser
     # For example:
     #
     # ```ruby
-    # browser.is_msie_gt_4_1__on_windows?
+    # browser.is_msie_gt_4_1_on_windows?
     # #=> true
     # ```
     #
@@ -771,15 +701,15 @@ module Brauser
     #
     # If the syntax is invalid, a `NoMethodError` exception will be raised.
     #
-    # @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
+    # @param query [String] The query to issue. Use `_` in place of `.` in the version.
     # @param arguments [Array] The arguments to pass the method. Unused from the query.
     # @param block [Proc] A block to pass to the method. Unused from the query.
     # @return [Boolean|Query|nil] A query or a boolean value (if `method` ends with `?`). If the query is not valid, `NoMethodError` will be raised.
     def method_missing(query, *arguments, &block)
       begin
-        parsed_query = parse_query(query.ensure_string)
-        rv = execute_query(parsed_query) || Brauser::Query.new(self, false)
-        query.ensure_string =~ /\?$/ ? rv.result : rv
+        query_s = query.ensure_string
+        rv = execute_query(parse_query(query_s)) || Brauser::Query.new(self, false)
+        query_s =~ /\?$/ ? rv.result : rv
       rescue NoMethodError
         super(query, *arguments, &block)
       end
@@ -796,10 +726,11 @@ module Brauser
 
     private
       # Parse query, getting all arguments.
+      #
       # @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
       # @return [Array] And array of `[method, arguments]` entries.
       def parse_query(query)
-        query.gsub(/\?$/, "").split("__").collect do |part|
+        query.gsub(/\?$/, "").gsub(/(_(v|on|is))/, " \\2").split(" ").collect do |part|
           parse_query_part(part)
         end
       end

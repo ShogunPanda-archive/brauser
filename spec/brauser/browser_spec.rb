@@ -17,232 +17,218 @@ describe Brauser::Browser do
     end
   end
 
-  let(:browser){Brauser::Browser.new}
+  let(:browser){::Brauser::Browser.new}
 
-  describe ".register_default_browsers" do
-    it "should call .register_browser many times" do
-      Brauser::Browser.should_receive(:register_browser).at_least(1)
-      Brauser::Browser.register_default_browsers
+  describe ".add" do
+    it "should return false and not add any value when the type is invalid" do
+      definitions = ::Brauser::Browser.instance_variable_get("@definitions")
+      
+      expect(::Brauser::Browser.add(:none, nil)).to be_false
+      expect(definitions).to be_nil
     end
 
-    it "should return a good return code" do
-      expect(Brauser::Browser.register_default_browsers).to be_true
+    it "add the definition to the right hash" do
+      ::Brauser::Browser.instance_variable_set("@definitions", nil)
+      definition = ::Brauser::Definition.new(:tag)
 
-      Brauser::Browser.stub(:register_browser).and_return(true)
-      expect(Brauser::Browser.register_default_browsers).to be_false
-    end
-  end
-
-  describe ".register_default_platforms" do
-    it "should call .register_platform many times" do
-      Brauser::Browser.should_receive(:register_platform).at_least(1)
-      Brauser::Browser.register_default_platforms
+      expect(::Brauser::Browser.add(:platforms, definition)).to be_true
+      definitions = ::Brauser::Browser.instance_variable_get("@definitions")
+      expect(definitions[:platforms][:tag]).to be(definition)
     end
 
-    it "should return a good return code" do
-      expect(Brauser::Browser.register_default_platforms).to be_true
-
-      Brauser::Browser.stub(:register_platform).and_return(true)
-      expect(Brauser::Browser.register_default_platforms).to be_false
+    it "support adding more definitions in one call" do
+      ::Brauser::Browser.instance_variable_set("@definitions", nil)
+      expect(::Brauser::Browser.add(:platforms, [::Brauser::Definition.new(:tag1), ::Brauser::Definition.new(:tag2)])).to be_true
+      definitions = ::Brauser::Browser.instance_variable_get("@definitions")
+      expect(definitions[:platforms].length).to eq(2)
     end
   end
 
-  describe ".register_default_languages" do
-    it "should call .register_language many times" do
-      Brauser::Browser.should_receive(:register_language).at_least(1)
-      Brauser::Browser.register_default_languages
+  describe ".add_default_browsers" do
+    it "should call .add many times" do
+      ::Brauser::Browser.should_receive(:add).with(:browsers, an_instance_of(Array)).exactly(2).and_call_original
+      ::Brauser::Browser.add_default_browsers
     end
 
     it "should return a good return code" do
-      expect(Brauser::Browser.register_default_languages).to be_true
+      expect(::Brauser::Browser.add_default_browsers).to be_true
 
-      Brauser::Browser.stub(:register_language).and_return(true)
-      expect(Brauser::Browser.register_default_languages).to be_false
+      ::Brauser::Browser.stub(:add).and_return(false)
+      expect(::Brauser::Browser.add_default_browsers).to be_false
+    end
+  end
+
+  describe ".add_default_platforms" do
+    it "should call .add" do
+      ::Brauser::Browser.should_receive(:add).with(:platforms, an_instance_of(Array))
+      ::Brauser::Browser.add_default_platforms
+    end
+
+    it "should return a good return code" do
+      expect(::Brauser::Browser.add_default_platforms).to be_true
+
+      ::Brauser::Browser.stub(:add).and_return(false)
+      expect(::Brauser::Browser.add_default_platforms).to be_false
+    end
+  end
+
+  describe ".add_default_languages" do
+    it "should call .add" do
+      ::Brauser::Browser.should_receive(:add).with(:languages, an_instance_of(Array))
+      ::Brauser::Browser.add_default_languages
+    end
+
+    it "should return a good return code" do
+      expect(::Brauser::Browser.add_default_languages).to be_true
+
+      ::Brauser::Browser.stub(:add).and_return(false)
+      expect(::Brauser::Browser.add_default_languages).to be_false
     end
   end
 
   describe ".browsers" do
     it "should return the list of browsers" do
-      Brauser::Browser.register_default_browsers
+      ::Brauser::Browser.add_default_browsers
 
-      expect(Brauser::Browser.browsers).to be_a(Hash)
-      expect(Brauser::Browser.browsers[:chrome]).to eq([/((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i, "Google Chrome"])
+      expect(::Brauser::Browser.browsers).to be_a(Hash)
+      expect(::Brauser::Browser.browsers[:chrome]).to be_a(::Brauser::Definition)
+      expect(::Brauser::Browser.browsers[:chrome].label).to eq("Google Chrome")
     end
   end
 
   describe ".platforms" do
     it "should return the list of platforms" do
-      Brauser::Browser.register_default_platforms
+      ::Brauser::Browser.add_default_platforms
 
-      expect(Brauser::Browser.platforms).to be_a(Hash)
-      expect(Brauser::Browser.platforms[:osx]).to eq([/mac|macintosh|mac os x/i, "Apple MacOS X"])
+      expect(::Brauser::Browser.platforms).to be_a(Hash)
+      expect(::Brauser::Browser.platforms[:osx]).to be_a(::Brauser::Definition)
+      expect(::Brauser::Browser.platforms[:osx].label).to eq("Apple MacOS X")
     end
-
   end
 
   describe ".languages" do
     it "should return the list of languages" do
-      Brauser::Browser.register_default_languages
+      ::Brauser::Browser.add_default_languages
 
-      expect(Brauser::Browser.languages).to be_a(Hash)
-      expect(Brauser::Browser.languages["it"]).to eq("Italian")
-    end
-  end
-
-  describe ".register_browser" do
-    before(:each) do
-      Brauser::Browser.instance_variable_set("@browsers", nil)
-    end
-
-    it "should initialize data" do
-      expect(Brauser::Browser.instance_variable_get("@browsers")).to be_nil
-      Brauser::Browser.register_browser([])
-      expect(Brauser::Browser.instance_variable_get("@browsers")).to be_a(Array)
-    end
-
-    it "should return good return values" do
-      expect(Brauser::Browser.register_browser([])).to be_false
-      expect(Brauser::Browser.register_browser("NAME", //i, //i, "LABEL")).to be_true
-    end
-
-    it "should work with a single entry" do
-      expect(Brauser::Browser.register_browser("NAME", //i, //i, "LABEL")).to be_true
-      expect(Brauser::Browser.instance_variable_get("@browsers")).to eq([[:NAME, //i, //i, "LABEL"]])
-    end
-
-    it "should work with multiple entries" do
-      expect(Brauser::Browser.register_browser([["NAME 1", //i, //i, "LABEL 1"], ["NAME 2", //i, //i, "LABEL 2"]])).to be_true
-      expect(Brauser::Browser.instance_variable_get("@browsers")).to eq([[:"NAME 1", //i, //i, "LABEL 1"], [:"NAME 2", //i, //i, "LABEL 2"]])
-    end
-
-    it "should update existing entries" do
-      Brauser::Browser.register_browser("NAME 1", //i, //i, "LABEL 1")
-      Brauser::Browser.register_browser("NAME 2", //i, //i, "LABEL 2")
-      Brauser::Browser.register_browser("NAME 3", //i, //i, "LABEL 3")
-
-      expect(Brauser::Browser.register_browser("NAME 2", //i, //i, "LABEL 4")).to be_false
-      expect(Brauser::Browser.instance_variable_get("@browsers").length).to eq(3)
-      expect(Brauser::Browser.instance_variable_get("@browsers")[1].last).to eq("LABEL 4")
-    end
-  end
-
-  describe ".register_platform" do
-    before(:each) do
-      Brauser::Browser.instance_variable_set("@platforms", nil)
-    end
-
-    it "should initialize data" do
-      expect(Brauser::Browser.instance_variable_get("@platforms")).to be_nil
-      Brauser::Browser.register_platform([])
-      expect(Brauser::Browser.instance_variable_get("@platforms")).to be_a(Array)
-    end
-
-    it "should return good return values" do
-      expect(Brauser::Browser.register_platform([])).to be_false
-      expect(Brauser::Browser.register_platform("NAME", //i, "LABEL")).to be_true
-    end
-
-    it "should work with a single entry" do
-      expect(Brauser::Browser.register_platform("NAME", //i, "LABEL")).to be_true
-      expect(Brauser::Browser.instance_variable_get("@platforms")).to eq([[:"NAME", //i, "LABEL"]])
-    end
-
-    it "should work with multiple entries" do
-      expect(Brauser::Browser.register_platform([["NAME 1", //i, "LABEL 1"], ["NAME 2", //i, "LABEL 2"]])).to be_true
-      expect(Brauser::Browser.instance_variable_get("@platforms")).to eq([[:"NAME 1", //i, "LABEL 1"], [:"NAME 2", //i, "LABEL 2"]])
-    end
-
-    it "should update existing entries" do
-      Brauser::Browser.register_platform("NAME 1", //i, "LABEL 1")
-      Brauser::Browser.register_platform("NAME 2", //i, "LABEL 2")
-      Brauser::Browser.register_platform("NAME 3", //i, "LABEL 3")
-
-      expect(Brauser::Browser.register_platform("NAME 2", //i, "LABEL 4")).to be_false
-      expect(Brauser::Browser.instance_variable_get("@platforms").length).to eq(3)
-      expect(Brauser::Browser.instance_variable_get("@platforms")[1].last).to eq("LABEL 4")
-    end
-  end
-
-  describe ".register_language" do
-    before(:each) do
-      Brauser::Browser.instance_variable_set("@languages", nil)
-    end
-
-    it "should initialize data" do
-      expect(Brauser::Browser.instance_variable_get("@languages")).to be_nil
-      Brauser::Browser.register_language([])
-      expect(Brauser::Browser.instance_variable_get("@languages")).to be_a(Hash)
-    end
-
-    it "should return good return values" do
-      expect(Brauser::Browser.register_language([])).to be_false
-      expect(Brauser::Browser.register_language("cc", "LABEL")).to be_true
-    end
-
-    it "should work with a single entry" do
-      expect(Brauser::Browser.register_language("cc", "LABEL")).to be_true
-      expect(Brauser::Browser.instance_variable_get("@languages")).to eq({"cc" => "LABEL"})
-    end
-
-    it "should work with multiple entries" do
-      expect(Brauser::Browser.register_language({"c1" => "LABEL 1", "c2" => "LABEL 2"})).to be_true
-      expect(Brauser::Browser.instance_variable_get("@languages")).to eq({"c1" => "LABEL 1", "c2" => "LABEL 2"})
-    end
-
-    it "should update existing entries" do
-      Brauser::Browser.register_language("c1", "LABEL 1")
-      Brauser::Browser.register_language("c2", "LABEL 2")
-      Brauser::Browser.register_language("c3", "LABEL 3")
-
-      expect(Brauser::Browser.register_language("c2", "LABEL 4")).to be_true
-      expect(Brauser::Browser.instance_variable_get("@languages").length).to eq(3)
-      expect(Brauser::Browser.instance_variable_get("@languages")["c2"]).to eq("LABEL 4")
+      expect(::Brauser::Browser.languages).to be_a(Hash)
+      expect(::Brauser::Browser.languages["it"]).to be_a(::Brauser::Definition)
+      expect(::Brauser::Browser.languages["it"].label).to eq("Italian")
     end
   end
 
   describe ".compare_versions" do
     it "should correctly compare versions" do
-      expect(Brauser::Browser.compare_versions(nil, :eq, nil)).to be_false
+      expect(::Brauser::Browser.compare_versions(nil, :eq, nil)).to be_false
 
-      expect(Brauser::Browser.compare_versions("3", :eq, nil)).to be_false
-      expect(Brauser::Browser.compare_versions("3", :eq, "7")).to be_false
-      expect(Brauser::Browser.compare_versions("7.1", :eq, "7")).to be_false
-      expect(Brauser::Browser.compare_versions("7.1.2", :eq, "7.1.2")).to be_true
+      expect(::Brauser::Browser.compare_versions("3", :eq, nil)).to be_false
+      expect(::Brauser::Browser.compare_versions("3", :eq, "7")).to be_false
+      expect(::Brauser::Browser.compare_versions("7.1", :eq, "7")).to be_false
+      expect(::Brauser::Browser.compare_versions("7.1.2", :eq, "7.1.2")).to be_true
 
-      expect(Brauser::Browser.compare_versions("3", :lt, "3")).to be_false
-      expect(Brauser::Browser.compare_versions("3", :lt, "3.4")).to be_true
-      expect(Brauser::Browser.compare_versions("3.4.5", :lt, "3.4.5")).to be_false
-      expect(Brauser::Browser.compare_versions("3.4.5", :lt, "3.2")).to be_false
-      expect(Brauser::Browser.compare_versions("3.4.5", :lt, "3.4.6")).to be_true
-      expect(Brauser::Browser.compare_versions("3.4.beta", :lt, "3.4")).to be_true
-      expect(Brauser::Browser.compare_versions("3.4.alpha", :lt, "3.4beta")).to be_true
+      expect(::Brauser::Browser.compare_versions("3", :lt, "3")).to be_false
+      expect(::Brauser::Browser.compare_versions("3", :lt, "3.4")).to be_true
+      expect(::Brauser::Browser.compare_versions("3.4.5", :lt, "3.4.5")).to be_false
+      expect(::Brauser::Browser.compare_versions("3.4.5", :lt, "3.2")).to be_false
+      expect(::Brauser::Browser.compare_versions("3.4.5", :lt, "3.4.6")).to be_true
+      expect(::Brauser::Browser.compare_versions("3.4.beta", :lt, "3.4")).to be_true
+      expect(::Brauser::Browser.compare_versions("3.4.alpha", :lt, "3.4beta")).to be_true
 
-      expect(Brauser::Browser.compare_versions("3", :lte, "3")).to be_true
-      expect(Brauser::Browser.compare_versions("3", :lte, "3.4")).to be_true
-      expect(Brauser::Browser.compare_versions("4", :lte, "3.4")).to be_false
-      expect(Brauser::Browser.compare_versions("4.1", :lte, "3.4")).to be_false
-      expect(Brauser::Browser.compare_versions("3.4.5", :lte, "3.4.5")).to be_true
-      expect(Brauser::Browser.compare_versions("3.4.5", :lte, "3.4.4")).to be_false
-      expect(Brauser::Browser.compare_versions("3.4.5", :lt, "3.2")).to be_false
-      expect(Brauser::Browser.compare_versions("3.4.beta", :lte, "3.4")).to be_true
+      expect(::Brauser::Browser.compare_versions("3", :lte, "3")).to be_true
+      expect(::Brauser::Browser.compare_versions("3", :lte, "3.4")).to be_true
+      expect(::Brauser::Browser.compare_versions("4", :lte, "3.4")).to be_false
+      expect(::Brauser::Browser.compare_versions("4.1", :lte, "3.4")).to be_false
+      expect(::Brauser::Browser.compare_versions("3.4.5", :lte, "3.4.5")).to be_true
+      expect(::Brauser::Browser.compare_versions("3.4.5", :lte, "3.4.4")).to be_false
+      expect(::Brauser::Browser.compare_versions("3.4.5", :lt, "3.2")).to be_false
+      expect(::Brauser::Browser.compare_versions("3.4.beta", :lte, "3.4")).to be_true
 
-      expect(Brauser::Browser.compare_versions("3", :gt, "3")).to be_false
-      expect(Brauser::Browser.compare_versions("3", :gt, "3.4")).to be_false
-      expect(Brauser::Browser.compare_versions("3.4.5", :gt, "3.4.3")).to be_true
-      expect(Brauser::Browser.compare_versions("3.4.5", :gt, "3.4.5")).to be_false
-      expect(Brauser::Browser.compare_versions("3.4.5", :gt, "3.4.6")).to be_false
-      expect(Brauser::Browser.compare_versions("3.5", :gt, "3")).to be_true
-      expect(Brauser::Browser.compare_versions("3.4.beta", :gt, "3.4")).to be_false
-      expect(Brauser::Browser.compare_versions("3.4.alpha", :gt, "3.4beta")).to be_false
+      expect(::Brauser::Browser.compare_versions("3", :gt, "3")).to be_false
+      expect(::Brauser::Browser.compare_versions("3", :gt, "3.4")).to be_false
+      expect(::Brauser::Browser.compare_versions("3.4.5", :gt, "3.4.3")).to be_true
+      expect(::Brauser::Browser.compare_versions("3.4.5", :gt, "3.4.5")).to be_false
+      expect(::Brauser::Browser.compare_versions("3.4.5", :gt, "3.4.6")).to be_false
+      expect(::Brauser::Browser.compare_versions("3.5", :gt, "3")).to be_true
+      expect(::Brauser::Browser.compare_versions("3.4.beta", :gt, "3.4")).to be_false
+      expect(::Brauser::Browser.compare_versions("3.4.alpha", :gt, "3.4beta")).to be_false
 
-      expect(Brauser::Browser.compare_versions("3", :gte, "3")).to be_true
-      expect(Brauser::Browser.compare_versions("3", :gte, "3.4")).to be_false
-      expect(Brauser::Browser.compare_versions("4", :gte, "3.4")).to be_true
-      expect(Brauser::Browser.compare_versions("4.1", :gte, "3.4")).to be_true
-      expect(Brauser::Browser.compare_versions("3.4.5", :gte, "3.4.5")).to be_true
-      expect(Brauser::Browser.compare_versions("3.4.5", :gte, "3.4.4")).to be_true
-      expect(Brauser::Browser.compare_versions("3.4.beta", :gte, "3.4")).to be_false
-      expect(Brauser::Browser.compare_versions("3.5", :gt, "3")).to be_true
+      expect(::Brauser::Browser.compare_versions("3", :gte, "3")).to be_true
+      expect(::Brauser::Browser.compare_versions("3", :gte, "3.4")).to be_false
+      expect(::Brauser::Browser.compare_versions("4", :gte, "3.4")).to be_true
+      expect(::Brauser::Browser.compare_versions("4.1", :gte, "3.4")).to be_true
+      expect(::Brauser::Browser.compare_versions("3.4.5", :gte, "3.4.5")).to be_true
+      expect(::Brauser::Browser.compare_versions("3.4.5", :gte, "3.4.4")).to be_true
+      expect(::Brauser::Browser.compare_versions("3.4.beta", :gte, "3.4")).to be_false
+      expect(::Brauser::Browser.compare_versions("3.5", :gt, "3")).to be_true
+    end
+  end
+
+  describe "#readable_name" do
+    before(:each) do
+      ::Brauser::Browser.add_default_browsers
+    end
+
+    it "should return the correct name" do
+      browser.name = :msie
+      expect(browser.readable_name).to eq("Microsoft Internet Explorer")
+
+      browser.name = :chrome
+      expect(browser.readable_name).to eq("Google Chrome")
+    end
+
+    it "should return a default name" do
+      browser.name = :none
+      expect(browser.readable_name).to eq("Unknown Browser")
+    end
+  end
+
+  describe "#platform_name" do
+    before(:each) do
+      ::Brauser::Browser.add_default_platforms
+    end
+
+    it "should return the correct name" do
+      browser.platform = :windows
+      expect(browser.platform_name).to eq("Microsoft Windows")
+
+      browser.platform = :ios
+      expect(browser.platform_name).to eq("Apple iOS")
+    end
+
+    it "should return a default name" do
+      browser.platform = :none
+      expect(browser.platform_name).to eq("Unknown Platform")
+    end
+  end
+
+  describe "#classes" do
+    before(:each) do
+      browser.name = :chrome
+      browser.version = "1.2.A.4"
+      browser.platform = :osx
+    end
+
+    it "should return requested classes" do
+      expect(browser.classes(false)).to eq(["chrome", "version-1", "version-1_2", "version-1_2_A", "version-1_2_A_4", "platform-osx"])
+      expect(browser.classes(false, "name-")).to eq(["name-chrome", "version-1", "version-1_2", "version-1_2_A", "version-1_2_A_4", "platform-osx"])
+      expect(browser.classes(false, true, "v-")).to eq(["chrome", "v-1", "v-1_2", "v-1_2_A", "v-1_2_A_4", "platform-osx"])
+      expect(browser.classes(false, true, true, "p-")).to eq(["chrome", "version-1", "version-1_2", "version-1_2_A", "version-1_2_A_4", "p-osx"])
+      expect(browser.classes(false, false)).to eq(["version-1", "version-1_2", "version-1_2_A", "version-1_2_A_4", "platform-osx"])
+      expect(browser.classes(false, true, false)).to eq(["chrome", "platform-osx"])
+      expect(browser.classes(false, true, true, false)).to eq(["chrome", "version-1", "version-1_2", "version-1_2_A", "version-1_2_A_4"])
+    end
+
+    it "should return as a string" do
+      expect(browser.classes).to eq("chrome version-1 version-1_2 version-1_2_A version-1_2_A_4 platform-osx")
+      expect(browser.classes("@")).to eq("chrome@version-1@version-1_2@version-1_2_A@version-1_2_A_4@platform-osx")
+    end
+
+    it "should handle msie compatibility" do
+      browser.name = :msie_compatibility
+      expect(browser.classes(false, true, false, false)).to eq(["msie_compatibility", "msie"])
+    end
+
+    it "should transform name" do
+      expect(browser.classes(" ", true, false, false) { |name, *| name.to_s.upcase }).to eq("CHROME")
     end
   end
 
@@ -368,9 +354,9 @@ describe Brauser::Browser do
       expect(recognize("Apple iPhone v1.1.1 CoreMedia v1.0.0.3A110a")).to eq([:coremedia, "1.0.0.3A110a", :ios])
       expect(recognize("Apple Mac OS X v10.6.6 CoreMedia v1.0.0.10J567")).to eq([:coremedia, "1.0.0.10J567", :osx])
 
-      # GENERICS
-      browser.class.register_browser(:generic, "NAME", "NAME", "NONE")
-      browser.class.register_platform(:generic, "NAME", "NONE")
+      # Generic
+      browser.class.add(:browsers, ::Brauser::Definition.new(:generic, "NAME", "NAME", "NAME"))
+      browser.class.add(:platforms, ::Brauser::Definition.new(:generic, "NAME", "NAME"))
       expect(recognize("NAME")).to eq([:generic, "NAME", :generic])
     end
   end
@@ -386,99 +372,59 @@ describe Brauser::Browser do
     end
   end
 
-  describe "#readable_name" do
-    before(:each) do
-      Brauser::Browser.register_default_browsers
-    end
-
-    it "should return the correct name" do
-      browser.instance_variable_set("@name", :msie)
-      expect(browser.readable_name).to eq("Microsoft Internet Explorer")
-
-      browser.instance_variable_set("@name", :chrome)
-      expect(browser.readable_name).to eq("Google Chrome")
-    end
-
-    it "should return a default name" do
-      browser.instance_variable_set("@name", :none)
-      expect(browser.readable_name).to eq("Unknown Browser")
-    end
-  end
-
-  describe "#platform_name" do
-    before(:each) do
-      Brauser::Browser.register_default_platforms
-    end
-
-    it "should return the correct name" do
-      browser.instance_variable_set("@platform", :windows)
-      expect(browser.platform_name).to eq("Microsoft Windows")
-
-      browser.instance_variable_set("@platform", :ios)
-      expect(browser.platform_name).to eq("Apple iOS")
-    end
-
-    it "should return a default name" do
-      browser.instance_variable_set("@platform", :none)
-      expect(browser.platform_name).to eq("Unknown Platform")
-    end
-  end
-
   describe "#is" do
     it "should at first call #parse_agent" do
-      browser.instance_variable_set("@name", nil)
+      browser.name = nil
       browser.should_receive(:parse_agent)
       browser.is
     end
 
     it "should recognized names" do
-      browser.instance_variable_set("@name", :chrome)
+      browser.name = :chrome
       expect(browser.is).to be_true_query
-      expect(browser.is(nil)).to be_true_query
       expect(browser.is(:chrome)).to be_true_query
       expect(browser.is(:capable)).to be_true_query
 
-      browser.instance_variable_set("@name", :ipad)
+      browser.name = :ipad
       expect(browser.is([:tablet, :blackberry])).to be_true_query
 
-      browser.instance_variable_set("@name", :msie)
-      browser.instance_variable_set("@version", "7.0")
+      browser.name = :msie
+      browser.version = "7.0"
       expect(browser.is(:capable)).to be_false_query
-      browser.instance_variable_set("@version", "9.0")
+      browser.version = "9.0"
       expect(browser.is(:capable)).to be_true_query
 
-      browser.should_receive(:v?).exactly(2).and_return(true)
-      browser.should_receive(:on?).and_return(false)
+      browser.should_receive(:v?).exactly(2).and_call_original
+      browser.should_receive(:on?).and_call_original
       expect(browser.is(:capable, {:gte => 8})).to be_true_query
-      browser.instance_variable_set("@platform", :windows)
-      expect(browser.is(:capable, {:gt => 10}, [:windows])).to be_false_query
+      browser.platform = :windows
+
+      expect(browser.is(:capable, {:gt => 7}, [:windows])).to be_true_query
     end
   end
 
   describe "#is?" do
     it "should call the query and then fetch the result" do
-      browser.instance_variable_set("@name", :msie)
+      browser.name = :msie
 
-      browser.should_receive("is").exactly(2).and_return(Brauser::Query.new(browser, true))
-      ::Brauser::Query.any_instance.should_receive(:result).exactly(2).and_return(true)
+      browser.should_receive("is").exactly(2).and_call_original
 
-      expect(browser.is?(:chrome)).to be_true
+      expect(browser.is?(:chrome)).to be_false
       expect(browser.is?(:msie)).to be_true
     end
   end
 
   describe "#v" do
     it "should at first call #parse_agent" do
-      browser.instance_variable_set("@version", nil)
+      browser.version = nil
       browser.should_receive(:parse_agent)
       browser.v
     end
 
     it "should compare browser versions" do
-      browser.instance_variable_set("@version", "3.4.5")
+      browser.version = "3.4.5"
 
       expect(browser.v).to be_true_query
-      expect(browser.v(nil)).to be_true_query
       expect(browser.v(:lt => 7)).to be_true_query
       expect(browser.v(:lte => 3)).to be_false_query
       expect(browser.v(:eq => 3)).to be_false_query
@@ -496,26 +442,21 @@ describe Brauser::Browser do
 
   describe "#v?" do
     it "should call the query and then fetch the result" do
-      browser.instance_variable_set("@version", "7.0")
-
-      browser.should_receive("v").exactly(2).and_return(Brauser::Query.new(browser, true))
-      ::Brauser::Query.any_instance.should_receive(:result).exactly(2).and_return(true)
-
-      expect(browser.v?(">= 8")).to be_true
+      browser.version = "7.0"
+      expect(browser.v?(">= 8")).to be_false
       expect(browser.v?(">= 7")).to be_true
     end
-
   end
 
   describe "#on" do
     it "should at first call #parse_agent" do
-      browser.instance_variable_set("@platform", nil)
+      browser.platform = nil
       browser.should_receive(:parse_agent)
       browser.on
     end
 
     it "should detect platforms" do
-      browser.instance_variable_set("@platform", :windows)
+      browser.platform = :windows
       expect(browser.on).to be_true_query
       expect(browser.on(:windows)).to be_true_query
       expect(browser.on([:osx, :linux])).to be_false_query
@@ -524,30 +465,29 @@ describe Brauser::Browser do
 
   describe "#on?" do
     it "should call the query and then fetch the result" do
-      browser.instance_variable_set("@platform", :windows)
+      browser.platform = :windows
 
-      browser.should_receive("on").exactly(2).and_return(Brauser::Query.new(browser, true))
-      ::Brauser::Query.any_instance.should_receive(:result).exactly(2).and_return(true)
+      browser.should_receive("on").exactly(2).and_call_original
 
-      expect(browser.on?(:osx)).to be_true
+      expect(browser.on?(:osx)).to be_false
       expect(browser.on?(:windows)).to be_true
     end
   end
 
   describe "#accepts" do
     it "should at first call #parse_accept_language" do
-      browser.instance_variable_set("@languages", nil)
+      browser.languages = nil
       browser.should_receive(:parse_accept_language)
       browser.accepts
     end
 
-    it "should detect platforms" do
-      browser.instance_variable_set("@languages", [])
+    it "should detect languages" do
+      browser.languages = []
       expect(browser.accepts).to be_false_query
       expect(browser.accepts("it")).to be_false_query
       expect(browser.accepts(["it", "en"])).to be_false_query
 
-      browser.instance_variable_set("@languages", ["it", "en"])
+      browser.languages = ["it", "en"]
       expect(browser.accepts(nil)).to be_false_query
       expect(browser.accepts([])).to be_false_query
       expect(browser.accepts("it")).to be_true_query
@@ -561,53 +501,76 @@ describe Brauser::Browser do
 
   describe "#accepts?" do
     it "should call the query and then fetch the result" do
-      browser.instance_variable_set("@language", ["it"])
+      browser.languages = ["it"]
 
-      browser.should_receive("accepts").exactly(2).and_return(Brauser::Query.new(browser, true))
-      ::Brauser::Query.any_instance.should_receive(:result).exactly(2).and_return(true)
+      browser.should_receive("accepts").exactly(2).and_call_original
 
       expect(browser.accepts?("it")).to be_true
-      expect(browser.accepts?("en")).to be_true
+      expect(browser.accepts?("en")).to be_false
+    end
+  end
+
+  describe "#initalize" do
+    it "initialized definitions" do
+      ::Brauser::Browser.should_receive(:add_default_browsers)
+      ::Brauser::Browser.should_receive(:add_default_platforms)
+      ::Brauser::Browser.should_receive(:add_default_languages)
+      ::Brauser::Browser.new
+    end
+
+    it "should initialize attributes and parse them" do
+      ::Brauser::Browser.any_instance.should_receive(:parse_agent).with("A")
+      ::Brauser::Browser.any_instance.should_receive(:parse_accept_language).with("B")
+
+      other = ::Brauser::Browser.new("A", "B")
+      expect(other.agent).to eq("A")
+      expect(other.accept_language).to eq("B")
     end
   end
 
   describe "accepts dynamic finders by" do
-    it "calling the right method" do
-      browser.should_receive(:is?).with("opera_mobile", {}, []).and_return(true)
-      browser.should_receive(:v?).with("< 3").and_return(true)
-      browser.should_receive(:on?).with("windows").and_return(true)
+    before(:each) do
+      browser.name = :opera_mobile
+      browser.version = "2.0.0"
+      browser.platform = :windows
+    end
 
-      expect(browser.is_opera_mobile__v_lt_3__on_windows?).to be_true
+    it "calling the right method" do
+      browser.should_receive(:is?).with("opera_mobile", {}, []).and_call_original
+      browser.should_receive(:v?).with("< 3").and_call_original
+      browser.should_receive(:on?).with("windows").and_call_original
+
+      expect(browser.is_opera_mobile_v_lt_3_on_windows?).to be_true
     end
 
     it "returning as query" do
-      expect(browser.is_opera_mobile__v_lt_3__on_windows).to be_a(Brauser::Query)
+      expect(browser.is_opera_mobile_v_lt_3_on_windows).to be_a(::Brauser::Query)
     end
 
     it "returning as boolean" do
-      expect(browser.is_opera_mobile__v_lt_3__on_windows?).to be_false
+      expect(browser.is_opera_mobile_v_gt_3_on_windows?).to be_false
     end
 
     it "correctly analyzing version" do
-      browser.should_receive(:is?).with("opera_mobile", {}, []).at_least(1).and_return(true)
+      browser.should_receive(:is?).with("opera_mobile", {}, []).at_least(1).and_call_original
 
-      browser.should_receive(:v?).with("<= 3").and_return(true)
-      expect(browser.is_opera_mobile__v_lte_3).to be_true
+      browser.should_receive(:v?).with("<= 3").and_call_original
+      expect(browser.is_opera_mobile_v_lte_3).to be_true
 
-      browser.should_receive(:v?).with("< 3 && >= 3").and_return(false)
-      expect(browser.is_opera_mobile__v_lt_3_and_gte_3?).to be_false
+      browser.should_receive(:v?).with("< 3 && >= 3").and_call_original
+      expect(browser.is_opera_mobile_v_lt_3_and_gte_3?).to be_false
 
-      browser.should_receive(:v?).with("&& >= 3").and_return(false)
-      expect(browser.is_opera_mobile__v_and_gte_3?).to be_false
+      browser.should_receive(:v?).with("&& >= 3").and_call_original
+      expect(browser.is_opera_mobile_v_and_gte_3?).to be_false
 
-      browser.should_receive(:v?).with("< 3 &&").and_return(false)
-      expect(browser.is_opera_mobile__v_lt_3_and?).to be_false
+      browser.should_receive(:v?).with("< 3 &&").and_call_original
+      expect(browser.is_opera_mobile_v_lt_3_and?).to be_true
 
       browser.should_receive(:v?).with("> 2").and_return(true)
-      expect(browser.is_opera_mobile__v_gt_2?).to be_true
+      expect(browser.is_opera_mobile_v_gt_2?).to be_true
 
-      browser.should_receive(:v?).with("== 3.4.5alpha.is.3").and_return(false)
-      expect(browser.is_opera_mobile__v_eq_3_4_5alpha_is_3?).to be_false
+      browser.should_receive(:v?).with("== 3.4.5alpha").and_return(false)
+      expect(browser.is_opera_mobile_v_eq_3_4_5alpha_is_3?).to be_false
     end
 
     it "immediately invalidate a query if one of the methods is invalid" do
@@ -615,46 +578,13 @@ describe Brauser::Browser do
       browser.should_not_receive(:v)
       browser.should_not_receive(:on)
 
-      expect{ browser.is_opera_mobile__vv_lt_3__on_windows? }.to raise_error(NoMethodError)
+      expect{ browser.is_opera_mobile_vv_lt_3_on_windows? }.to raise_error(NoMethodError)
     end
 
     it "raising an exception for invalid finder" do
-      expect{ browser._is__a? }.to raise_error(NoMethodError)
       expect{ browser.aa? }.to raise_error(NoMethodError)
-      expect{ browser.isa_opera_mobile__vv_lt_3__on_windows? }.to raise_error(NoMethodError)
-      expect{ browser.is_opera_mobile__vv_lt_3__on_windows? }.to raise_error(NoMethodError)
-    end
-  end
-
-  describe "#classes" do
-    before(:each) do
-      browser.instance_variable_set("@name", :chrome)
-      browser.instance_variable_set("@version", "1.2.A.4")
-      browser.instance_variable_set("@platform", :osx)
-    end
-
-    it "should return requested classes" do
-      expect(browser.classes(false)).to eq(["chrome", "version-1", "version-1_2", "version-1_2_A", "version-1_2_A_4", "platform-osx"])
-      expect(browser.classes(false, "name-")).to eq(["name-chrome", "version-1", "version-1_2", "version-1_2_A", "version-1_2_A_4", "platform-osx"])
-      expect(browser.classes(false, true, "v-")).to eq(["chrome", "v-1", "v-1_2", "v-1_2_A", "v-1_2_A_4", "platform-osx"])
-      expect(browser.classes(false, true, true, "p-")).to eq(["chrome", "version-1", "version-1_2", "version-1_2_A", "version-1_2_A_4", "p-osx"])
-      expect(browser.classes(false, false)).to eq(["version-1", "version-1_2", "version-1_2_A", "version-1_2_A_4", "platform-osx"])
-      expect(browser.classes(false, true, false)).to eq(["chrome", "platform-osx"])
-      expect(browser.classes(false, true, true, false)).to eq(["chrome", "version-1", "version-1_2", "version-1_2_A", "version-1_2_A_4"])
-    end
-
-    it "should return as a string" do
-      expect(browser.classes).to eq("chrome version-1 version-1_2 version-1_2_A version-1_2_A_4 platform-osx")
-      expect(browser.classes("@")).to eq("chrome@version-1@version-1_2@version-1_2_A@version-1_2_A_4@platform-osx")
-    end
-
-    it "should handle msie compatibility" do
-      browser.instance_variable_set("@name", :msie_compatibility)
-      expect(browser.classes(false, true, false, false)).to eq(["msie_compatibility", "msie"])
-    end
-
-    it "should transform name" do
-      expect(browser.classes(" ", true, false, false) { |name, *| name.to_s.upcase }).to eq("CHROME")
+      expect{ browser.isa_opera_mobile_vv_lt_3_on_windows? }.to raise_error(NoMethodError)
+      expect{ browser.is_opera_mobile_v_lt_3_ona_windows? }.to raise_error(NoMethodError)
     end
   end
 
