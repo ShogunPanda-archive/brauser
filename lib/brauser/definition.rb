@@ -13,9 +13,9 @@ module Brauser
   # @attribute label
   #   @return [String] A human readable label for this definition.
   # @attribute primary
-  #   @return [String|Symbol|Proc] The primary matcher of this definition.
+  #   @return [String|Symbol|Proc] The primary matcher of this definition. Used to match browser engine, platform name and language.
   # @attribute secondary
-  #   @return [String|Symbol|Proc] The secondary matcher of this definition.
+  #   @return [String|Symbol|Proc] The secondary matcher of this definition. Used to match browser version.
   class Definition
     attr_accessor :tag, :label, :primary, :secondary
 

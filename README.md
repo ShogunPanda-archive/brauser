@@ -151,47 +151,38 @@ browser.is_chrome_v_lt_2_and_gt_1_2_on_osx?
 
 ### Adding new browsers
 
-To add new browsers, simply call `register_browser`.
+To add new browsers, simply call `::Brauser::Browser.add(:browsers, ...)`.
 
-This methods accepts a single entry or an array of entries in the following format: `[name, name_match, version_match, label]`:
-
-* `name` is the name of the browser. Should be a `Symbol`.
-* `name_match` is a `Regexp` to match against the user agent to detect the current browser.
-* `version_match` is a `Regexp` which last capture group holds the version of the browser.
-* `label` is the human readable name of the browser.
+This methods accepts a single instance or an array of instances of the `::Brauser::Definition` class.
 
 For example, for Google Chrome the call should be:
 
 ```ruby
-browser.register_browser(:chrome, /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i, "Google Chrome")
+Brauser::Browsers.add(:browsers, ::Brauser::Definition.new(:chrome, "Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i))
 ```
 
 ### Adding new platforms
 
-To add new platforms, simply call `register_platform`.
+To add new platforms, simply call `::Brauser::Browser.add(:platforms, ...)`.
 
-This method accepts a single entry or an array of entries in the following format: `[name, matcher, label]`:
-
-* `name` is the name of the platform. Should be a `Symbol`.
-* `matcher` is a `Regexp` to match against the user agent to detect the current platform.
-* `label` is the human readable name of the platform.
+This methods accepts a single instance or an array of instances of the `::Brauser::Definition` class.
 
 For example, for Mac OS X the call should be:
 
 ```ruby
-browser.register_platform(:osx, /mac|macintosh|mac os x/i, "Apple MacOS X")
+Brauser::Browsers.add(:platforms, ::Brauser::Definition.new(:osx, /mac|macintosh|mac os x/i, "Apple MacOS X"))
 ```
 
 ### Adding new languages
 
-To add new languages, simply call `register_language`.
+To add new languages, simply call `::Brauser::Browser.add(:languages, ...)`.
 
-This method accepts a single pair of code and label or an hash where keys are language code and values are labels.
+This methods accepts a single instance or an array of instances of the `::Brauser::Definition` class.
 
 For example, for Italian the call should be:
 
 ```ruby
-browser.register_language("it", "Italian")
+Brauser::Browsers.add(:languages, ::Brauser::Definition.new(:it, "Italian"))
 ```
 
 ## Contributing to brauser
