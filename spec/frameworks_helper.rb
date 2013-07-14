@@ -13,10 +13,10 @@ if !defined?(Rails) then
   module ActionController
     class Base
       def request
-        OpenStruct.new(:headers => {})
+        OpenStruct.new(headers: {})
       end
 
-      def self.helper_method(method)
+      def self.helper_method(_)
 
       end
     end

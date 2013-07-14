@@ -396,10 +396,10 @@ describe Brauser::Browser do
 
       browser.should_receive(:v?).exactly(2).and_call_original
       browser.should_receive(:on?).and_call_original
-      expect(browser.is(:capable, {:gte => 8})).to be_true_query
+      expect(browser.is(:capable, {gte: 8})).to be_true_query
       browser.platform = :windows
 
-      expect(browser.is(:capable, {:gt => 7}, [:windows])).to be_true_query
+      expect(browser.is(:capable, {gt: 7}, [:windows])).to be_true_query
     end
   end
 
@@ -425,13 +425,13 @@ describe Brauser::Browser do
       browser.version = "3.4.5"
 
       expect(browser.v).to be_true_query
-      expect(browser.v(:lt => 7)).to be_true_query
-      expect(browser.v(:lte => 3)).to be_false_query
-      expect(browser.v(:eq => 3)).to be_false_query
-      expect(browser.v(:gte => 3)).to be_true_query
-      expect(browser.v(:gt => 4)).to be_false_query
-      expect(browser.v(:gt => 3.5)).to be_false_query
-      expect(browser.v(:foo => "3")).to be_false_query
+      expect(browser.v(lt: 7)).to be_true_query
+      expect(browser.v(lte: 3)).to be_false_query
+      expect(browser.v(eq: 3)).to be_false_query
+      expect(browser.v(gte: 3)).to be_true_query
+      expect(browser.v(gt: 4)).to be_false_query
+      expect(browser.v(gt: 3.5)).to be_false_query
+      expect(browser.v(foo: "3")).to be_false_query
       expect(browser.v(">= 3.5")).to be_false_query
       expect(browser.v("< 7 && > 3")).to be_true_query
       expect(browser.v("< 7 && > 3 && FOO NO")).to be_true_query

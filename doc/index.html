@@ -137,7 +137,7 @@ browser.is?(:chrome)
 # =&gt; true
 browser.is?([:msie, :firefox])
 # =&gt; false
-browser.is?(:chrome, {:lt =&gt; "2"}, :osx)
+browser.is?(:chrome, {lt: "2"}, :osx)
 # =&gt; true
 browser.is?(:chrome, "&gt;= 3", :windows)
 # =&gt; false
@@ -155,7 +155,7 @@ browser.is?(:chrome, "&gt;= 3", :windows)
 
 <p><code>ruby
 # Those two methods are equivalent.
-browser.v?({:lt =&gt; "2", :gt =&gt; 1})
+browser.v?({lt: "2", gt: 1})
 # =&gt; true
 browser.is?("&lt; 2 &amp;&amp; &gt; 1")
 # =&gt; true
@@ -189,10 +189,10 @@ browser.accepts?(["de", "es"])
 
 <p><code>ruby
 # These expressions are equivalent.
-browser.is?(:chrome, {:lt =&gt; "2"}, :osx)
-browser.is(:chrome, {:lt =&gt; "2"}, :osx).result
-browser.is(:chrome).v({:lt =&gt; "2"}).on?(:osx)
-browser.is(:chrome).v({:lt =&gt; "2"}).on(:osx).result
+browser.is?(:chrome, {lt: "2"}, :osx)
+browser.is(:chrome, {lt: "2"}, :osx).result
+browser.is(:chrome).v({lt: "2"}).on?(:osx)
+browser.is(:chrome).v({lt: "2"}).on(:osx).result
 </code></p>
 
 <p>Finally, Brauser support dynamic query operator to write simple queries without using concatenation.</p>
@@ -269,7 +269,7 @@ Brauser::Browsers.add(:languages, ::Brauser::Definition.new(:it, "Italian"))
 </div></div>
 
     <div id="footer">
-  Generated on Sun Jul 14 15:54:50 2013 by
+  Generated on Sun Jul 14 16:06:02 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
