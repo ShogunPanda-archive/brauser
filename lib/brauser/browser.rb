@@ -691,7 +691,7 @@ module Brauser
     # For example:
     #
     # ```ruby
-    # browser.is_msie_gt_4_1_on_windows?
+    # browser.is_msie_v_gt_4_1_on_windows?
     # #=> true
     # ```
     #
