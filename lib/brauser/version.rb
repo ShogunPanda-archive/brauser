@@ -13,10 +13,10 @@ module Brauser
     MAJOR = 3
 
     # The minor version.
-    MINOR = 1
+    MINOR = 2
 
     # The patch version.
-    PATCH = 8
+    PATCH = 0
 
     # The current version of brauser.
     STRING = [MAJOR, MINOR, PATCH].compact.join(".")

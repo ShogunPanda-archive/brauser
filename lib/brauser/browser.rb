@@ -401,7 +401,7 @@ module Brauser
             self.parse_agent(@agent) if !@name
             block ||= Proc.new {|n, *| n == :msie_compatibility ? [:msie_compatibility, :msie] : n }
 
-            names = block.call(@name, @version, @platform).ensure_array.collect {|n| "#{name}#{n}" }
+            names = block.call(@name, @version, @platform).ensure_array {|n| "#{name}#{n}" }
             names.length > 1 ? names : names.first
           else
             nil
@@ -538,7 +538,7 @@ module Brauser
       def on(platforms = [])
         parse_agent(@agent) if !@platform
 
-        ::Brauser::Query.new(self, platforms.blank? || platforms.ensure_array(nil, true, true, :to_sym).include?(@platform))
+        ::Brauser::Query.new(self, platforms.blank? || platforms.ensure_array(nil, true, true, true, :to_sym).include?(@platform))
       end
 
       # Check if the browser accepts the specified languages.
@@ -548,7 +548,7 @@ module Brauser
       def accepts(langs = [])
         parse_accept_language(@accept_language) if !@languages
 
-        ::Brauser::Query.new(self, (@languages & langs.ensure_array(nil, true, true, :to_s)).present?)
+        ::Brauser::Query.new(self, (@languages & langs.ensure_array(nil, true, true, true, :to_s)).present?)
       end
 
       private
@@ -558,7 +558,7 @@ module Brauser
         # @return [Array] The adjusted list of names.
         def adjust_names(names)
           # Adjust names
-          names = names.ensure_array(nil, true, true, :to_sym)
+          names = names.ensure_array(nil, true, true, true, :to_sym)
           names << [:msie, :msie_compatibility] if names.include?(:ie) || names.include?(:msie)
           names << [:chromium] if names.include?(:chrome)
           names << [:chrome, :firefox, :safari, :opera, :msie] if names.include?(:capable)
