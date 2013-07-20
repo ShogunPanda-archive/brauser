@@ -7,16 +7,6 @@
 require "spec_helper"
 
 describe Brauser::Browser do
-  class Brauser::Query
-    def true_query?
-      @result == true
-    end
-
-    def false_query?
-      @result == false
-    end
-  end
-
   let(:browser){::Brauser::Browser.new}
 
   describe ".add" do
@@ -381,25 +371,25 @@ describe Brauser::Browser do
 
     it "should recognized names" do
       browser.name = :chrome
-      expect(browser.is).to be_true_query
-      expect(browser.is(:chrome)).to be_true_query
-      expect(browser.is(:capable)).to be_true_query
+      expect(browser.is.result).to be_true
+      expect(browser.is(:chrome).result).to be_true
+      expect(browser.is(:capable).result).to be_true
 
       browser.name = :ipad
-      expect(browser.is([:tablet, :blackberry])).to be_true_query
+      expect(browser.is([:tablet, :blackberry]).result).to be_true
 
       browser.name = :msie
       browser.version = "7.0"
-      expect(browser.is(:capable)).to be_false_query
+      expect(browser.is(:capable).result).to be_false
       browser.version = "9.0"
-      expect(browser.is(:capable)).to be_true_query
+      expect(browser.is(:capable).result).to be_true
 
       expect(browser).to receive(:v?).exactly(2).and_call_original
       expect(browser).to receive(:on?).and_call_original
-      expect(browser.is(:capable, {gte: 8})).to be_true_query
+      expect(browser.is(:capable, {gte: 8}).result).to be_true
       browser.platform = :windows
 
-      expect(browser.is(:capable, {gt: 7}, [:windows])).to be_true_query
+      expect(browser.is(:capable, {gt: 7}, [:windows]).result).to be_true
     end
   end
 
@@ -424,19 +414,19 @@ describe Brauser::Browser do
     it "should compare browser versions" do
       browser.version = "3.4.5"
 
-      expect(browser.v).to be_true_query
-      expect(browser.v(lt: 7)).to be_true_query
-      expect(browser.v(lte: 3)).to be_false_query
-      expect(browser.v(eq: 3)).to be_false_query
-      expect(browser.v(gte: 3)).to be_true_query
-      expect(browser.v(gt: 4)).to be_false_query
-      expect(browser.v(gt: 3.5)).to be_false_query
-      expect(browser.v(foo: "3")).to be_false_query
-      expect(browser.v(">= 3.5")).to be_false_query
-      expect(browser.v("< 7 && > 3")).to be_true_query
-      expect(browser.v("< 7 && > 3 && FOO NO")).to be_true_query
-      expect(browser.v("<= 7 && >= 3 && FOO NO")).to be_true_query
-      expect(browser.v("= 7 && == 3 && FOO NO")).to be_false_query
+      expect(browser.v.result).to be_true
+      expect(browser.v(lt: 7).result).to be_true
+      expect(browser.v(lte: 3).result).to be_false
+      expect(browser.v(eq: 3).result).to be_false
+      expect(browser.v(gte: 3).result).to be_true
+      expect(browser.v(gt: 4).result).to be_false
+      expect(browser.v(gt: 3.5).result).to be_false
+      expect(browser.v(foo: "3").result).to be_false
+      expect(browser.v(">= 3.5").result).to be_false
+      expect(browser.v("< 7 && > 3").result).to be_true
+      expect(browser.v("< 7 && > 3 && FOO NO").result).to be_true
+      expect(browser.v("<= 7 && >= 3 && FOO NO").result).to be_true
+      expect(browser.v("= 7 && == 3 && FOO NO").result).to be_false
     end
   end
 
@@ -457,9 +447,9 @@ describe Brauser::Browser do
 
     it "should detect platforms" do
       browser.platform = :windows
-      expect(browser.on).to be_true_query
-      expect(browser.on(:windows)).to be_true_query
-      expect(browser.on([:osx, :linux])).to be_false_query
+      expect(browser.on.result).to be_true
+      expect(browser.on(:windows).result).to be_true
+      expect(browser.on([:osx, :linux]).result).to be_false
     end
   end
 
@@ -483,19 +473,19 @@ describe Brauser::Browser do
 
     it "should detect languages" do
       browser.languages = []
-      expect(browser.accepts).to be_false_query
-      expect(browser.accepts("it")).to be_false_query
-      expect(browser.accepts(["it", "en"])).to be_false_query
+      expect(browser.accepts.result).to be_false
+      expect(browser.accepts("it").result).to be_false
+      expect(browser.accepts(["it", "en"]).result).to be_false
 
       browser.languages = ["it", "en"]
-      expect(browser.accepts(nil)).to be_false_query
-      expect(browser.accepts([])).to be_false_query
-      expect(browser.accepts("it")).to be_true_query
-      expect(browser.accepts(["it", "en"])).to be_true_query
-      expect(browser.accepts(["it", "es"])).to be_true_query
-      expect(browser.accepts(["es", "en"])).to be_true_query
-      expect(browser.accepts("es")).to be_false_query
-      expect(browser.accepts(["es", "de"])).to be_false_query
+      expect(browser.accepts(nil).result).to be_false
+      expect(browser.accepts([]).result).to be_false
+      expect(browser.accepts("it").result).to be_true
+      expect(browser.accepts(["it", "en"]).result).to be_true
+      expect(browser.accepts(["it", "es"]).result).to be_true
+      expect(browser.accepts(["es", "en"]).result).to be_true
+      expect(browser.accepts("es").result).to be_false
+      expect(browser.accepts(["es", "de"]).result).to be_false
     end
   end
 

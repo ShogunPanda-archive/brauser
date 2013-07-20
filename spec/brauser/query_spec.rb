@@ -7,16 +7,6 @@
 require "spec_helper"
 
 describe Brauser::Query do
-  class Brauser::Query
-    def true_query?
-      @result == true
-    end
-
-    def false_query?
-      @result == false
-    end
-  end
-
   let(:browser){ ::Brauser::Browser.new("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.82 Safari/537.1", "it;q=0.7, en;q=0.3") }
   let(:query) { ::Brauser::Query.new(browser, true) }
 
