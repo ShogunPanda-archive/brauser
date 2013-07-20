@@ -46,42 +46,42 @@ describe Brauser::Browser do
 
   describe ".add_default_browsers" do
     it "should call .add many times" do
-      ::Brauser::Browser.should_receive(:add).with(:browsers, an_instance_of(Array)).exactly(4).and_call_original
+      expect(::Brauser::Browser).to receive(:add).with(:browsers, an_instance_of(Array)).exactly(4).and_call_original
       ::Brauser::Browser.add_default_browsers
     end
 
     it "should return a good return code" do
       expect(::Brauser::Browser.add_default_browsers).to be_true
 
-      ::Brauser::Browser.stub(:add).and_return(false)
+      allow(::Brauser::Browser).to receive(:add).and_return(false)
       expect(::Brauser::Browser.add_default_browsers).to be_false
     end
   end
 
   describe ".add_default_platforms" do
     it "should call .add" do
-      ::Brauser::Browser.should_receive(:add).with(:platforms, an_instance_of(Array))
+      expect(::Brauser::Browser).to receive(:add).with(:platforms, an_instance_of(Array))
       ::Brauser::Browser.add_default_platforms
     end
 
     it "should return a good return code" do
       expect(::Brauser::Browser.add_default_platforms).to be_true
 
-      ::Brauser::Browser.stub(:add).and_return(false)
+      allow(::Brauser::Browser).to receive(:add).and_return(false)
       expect(::Brauser::Browser.add_default_platforms).to be_false
     end
   end
 
   describe ".add_default_languages" do
     it "should call .add" do
-      ::Brauser::Browser.should_receive(:add).with(:languages, an_instance_of(Array))
+      expect(::Brauser::Browser).to receive(:add).with(:languages, an_instance_of(Array))
       ::Brauser::Browser.add_default_languages
     end
 
     it "should return a good return code" do
       expect(::Brauser::Browser.add_default_languages).to be_true
 
-      ::Brauser::Browser.stub(:add).and_return(false)
+      allow(::Brauser::Browser).to receive(:add).and_return(false)
       expect(::Brauser::Browser.add_default_languages).to be_false
     end
   end
@@ -375,7 +375,7 @@ describe Brauser::Browser do
   describe "#is" do
     it "should at first call #parse_agent" do
       browser.name = nil
-      browser.should_receive(:parse_agent)
+      expect(browser).to receive(:parse_agent)
       browser.is
     end
 
@@ -394,8 +394,8 @@ describe Brauser::Browser do
       browser.version = "9.0"
       expect(browser.is(:capable)).to be_true_query
 
-      browser.should_receive(:v?).exactly(2).and_call_original
-      browser.should_receive(:on?).and_call_original
+      expect(browser).to receive(:v?).exactly(2).and_call_original
+      expect(browser).to receive(:on?).and_call_original
       expect(browser.is(:capable, {gte: 8})).to be_true_query
       browser.platform = :windows
 
@@ -407,7 +407,7 @@ describe Brauser::Browser do
     it "should call the query and then fetch the result" do
       browser.name = :msie
 
-      browser.should_receive("is").exactly(2).and_call_original
+      expect(browser).to receive("is").exactly(2).and_call_original
 
       expect(browser.is?(:chrome)).to be_false
       expect(browser.is?(:msie)).to be_true
@@ -417,7 +417,7 @@ describe Brauser::Browser do
   describe "#v" do
     it "should at first call #parse_agent" do
       browser.version = nil
-      browser.should_receive(:parse_agent)
+      expect(browser).to receive(:parse_agent)
       browser.v
     end
 
@@ -451,7 +451,7 @@ describe Brauser::Browser do
   describe "#on" do
     it "should at first call #parse_agent" do
       browser.platform = nil
-      browser.should_receive(:parse_agent)
+      expect(browser).to receive(:parse_agent)
       browser.on
     end
 
@@ -467,7 +467,7 @@ describe Brauser::Browser do
     it "should call the query and then fetch the result" do
       browser.platform = :windows
 
-      browser.should_receive("on").exactly(2).and_call_original
+      expect(browser).to receive("on").exactly(2).and_call_original
 
       expect(browser.on?(:osx)).to be_false
       expect(browser.on?(:windows)).to be_true
@@ -477,7 +477,7 @@ describe Brauser::Browser do
   describe "#accepts" do
     it "should at first call #parse_accept_language" do
       browser.languages = nil
-      browser.should_receive(:parse_accept_language)
+      expect(browser).to receive(:parse_accept_language)
       browser.accepts
     end
 
@@ -503,7 +503,7 @@ describe Brauser::Browser do
     it "should call the query and then fetch the result" do
       browser.languages = ["it"]
 
-      browser.should_receive("accepts").exactly(2).and_call_original
+      expect(browser).to receive("accepts").exactly(2).and_call_original
 
       expect(browser.accepts?("it")).to be_true
       expect(browser.accepts?("en")).to be_false
@@ -512,15 +512,15 @@ describe Brauser::Browser do
 
   describe "#initalize" do
     it "initialized definitions" do
-      ::Brauser::Browser.should_receive(:add_default_browsers)
-      ::Brauser::Browser.should_receive(:add_default_platforms)
-      ::Brauser::Browser.should_receive(:add_default_languages)
+      expect(::Brauser::Browser).to receive(:add_default_browsers)
+      expect(::Brauser::Browser).to receive(:add_default_platforms)
+      expect(::Brauser::Browser).to receive(:add_default_languages)
       ::Brauser::Browser.new
     end
 
     it "should initialize attributes and parse them" do
-      ::Brauser::Browser.any_instance.should_receive(:parse_agent).with("A")
-      ::Brauser::Browser.any_instance.should_receive(:parse_accept_language).with("B")
+      expect_any_instance_of(::Brauser::Browser).to receive(:parse_agent).with("A")
+      expect_any_instance_of(::Brauser::Browser).to receive(:parse_accept_language).with("B")
 
       other = ::Brauser::Browser.new("A", "B")
       expect(other.agent).to eq("A")
@@ -536,9 +536,9 @@ describe Brauser::Browser do
     end
 
     it "calling the right method" do
-      browser.should_receive(:is?).with("opera_mobile", {}, []).and_call_original
-      browser.should_receive(:v?).with("< 3").and_call_original
-      browser.should_receive(:on?).with("windows").and_call_original
+      expect(browser).to receive(:is?).with("opera_mobile", {}, []).and_call_original
+      expect(browser).to receive(:v?).with("< 3").and_call_original
+      expect(browser).to receive(:on?).with("windows").and_call_original
 
       expect(browser.is_opera_mobile_v_lt_3_on_windows?).to be_true
     end
@@ -552,31 +552,31 @@ describe Brauser::Browser do
     end
 
     it "correctly analyzing version" do
-      browser.should_receive(:is?).with("opera_mobile", {}, []).at_least(1).and_call_original
+      expect(browser).to receive(:is?).with("opera_mobile", {}, []).at_least(1).and_call_original
 
-      browser.should_receive(:v?).with("<= 3").and_call_original
+      expect(browser).to receive(:v?).with("<= 3").and_call_original
       expect(browser.is_opera_mobile_v_lte_3).to be_true
 
-      browser.should_receive(:v?).with("< 3 && >= 3").and_call_original
+      expect(browser).to receive(:v?).with("< 3 && >= 3").and_call_original
       expect(browser.is_opera_mobile_v_lt_3_and_gte_3?).to be_false
 
-      browser.should_receive(:v?).with("&& >= 3").and_call_original
+      expect(browser).to receive(:v?).with("&& >= 3").and_call_original
       expect(browser.is_opera_mobile_v_and_gte_3?).to be_false
 
-      browser.should_receive(:v?).with("< 3 &&").and_call_original
+      expect(browser).to receive(:v?).with("< 3 &&").and_call_original
       expect(browser.is_opera_mobile_v_lt_3_and?).to be_true
 
-      browser.should_receive(:v?).with("> 2").and_return(true)
+      expect(browser).to receive(:v?).with("> 2").and_return(true)
       expect(browser.is_opera_mobile_v_gt_2?).to be_true
 
-      browser.should_receive(:v?).with("== 3.4.5alpha").and_return(false)
+      expect(browser).to receive(:v?).with("== 3.4.5alpha").and_return(false)
       expect(browser.is_opera_mobile_v_eq_3_4_5alpha_is_3?).to be_false
     end
 
     it "immediately invalidate a query if one of the methods is invalid" do
-      browser.should_not_receive(:is)
-      browser.should_not_receive(:v)
-      browser.should_not_receive(:on)
+      expect(browser).not_to receive(:is)
+      expect(browser).not_to receive(:v)
+      expect(browser).not_to receive(:on)
 
       expect{ browser.is_opera_mobile_vv_lt_3_on_windows? }.to raise_error(NoMethodError)
     end
@@ -590,7 +590,7 @@ describe Brauser::Browser do
 
   describe "#to_s" do
     it "should forward to #classes" do
-      browser.should_receive(:classes)
+      expect(browser).to receive(:classes)
       browser.to_s
     end
   end
