@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.6.2
+    &mdash; Documentation by YARD 0.8.7
   
 </title>
 
@@ -89,7 +89,7 @@ gem "brauser"
 
 <p>Once done that, every controller in your application will have a <code>browser</code> method (also extended to views/layout via <code>helper_method</code>).</p>
 
-<p>If you don&#8217;t use Rails, you can instantiate a new browser by including the gem in your code and by doing something like this:</p>
+<p>If you don’t use Rails, you can instantiate a new browser by including the gem in your code and by doing something like this:</p>
 
 <p><code>ruby
 browser = Brauser::Browser.new(USER_AGENT_HEADER, ACCEPT_LANGUAGE_HEADER)
@@ -97,7 +97,7 @@ browser = Brauser::Browser.new(USER_AGENT_HEADER, ACCEPT_LANGUAGE_HEADER)
 
 <p>where the first argument is the HTTP header <code>User-Agent</code>, and the second is the HTTP header <code>Accept-Language</code>.</p>
 
-<p>For the rest of this document, let&#8217;s assume you use Chrome 1.2.3 on Mac OS X.</p>
+<p>For the rest of this document, let’s assume you use Chrome 1.2.3 on Mac OS X.</p>
 
 <h3 id="getting-browser-information">Getting browser information</h3>
 
@@ -179,11 +179,11 @@ browser.accepts?(["de", "es"])
 # =&gt; false
 </code></p>
 
-<p>Every query method exists in two forms: the concatenation one (the method name doesn&#8217;t end with a <code>?</code>.</p>
+<p>Every query method exists in two forms: the concatenation one (the method name doesn’t end with a <code>?</code>.</p>
 
 <p>The former return a <code>Query</code> object, which supports the same query method of the browser and thus enables concatenation.</p>
 
-<p>The latter return a boolean object, and it&#8217;s equivalent to calling <code>result</code> on the query after concatenation.</p>
+<p>The latter return a boolean object, and it’s equivalent to calling <code>result</code> on the query after concatenation.</p>
 
 <p>Ideally, you should use the <code>?</code> version to end the query and fetch the result.</p>
 
@@ -205,11 +205,11 @@ browser.is(:chrome).v({lt: "2"}).on(:osx).result
 
 <p>```ruby
 # These expressions are equivalent.
-browser.is(:chrome).v(&#8220;&lt; 2 &amp;&amp; &gt; 1.2&#8221;).on(:osx).result
+browser.is(:chrome).v(“&lt; 2 &amp;&amp; &gt; 1.2”).on(:osx).result
 browser.is_chrome_v_lt_2_and_gt_1_2_on_osx.result</p>
 
 <h1 id="these-expressions-are-equivalent">These expressions are equivalent.</h1>
-<p>browser.is(:chrome).v(&#8220;&lt; 2 &amp;&amp; &gt; 1.2&#8221;).on?(:osx)
+<p>browser.is(:chrome).v(“&lt; 2 &amp;&amp; &gt; 1.2”).on?(:osx)
 browser.is_chrome_v_lt_2_and_gt_1_2_on_osx?
 ```</p>
 
@@ -252,12 +252,12 @@ Brauser::Browsers.add(:languages, ::Brauser::Definition.new(:it, "Italian"))
 <h2 id="contributing-to-brauser">Contributing to brauser</h2>
 
 <ul>
-  <li>Check out the latest master to make sure the feature hasn&#8217;t been implemented or the bug hasn&#8217;t been fixed yet.</li>
-  <li>Check out the issue tracker to make sure someone already hasn&#8217;t requested it and/or contributed it.</li>
+  <li>Check out the latest master to make sure the feature hasn’t been implemented or the bug hasn’t been fixed yet.</li>
+  <li>Check out the issue tracker to make sure someone already hasn’t requested it and/or contributed it.</li>
   <li>Fork the project.</li>
   <li>Start a feature/bugfix branch.</li>
   <li>Commit and push until you are happy with your contribution.</li>
-  <li>Make sure to add tests for it. This is important so I don&#8217;t break it in a future version unintentionally.</li>
+  <li>Make sure to add tests for it. This is important so I don’t break it in a future version unintentionally.</li>
   <li>Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.</li>
 </ul>
 
@@ -269,9 +269,9 @@ Brauser::Browsers.add(:languages, ::Brauser::Definition.new(:it, "Italian"))
 </div></div>
 
     <div id="footer">
-  Generated on Sat Jul 20 13:28:02 2013 by
+  Generated on Sat Aug 17 12:40:12 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.6.2 (ruby-1.9.3).
+  0.8.7 (ruby-2.0.0).
 </div>
 
   </body>
