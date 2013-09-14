@@ -5,6 +5,7 @@
 [![Build Status](https://secure.travis-ci.org/ShogunPanda/brauser.png?branch=master)](http://travis-ci.org/ShogunPanda/brauser)
 [![Code Climate](https://codeclimate.com/github/ShogunPanda/brauser.png)](https://codeclimate.com/github/ShogunPanda/brauser)
 [![Coverage Status](https://coveralls.io/repos/ShogunPanda/brauser/badge.png)](https://coveralls.io/r/ShogunPanda/brauser)
+[![Bitdeli Trend](https://d2weczhvl823v0.cloudfront.net/ShogunPanda/brauser/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 A framework agnostic browser detection and querying helper.
 
