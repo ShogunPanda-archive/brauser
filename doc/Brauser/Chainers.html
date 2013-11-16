@@ -6,7 +6,7 @@
 <title>
   Module: Brauser::Chainers
   
-    &mdash; Documentation by YARD 0.8.7
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -277,13 +277,13 @@
       <pre class="lines">
 
 
-47
 48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_accepts'>accepts</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>=</span> <span class='id identifier rubyid_accepts?'>accepts?</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span><span class='rparen'>)</span>
@@ -480,13 +480,13 @@
       <pre class="lines">
 
 
-38
 39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>=</span> <span class='id identifier rubyid_on?'>on?</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span><span class='rparen'>)</span>
@@ -529,7 +529,8 @@
       
       
         &mdash;
-        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against, in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
+        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against,
+in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
 </div>
       
     </li>
@@ -560,13 +561,13 @@
       <pre class="lines">
 
 
-29
 30
 31
-32</pre>
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_v'>v</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>=</span> <span class='id identifier rubyid_v?'>v?</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span><span class='rparen'>)</span>
@@ -582,9 +583,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Aug 18 16:30:30 2013 by
+  Generated on Sat Nov 16 10:49:21 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7 (ruby-2.0.0).
+  0.8.7.3 (ruby-2.0.0).
 </div>
 
   </body>

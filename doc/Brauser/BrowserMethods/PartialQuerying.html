@@ -6,7 +6,7 @@
 <title>
   Module: Brauser::BrowserMethods::PartialQuerying
   
-    &mdash; Documentation by YARD 0.8.7
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -277,14 +277,14 @@
       <pre class="lines">
 
 
-548
-549
-550
-551
-552</pre>
+567
+568
+569
+570
+571</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 548</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 567</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_accepts'>accepts</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_parse_accept_language'>parse_accept_language</span><span class='lparen'>(</span><span class='ivar'>@accept_language</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@languages</span>
@@ -345,7 +345,8 @@
       
       
         &mdash;
-        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against, in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
+        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against,
+in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
 </div>
       
     </li>
@@ -402,22 +403,22 @@
       <pre class="lines">
 
 
-509
-510
-511
-512
-513
-514
-515
-516
-517
-518
-519
-520
-521</pre>
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 509</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 527</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is'>is</span><span class='lparen'>(</span><span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_versions'>versions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_platforms'>platforms</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@name</span>
@@ -500,14 +501,14 @@
       <pre class="lines">
 
 
-538
-539
-540
-541
-542</pre>
+557
+558
+559
+560
+561</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 538</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 557</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@platform</span>
@@ -551,7 +552,8 @@
       
       
         &mdash;
-        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against, in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
+        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against,
+in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
 </div>
       
     </li>
@@ -582,15 +584,15 @@
       <pre class="lines">
 
 
-527
-528
-529
-530
-531
-532</pre>
+546
+547
+548
+549
+550
+551</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 527</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 546</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_v'>v</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_parse_agent'>parse_agent</span><span class='lparen'>(</span><span class='ivar'>@agent</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@version</span>
@@ -608,9 +610,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Aug 18 16:30:30 2013 by
+  Generated on Sat Nov 16 10:49:21 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7 (ruby-2.0.0).
+  0.8.7.3 (ruby-2.0.0).
 </div>
 
   </body>

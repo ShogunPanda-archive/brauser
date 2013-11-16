@@ -6,7 +6,7 @@
 <title>
   Module: Brauser::Queries
   
-    &mdash; Documentation by YARD 0.8.7
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -279,12 +279,12 @@
       <pre class="lines">
 
 
-96
-97
-98</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_accepts?'>accepts?</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>?</span> <span class='ivar'>@target</span><span class='period'>.</span><span class='id identifier rubyid_accepts?'>accepts?</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@result</span>
@@ -402,12 +402,12 @@
       <pre class="lines">
 
 
-66
 67
-68</pre>
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is?'>is?</span><span class='lparen'>(</span><span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_versions'>versions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_platforms'>platforms</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>?</span> <span class='ivar'>@target</span><span class='period'>.</span><span class='id identifier rubyid_is?'>is?</span><span class='lparen'>(</span><span class='id identifier rubyid_names'>names</span><span class='comma'>,</span> <span class='id identifier rubyid_versions'>versions</span><span class='comma'>,</span> <span class='id identifier rubyid_platforms'>platforms</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@result</span>
@@ -482,12 +482,12 @@
       <pre class="lines">
 
 
-86
-87
-88</pre>
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on?'>on?</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>?</span> <span class='ivar'>@target</span><span class='period'>.</span><span class='id identifier rubyid_on?'>on?</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@result</span>
@@ -531,7 +531,8 @@
       
       
         &mdash;
-        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against, in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
+        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against,
+in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
 </div>
       
     </li>
@@ -562,12 +563,12 @@
       <pre class="lines">
 
 
-76
-77
-78</pre>
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/query.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_v?'>v?</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@result</span> <span class='op'>?</span> <span class='ivar'>@target</span><span class='period'>.</span><span class='id identifier rubyid_v?'>v?</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@result</span>
@@ -582,9 +583,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Aug 18 16:30:30 2013 by
+  Generated on Sat Nov 16 10:49:21 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7 (ruby-2.0.0).
+  0.8.7.3 (ruby-2.0.0).
 </div>
 
   </body>

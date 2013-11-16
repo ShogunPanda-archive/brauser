@@ -25,5 +25,5 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 1.9.3"
 
-  gem.add_dependency("lazier", "~> 3.3.1")
+  gem.add_dependency("lazier", "~> 3.3.9")
 end

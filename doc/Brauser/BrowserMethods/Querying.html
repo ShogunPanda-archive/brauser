@@ -6,7 +6,7 @@
 <title>
   Module: Brauser::BrowserMethods::Querying
   
-    &mdash; Documentation by YARD 0.8.7
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -185,6 +185,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#supported%3F-instance_method" title="#supported? (instance method)">- (Boolean) <strong>supported?</strong>(supported) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Check if the browser is supported.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#v%3F-instance_method" title="#v? (instance method)">- (Boolean) <strong>v?</strong>(versions = {}) </a>
     
 
@@ -277,12 +300,12 @@
       <pre class="lines">
 
 
-634
-635
-636</pre>
+656
+657
+658</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 634</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 656</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_accepts?'>accepts?</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_accepts'>accepts</span><span class='lparen'>(</span><span class='id identifier rubyid_langs'>langs</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span>
@@ -341,7 +364,8 @@
       
       
         &mdash;
-        <div class='inline'><p>An hash with specific version to match against. Need to be in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
+        <div class='inline'><p>An hash with specific version to match against. Need to be in form <code>{:operator =&gt; version}</code>, where operator
+is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
 </div>
       
     </li>
@@ -398,12 +422,12 @@
       <pre class="lines">
 
 
-610
-611
-612</pre>
+631
+632
+633</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 610</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 631</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is?'>is?</span><span class='lparen'>(</span><span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_versions'>versions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_platforms'>platforms</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_is'>is</span><span class='lparen'>(</span><span class='id identifier rubyid_names'>names</span><span class='comma'>,</span> <span class='id identifier rubyid_versions'>versions</span><span class='comma'>,</span> <span class='id identifier rubyid_platforms'>platforms</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span>
@@ -476,15 +500,95 @@
       <pre class="lines">
 
 
-626
-627
-628</pre>
+648
+649
+650</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 626</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 648</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on?'>on?</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='id identifier rubyid_platforms'>platforms</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="supported?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>supported?</strong>(supported) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Check if the browser is supported.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>supported</span>
+      
+      
+        <span class='type'>(<tt>Hash|String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A map of engines and minimum supported major version, or a path to YAML file containing the map.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p><code>true</code> if current browser is supported, <code>false</code> otherwise.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+664
+665
+666
+667
+668</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 664</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_supported?'>supported?</span><span class='lparen'>(</span><span class='id identifier rubyid_supported'>supported</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_supported'>supported</span> <span class='op'>=</span> <span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_load_file'>load_file</span><span class='lparen'>(</span><span class='id identifier rubyid_supported'>supported</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_symbolize_keys'>symbolize_keys</span> <span class='kw'>if</span> <span class='id identifier rubyid_supported'>supported</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_minimum'>minimum</span> <span class='op'>=</span> <span class='id identifier rubyid_supported'>supported</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_minimum'>minimum</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_v?'>v?</span><span class='lparen'>(</span><span class='label'>gte:</span> <span class='id identifier rubyid_minimum'>minimum</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_boolean'>to_boolean</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -523,7 +627,8 @@
       
       
         &mdash;
-        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against, in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
+        <div class='inline'><p>A string in the form <code>operator version &amp;&amp; ...</code> (example: <code>&gt;= 7 &amp;&amp; &lt; 4</code>) or an hash with specific version to match against,
+in form <code>{:operator =&gt; version}</code>, where operator is one of <code>:lt, :lte, :eq, :gt, :gte</code>.</p>
 </div>
       
     </li>
@@ -554,12 +659,12 @@
       <pre class="lines">
 
 
-618
-619
-620</pre>
+640
+641
+642</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 618</span>
+      <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 640</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_v?'>v?</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_v'>v</span><span class='lparen'>(</span><span class='id identifier rubyid_versions'>versions</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span>
@@ -574,9 +679,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Aug 18 16:30:30 2013 by
+  Generated on Sat Nov 16 10:49:21 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7 (ruby-2.0.0).
+  0.8.7.3 (ruby-2.0.0).
 </div>
 
   </body>
