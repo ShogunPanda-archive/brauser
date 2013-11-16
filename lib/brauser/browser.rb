@@ -62,7 +62,7 @@ module Brauser
             [:linux, "Linux", /linux/i],
             [:osx, "Apple MacOS X", /mac|macintosh|mac os x/i],
             [:windows, "Microsoft Windows", /windows/i]
-          ].collect { |platform| ::Brauser::Definition.send(:new, *platform) })
+          ].map { |platform| ::Brauser::Definition.send(:new, *platform) })
         end
 
         # Adds a default list of languages that can be recognized.
@@ -183,7 +183,7 @@ module Brauser
             "xh" => "Xshosa",
             "ji" => "Yiddish",
             "zu" => "Zulu"
-          }.collect { |code, name| ::Brauser::Definition.new(code, name, code) })
+          }.map { |code, name| ::Brauser::Definition.new(code, name, code) })
         end
 
         private
@@ -195,8 +195,8 @@ module Brauser
               [:chrome, "Google Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i],
               [:netscape, "Netscape Navigator", /(netscape|navigator)\//i, /((Netscape|Navigator)\/)([a-z0-9.]+)/i],
               [:firefox, "Mozilla Firefox", /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i],
-              [:safari, "Apple Safari", Proc.new{ |_, agent| agent =~ /safari/i && agent !~ /((chrome)|(chromium))/i }, /(.+Version\/)([a-z0-9.]+)/i],
-            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
+              [:safari, "Apple Safari", Proc.new{ |_, agent| disambiguate_browser(agent, /safari/i, /((chrome)|(chromium))/i) }, /(.+Version\/)([a-z0-9.]+)/i],
+            ].map { |browser| ::Brauser::Definition.send(:new, *browser) })
           end
 
           # Registers definitions for MSIE browsers.
@@ -209,8 +209,8 @@ module Brauser
                 version[0] = version[0].to_integer + 4
                 version.join(".")
               }],
-              [:msie, "Microsoft Internet Explorer", Proc.new{ |_, agent| agent =~ /msie/i && agent !~ /opera/i }, /(.+MSIE )([a-z0-9.]+)/i],
-            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
+              [:msie, "Microsoft Internet Explorer", Proc.new{ |_, agent| disambiguate_browser(agent, /msie/i, /opera/i) }, /(.+MSIE )([a-z0-9.]+)/i],
+            ].map { |browser| ::Brauser::Definition.send(:new, *browser) })
           end
 
           # Registers the least common desktop browsers.
@@ -221,7 +221,7 @@ module Brauser
               [:quicktime, "Apple QuickTime", /quicktime/i, /(.+((QuickTime\/)|(qtver=)))([a-z0-9.]+)/i],
               [:webkit, "WebKit Browser", /webkit/i, /(.+WebKit\/)([a-z0-9.]+)/i],
               [:gecko, "Gecko Browser", /gecko/i, /(.+rv:|Gecko\/)([a-z0-9.]+)/i],
-            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
+            ].map { |browser| ::Brauser::Definition.send(:new, *browser) })
           end
 
           # Register the most common mobile and console browsers.
@@ -232,8 +232,8 @@ module Brauser
               [:coremedia, "Apple CoreMedia", /coremedia/i, /.+CoreMedia v([a-z0-9.]+)/i],
 
               [:opera_mobile, "Opera Mobile", /opera mobi/i, /.+Opera Mobi.+((.+Opera )|(Version\/))([a-z0-9.]+)/i],
-              [:opera, "Opera", /opera/i, Proc.new{ |_, agent|
-                version = ((agent !~ /wii/i) ? /((.+Opera )|(Version\/))(?<version>[a-z0-9.]+)/i : /(.+Nintendo Wii; U; ; )(?<version>[a-z0-9.]+)/i).match(agent)
+              [:opera, "Opera", /opera/i, Proc.new{ |_, a|
+                version = ((a !~ /wii/i) ? /((.+Opera )|(Version\/))(?<version>[a-z0-9.]+)/i : /(.+Nintendo Wii; U; ; )(?<version>[a-z0-9.]+)/i).match(a)
                 version ? version["version"] : nil
               }],
 
@@ -250,7 +250,17 @@ module Brauser
               [:ipad, "Apple iPad", /ipad/i, /(.+Version\/)([a-z0-9.]+)/i],
 
               [:mobile, "Other Mobile Browser", /(mobile|symbian|midp|windows ce)/i, /.+\/([a-z0-9.]+)/i],
-            ].collect { |browser| ::Brauser::Definition.send(:new, *browser) })
+            ].map { |browser| ::Brauser::Definition.send(:new, *browser) })
+          end
+
+          # Recognizes a browser disambiguating against another.
+          #
+          # @param agent [String] The agent to match.
+          # @param positive_matcher [Regexp] The expression to match.
+          # @param positive_matcher [Regexp] The expression NOT to match.
+          # @return [Boolean] `true` if matching succeeded, `false otherwise`.
+          def disambiguate_browser(agent, positive_matcher, negative_matcher)
+            agent =~ positive_matcher && agent !~ negative_matcher
           end
       end
     end
@@ -355,7 +365,7 @@ module Brauser
       # @return [String] A human-readable browser name.
       def readable_name
         parse_agent(@agent) if !@name
-        ::Brauser::Browser.browsers[@name].try(:label) || "Unknown Browser"
+        ::Brauser::Browser.browsers.fetch(@name).label rescue "Unknown Browser"
       end
 
       # Gets a human-readable platform name.
@@ -397,15 +407,22 @@ module Brauser
         # @return [String|Array|nil] The browser name(s) or `nil`, if it was set to be skipped.
         def stringify_name(name, &block)
           if name then
-            name = "" if name.is_a?(TrueClass)
-            self.parse_agent(@agent) if !@name
-            block ||= Proc.new {|n, *| n == :msie_compatibility ? [:msie_compatibility, :msie] : n }
-
+            name, block = prepare_name_stringification(name, block)
             names = block.call(@name, @version, @platform).ensure_array {|n| "#{name}#{n}" }
             names.length > 1 ? names : names.first
           else
             nil
           end
+        end
+
+        # Prepare a name stringification
+        #
+        # @param name [Boolean] If non falsy, the string to prepend to the name. If falsy, the name information will not be included.
+        # @param block [Proc] A block to translate browser name.
+        # @return [Array] A name and a translator ready to use.
+        def prepare_name_stringification(name, block)
+          self.parse_agent(@agent) if !@name
+          [(name.is_a?(TrueClass) ? "" : name), block || Proc.new {|n, *| n == :msie_compatibility ? [:msie_compatibility, :msie] : n }]
         end
 
         # Stringifies a browser version.
@@ -416,7 +433,7 @@ module Brauser
           version = "version-" if version.is_a?(TrueClass)
           tokens = @version.split(".")
 
-          !version ? nil : tokens.inject([version + tokens.shift]) {|prev, current|
+          !version ? nil : tokens.reduce([version + tokens.shift]) {|prev, current|
             prev + [prev.last + "_" + current]
           }.flatten
         end
@@ -442,7 +459,7 @@ module Brauser
       # @param accept_language [String] The Accept-Language header.
       # @return [Array] The list of accepted languages.
       def parse_accept_language(accept_language = nil)
-        accept_language.ensure_string.gsub(/;q=[\d.]+/, "").split(",").collect {|l| l.downcase.strip }.select{|l| l.present? }
+        accept_language.ensure_string.gsub(/;q=[\d.]+/, "").split(",").map {|l| l.downcase.strip }.select{|l| l.present? }
       end
 
       private
@@ -503,7 +520,8 @@ module Brauser
       # @see #on?
       #
       # @param names [Symbol|Array] A list of specific names to match. Also, this meta-names are supported: `:capable` and `:tablet`.
-      # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+      # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against,
+      #   in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
       # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
       # @return [Query] A query which can evaluated for concatenation or result.
       def is(names = [], versions = {}, platforms = [])
@@ -522,7 +540,8 @@ module Brauser
 
       # Checks if the browser is a specific version.
       #
-      # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+      # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against,
+      #   in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
       # @return [Query] A query which can evaluated for concatenation or result.
       def v(versions = {})
         parse_agent(@agent) if !@version
@@ -576,10 +595,11 @@ module Brauser
 
         # Parses a version query.
         #
-        # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+        # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match
+        #   against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
         # @return [Hash] The hash representation of the query.
         def parse_versions_query(versions)
-          versions.is_a?(::Hash) ? versions : versions.ensure_string.split(/\s*&&\s*/).inject({}) do |prev, token|
+          versions.is_a?(::Hash) ? versions : versions.ensure_string.split(/\s*&&\s*/).reduce({}) do |prev, token|
             operator, version = parse_versions_query_component(token)
             prev[operator] = version if operator.present? && version.present?
             prev
@@ -591,7 +611,7 @@ module Brauser
         # @param token [String] The token to parse.
         # @return [Array] An operator and an argument.
         def parse_versions_query_component(token)
-          operator, version = token.strip.split(/\s+/, 2).collect(&:strip)
+          operator, version = token.strip.split(/\s+/, 2).map(&:strip)
           [{"<" => :lt, "<=" => :lte, "=" => :eq, "==" => :eq, ">" => :gt, ">=" => :gte}.fetch(operator, nil), version]
         end
     end
@@ -604,7 +624,8 @@ module Brauser
       # @see #on?
       #
       # @param names [Symbol|Array] A list of specific names to match. Also, this meta-names are supported: `:capable` and `:tablet`.
-      # @param versions [Hash] An hash with specific version to match against. Need to be in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+      # @param versions [Hash] An hash with specific version to match against. Need to be in form `{:operator => version}`, where operator
+      #   is one of `:lt, :lte, :eq, :gt, :gte`.
       # @param platforms [Symbol|Array] A list of specific platform to match. Valid values are all those possible for the platform attribute.
       # @return [Boolean] `true` if current browser matches, `false` otherwise.
       def is?(names = [], versions = {}, platforms = [])
@@ -613,7 +634,8 @@ module Brauser
 
       # Checks if the browser is a specific version.
       #
-      # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+      # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against,
+      #   in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
       # @return [Boolean] `true` if current browser matches, `false` otherwise.
       def v?(versions = {})
         v(versions).result
@@ -633,6 +655,16 @@ module Brauser
       # @return [Boolean] `true` if current browser matches, `false` otherwise.
       def accepts?(langs = [])
         accepts(langs).result
+      end
+
+      # Check if the browser is supported.
+      #
+      # @param supported [Hash|String] A map of engines and minimum supported major version, or a path to YAML file containing the map.
+      # @return [Boolean] `true` if current browser is supported, `false` otherwise.
+      def supported?(supported)
+        supported = YAML.load_file(supported).symbolize_keys if supported.is_a?(String)
+        minimum = supported[name]
+        (minimum && v?(gte: minimum)).to_boolean
       end
     end
   end
@@ -728,7 +760,7 @@ module Brauser
       # @param query [String] The query to issue. Use `__` to separate query and `_` in place of `.` in the version.
       # @return [Array] And array of `[method, arguments]` entries.
       def parse_query(query)
-        query.gsub(/\?$/, "").gsub(/(_(v|on|is))/, " \\2").split(" ").collect do |part|
+        query.gsub(/\?$/, "").gsub(/(_(v|on|is))/, " \\2").split(" ").map do |part|
           parse_query_part(part)
         end
       end
@@ -763,7 +795,7 @@ module Brauser
           [/_?and_?/, " && "], # Parse &&
           ["_", "."], # Dot notation
           [/\s+/, " "]
-        ].inject(version) { |current, parse| current.gsub(parse[0], parse[1])}.strip
+        ].reduce(version) { |current, parse| current.gsub(parse[0], parse[1])}.strip
       end
 
       # Executes a parsed query
@@ -771,7 +803,7 @@ module Brauser
       # @param query [Array] And array of `[method, arguments]` entries.
       # @return [Brauser::Query] The result of the query.
       def execute_query(query)
-        query.inject(Brauser::Query.new(self, true)) { |rv, call|
+        query.reduce(Brauser::Query.new(self, true)) { |rv, call|
           break if !rv.result
           rv.send(call[0], *call[1])
         }

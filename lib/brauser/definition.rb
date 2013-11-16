@@ -39,13 +39,14 @@ module Brauser
     # @return [Object|NilClass] A match if matcher succeeded, `nil` otherwise.
     def match(type, *args)
       matcher = self.send(type || :primary) rescue nil
+      target = args[1]
 
       if matcher.is_a?(::Regexp) then
-        matcher.match(args[1])
+        matcher.match(target)
       elsif matcher.respond_to?(:call) then
         matcher.call(*args)
-      elsif matcher
-        args[1] == matcher ? args[1] : nil
+      elsif target == matcher
+        target
       else
         nil
       end

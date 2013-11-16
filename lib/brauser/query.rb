@@ -24,7 +24,8 @@ module Brauser
 
     # Checks if the browser is a specific version.
     #
-    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against,
+    #   in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
     # @return [Query] The query itself.
     def v(versions = {})
       @result = v?(versions)
@@ -71,7 +72,8 @@ module Brauser
     #
     # This version returns a boolean and it is equal to append a call to `#result` to the method `#v`.
     #
-    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against, in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
+    # @param versions [String|Hash] A string in the form `operator version && ...` (example: `>= 7 && < 4`) or an hash with specific version to match against,
+    #   in form `{:operator => version}`, where operator is one of `:lt, :lte, :eq, :gt, :gte`.
     # @return [Boolean] `true` if current browser matches, `false` otherwise.
     def v?(versions = {})
       @result ? @target.v?(versions) : @result

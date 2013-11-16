@@ -13,9 +13,9 @@ gem "rspec", "~> 2.14.1"
 gem "rake", "~> 10.1.0"
 
 # Documentation
-gem "simplecov", ">= 0.7.1"
-gem "coveralls", ">= 0.6.7", require: false
+gem "simplecov", ">= 0.8.1"
+gem "coveralls", ">= 0.7.0", require: false
 gem "pry", ">= 0"
-gem "yard", ">= 0.8.6"
-gem "kramdown", ">= 1.1.0"
+gem "yard", ">= 0.8.7"
+gem "kramdown", ">= 1.2.0"
 gem "github-markup", ">= 0.7.5"

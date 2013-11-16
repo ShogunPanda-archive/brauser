@@ -500,6 +500,22 @@ describe Brauser::Browser do
     end
   end
 
+  describe "#supported?" do
+    it "should check if the browser is supported starting from a definition map" do
+      browser.parse_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.82 Safari/537.1")
+      expect(browser.supported?(chrome: 21)).to be_true
+      expect(browser.supported?(chrome: 31)).to be_false
+      expect(browser.supported?(chrome: "21.2")).to be_false
+      expect(browser.supported?(firefox: 11)).to be_false
+    end
+
+    it "should load definition files from a YAML file" do
+      path = File.dirname(__FILE__) + "/../supported.yml"
+      browser.parse_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.82 Safari/537.1")
+      expect(browser.supported?(path)).to be_true
+    end
+  end
+
   describe "#initalize" do
     it "initialized definitions" do
       expect(::Brauser::Browser).to receive(:add_default_browsers)
