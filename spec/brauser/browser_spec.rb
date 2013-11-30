@@ -282,6 +282,10 @@ describe Brauser::Browser do
       expect(recognize("Mozilla/5.0 (Windows; U; Win 9x 4.90; SG; rv:1.9.2.4) Gecko/20101104 Netscape/9.1.0285")).to eq([:netscape, "9.1.0285", :windows])
       expect(recognize("Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-US; rv:1.8.1.8pre) Gecko/20071001 Firefox/2.0.0.7 Navigator/9.0RC1")).to eq([:netscape, "9.0RC1", :osx])
 
+      # Chrome IOS
+      expect(recognize("Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_1_1 like Mac OS X; en-gb) AppleWebKit/534.46.0 (KHTML, like Gecko) CriOS/19.0.1084.60 Mobile/9B206 Safari/7534.48.3")).to eq([:chrome_ios, "19.0.1084.60", :ios])
+      expect(recognize("Mozilla/5.0 (iPad; U; CPU iPhone OS 5_1_1 like Mac OS X; en-gb) AppleWebKit/534.46.0 (KHTML, like Gecko) CriOS/21.0.1180.82 Safari/536.5")).to eq([:chrome_ios, "21.0.1180.82", :ios])
+
       # Apple iPhone
       expect(recognize("Mozilla/5.0 (iPhone; U; fr; CPU iPhone OS 4_2_1 like Mac OS X; fr) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8C148a Safari/6533.18.5")).to eq([:iphone, "5.0.2", :ios])
       expect(recognize("Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_1 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8B5097d Safari/6531.22.7")).to eq([:iphone, "4.0.5", :ios])

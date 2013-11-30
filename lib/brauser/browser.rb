@@ -52,7 +52,7 @@ module Brauser
             [:symbian, "Symbian", /s60|symb/i],
             [:windows_phone, "Microsoft Windows Phone", /windows phone/i],
             [:kindle, "Nokia Symbian", /kindle|silk/i, ],
-            [:ios, "Apple iOS", Proc.new { |_, agent| [:iphone, :ipad, :ipod].include?(name) || agent =~ /ipad|iphone|ipod/i }],
+            [:ios, "Apple iOS", Proc.new { |_, agent| [:iphone, :ipad, :ipod, :chrome_ios].include?(name) || agent =~ /ipad|iphone|ipod|crios/i }],
             [:android, "Android", /android/i],
             [:blackberry, "RIM BlackBerry", /blackberry/i],
             [:psp, "Sony Playstation Portable", /psp/i],
@@ -195,7 +195,7 @@ module Brauser
               [:chrome, "Google Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i],
               [:netscape, "Netscape Navigator", /(netscape|navigator)\//i, /((Netscape|Navigator)\/)([a-z0-9.]+)/i],
               [:firefox, "Mozilla Firefox", /firefox/i, /(.+Firefox\/)([a-z0-9.]+)/i],
-              [:safari, "Apple Safari", Proc.new{ |_, agent| disambiguate_browser(agent, /safari/i, /((chrome)|(chromium))/i) }, /(.+Version\/)([a-z0-9.]+)/i],
+              [:safari, "Apple Safari", Proc.new{ |_, agent| disambiguate_browser(agent, /safari/i, /((chrome)|(chromium)|(crios))/i) }, /(.+Version\/)([a-z0-9.]+)/i],
             ].map { |browser| ::Brauser::Definition.send(:new, *browser) })
           end
 
@@ -245,6 +245,7 @@ module Brauser
               [:windows_phone, "Microsoft Windows Phone", /windows phone/i, /(.+IEMobile\/)([a-z0-9.]+)/i],
               [:wii, "Nintendo Wii", /nintendo wii/, /(.+Nintendo Wii; U; ; )([a-z0-9.]+)/i],
 
+              [:chrome_ios, "Chrome iOS", /crios/i, /(.+CriOS\/)([a-z0-9.]+)/i],
               [:ipod, "Apple iPod", /ipod/i, /(.+Version\/)([a-z0-9.]+)/i],
               [:iphone, "Apple iPhone", /iphone/i, /(.+Version\/)([a-z0-9.]+)/i],
               [:ipad, "Apple iPad", /ipad/i, /(.+Version\/)([a-z0-9.]+)/i],
@@ -257,7 +258,7 @@ module Brauser
           #
           # @param agent [String] The agent to match.
           # @param positive_matcher [Regexp] The expression to match.
-          # @param positive_matcher [Regexp] The expression NOT to match.
+          # @param negative_matcher [Regexp] The expression NOT to match.
           # @return [Boolean] `true` if matching succeeded, `false otherwise`.
           def disambiguate_browser(agent, positive_matcher, negative_matcher)
             agent =~ positive_matcher && agent !~ negative_matcher
