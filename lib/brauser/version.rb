@@ -16,7 +16,7 @@ module Brauser
     MINOR = 2
 
     # The patch version.
-    PATCH = 4
+    PATCH = 5
 
     # The current version of brauser.
     STRING = [MAJOR, MINOR, PATCH].compact.join(".")
