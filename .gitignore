@@ -7,3 +7,4 @@ pkg/
 metrics/
 .metrics
 tmp/metric_fu
+.bundle
