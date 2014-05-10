@@ -35,8 +35,8 @@ describe Brauser::Browser do
   end
 
   describe ".add_default_browsers" do
-    it "should call .add many times" do
-      expect(::Brauser::Browser).to receive(:add).with(:browsers, an_instance_of(Array)).exactly(4).and_call_original
+    it "should call .add" do
+      expect(::Brauser::Browser).to receive(:add).with(:browsers, an_instance_of(Array)).and_call_original
       ::Brauser::Browser.add_default_browsers
     end
 
@@ -388,7 +388,7 @@ describe Brauser::Browser do
       browser.version = "9.0"
       expect(browser.is(:capable).result).to be_true
 
-      expect(browser).to receive(:v?).exactly(2).and_call_original
+      expect(browser).to receive(:version?).exactly(2).and_call_original
       expect(browser).to receive(:on?).and_call_original
       expect(browser.is(:capable, {gte: 8}).result).to be_true
       browser.platform = :windows
@@ -408,24 +408,28 @@ describe Brauser::Browser do
     end
   end
 
-  describe "#v" do
+  describe "#version" do
     it "should at first call #parse_agent" do
       browser.version = nil
       expect(browser).to receive(:parse_agent)
       browser.v
     end
 
+    it "should return the version if called without arguments" do
+      browser.version = "3.4.5"
+      expect(browser.version).to eq("3.4.5")
+    end
+
     it "should compare browser versions" do
       browser.version = "3.4.5"
 
-      expect(browser.v.result).to be_true
-      expect(browser.v(lt: 7).result).to be_true
-      expect(browser.v(lte: 3).result).to be_false
-      expect(browser.v(eq: 3).result).to be_false
-      expect(browser.v(gte: 3).result).to be_true
-      expect(browser.v(gt: 4).result).to be_false
-      expect(browser.v(gt: 3.5).result).to be_false
-      expect(browser.v(foo: "3").result).to be_false
+      expect(browser.version(lt: 7).result).to be_true
+      expect(browser.version(lte: 3).result).to be_false
+      expect(browser.version(eq: 3).result).to be_false
+      expect(browser.version(gte: 3).result).to be_true
+      expect(browser.version(gt: 4).result).to be_false
+      expect(browser.version(gt: 3.5).result).to be_false
+      expect(browser.version(foo: "3").result).to be_false
       expect(browser.v(">= 3.5").result).to be_false
       expect(browser.v("< 7 && > 3").result).to be_true
       expect(browser.v("< 7 && > 3 && FOO NO").result).to be_true
@@ -434,10 +438,10 @@ describe Brauser::Browser do
     end
   end
 
-  describe "#v?" do
+  describe "#version?" do
     it "should call the query and then fetch the result" do
       browser.version = "7.0"
-      expect(browser.v?(">= 8")).to be_false
+      expect(browser.version?(">= 8")).to be_false
       expect(browser.v?(">= 7")).to be_true
     end
   end
@@ -547,14 +551,14 @@ describe Brauser::Browser do
 
     it "calling the right method" do
       expect(browser).to receive(:is?).with("opera_mobile", {}, []).and_call_original
-      expect(browser).to receive(:v?).with("< 3").and_call_original
+      expect(browser).to receive(:version?).with("< 3").and_call_original
       expect(browser).to receive(:on?).with("windows").and_call_original
 
       expect(browser.is_opera_mobile_v_lt_3_on_windows?).to be_true
     end
 
     it "returning as query" do
-      expect(browser.is_opera_mobile_v_lt_3_on_windows).to be_a(::Brauser::Query)
+      expect(browser.is_opera_mobile_version_lt_3_on_windows).to be_a(::Brauser::Query)
     end
 
     it "returning as boolean" do
@@ -564,22 +568,22 @@ describe Brauser::Browser do
     it "correctly analyzing version" do
       expect(browser).to receive(:is?).with("opera_mobile", {}, []).at_least(1).and_call_original
 
-      expect(browser).to receive(:v?).with("<= 3").and_call_original
+      expect(browser).to receive(:version?).with("<= 3").and_call_original
       expect(browser.is_opera_mobile_v_lte_3).to be_true
 
-      expect(browser).to receive(:v?).with("< 3 && >= 3").and_call_original
+      expect(browser).to receive(:version?).with("< 3 && >= 3").and_call_original
       expect(browser.is_opera_mobile_v_lt_3_and_gte_3?).to be_false
 
-      expect(browser).to receive(:v?).with("&& >= 3").and_call_original
+      expect(browser).to receive(:version?).with("&& >= 3").and_call_original
       expect(browser.is_opera_mobile_v_and_gte_3?).to be_false
 
-      expect(browser).to receive(:v?).with("< 3 &&").and_call_original
+      expect(browser).to receive(:version?).with("< 3 &&").and_call_original
       expect(browser.is_opera_mobile_v_lt_3_and?).to be_true
 
-      expect(browser).to receive(:v?).with("> 2").and_return(true)
+      expect(browser).to receive(:version?).with("> 2").and_return(true)
       expect(browser.is_opera_mobile_v_gt_2?).to be_true
 
-      expect(browser).to receive(:v?).with("== 3.4.5alpha").and_return(false)
+      expect(browser).to receive(:version?).with("== 3.4.5alpha").and_return(false)
       expect(browser.is_opera_mobile_v_eq_3_4_5alpha_is_3?).to be_false
     end
 
@@ -595,13 +599,6 @@ describe Brauser::Browser do
       expect{ browser.aa? }.to raise_error(NoMethodError)
       expect{ browser.isa_opera_mobile_vv_lt_3_on_windows? }.to raise_error(NoMethodError)
       expect{ browser.is_opera_mobile_v_lt_3_ona_windows? }.to raise_error(NoMethodError)
-    end
-  end
-
-  describe "#to_s" do
-    it "should forward to #classes" do
-      expect(browser).to receive(:classes)
-      browser.to_s
     end
   end
 end

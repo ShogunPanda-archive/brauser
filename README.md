@@ -83,7 +83,7 @@ browser.is?(:chrome, ">= 3", :windows)
 
 The method `is` is the only which supports direct internal propagation to version and platform.
 
-The `v` method queries about the browser version. You can specify the comparison with an hash or a little expression.
+The `version` (short: `v`) method queries about the browser version. You can specify the comparison with an hash or a little expression.
 
 In the case of hash, the syntax is `{:operator => value}`, where `:operator` is one of `[:lt, :lte, :eq, :gte, :gt]` and value can be a Float or a String.
 
@@ -93,7 +93,7 @@ Examples:
 
 ```ruby
 # Those two methods are equivalent.
-browser.v?({lt: "2", gt: 1})
+browser.version?({lt: "2", gt: 1})
 # => true
 browser.is?("< 2 && > 1")
 # => true
@@ -129,8 +129,8 @@ Ideally, you should use the `?` version to end the query and fetch the result.
 # These expressions are equivalent.
 browser.is?(:chrome, {lt: "2"}, :osx)
 browser.is(:chrome, {lt: "2"}, :osx).result
-browser.is(:chrome).v({lt: "2"}).on?(:osx)
-browser.is(:chrome).v({lt: "2"}).on(:osx).result
+browser.is(:chrome).version({lt: "2"}).on?(:osx)
+browser.is(:chrome).version({lt: "2"}).on(:osx).result
 ```
 
 Finally, Brauser support dynamic query operator to write simple queries without using concatenation.
@@ -143,11 +143,11 @@ Example:
 
 ```ruby
 # These expressions are equivalent.
-browser.is(:chrome).v("< 2 && > 1.2").on(:osx).result
+browser.is(:chrome).version("< 2 && > 1.2").on(:osx).result
 browser.is_chrome_v_lt_2_and_gt_1_2_on_osx.result
 
 # These expressions are equivalent.
-browser.is(:chrome).v("< 2 && > 1.2").on?(:osx)
+browser.is(:chrome).version("< 2 && > 1.2").on?(:osx)
 browser.is_chrome_v_lt_2_and_gt_1_2_on_osx?
 ```
 

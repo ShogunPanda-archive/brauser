@@ -6,10 +6,21 @@
 
 require "lazier"
 
-Lazier.load!(:object)
+Lazier.load!(:object, :boolean)
 
-require "brauser/version" if !defined?(Brauser::Version)
+require "brauser/version" unless defined?(Brauser::Version)
+require "brauser/queryable/chainers"
+require "brauser/queryable/queries"
 require "brauser/query"
+require "brauser/definitions/browsers"
+require "brauser/definitions/languages"
+require "brauser/definitions/platforms"
 require "brauser/definition"
+require "brauser/browseable/attributes"
+require "brauser/browseable/general"
+require "brauser/browseable/parsing"
+require "brauser/browseable/partial_querying"
+require "brauser/browseable/querying"
+require "brauser/browseable/register"
 require "brauser/browser"
 require "brauser/hooks"

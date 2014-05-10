@@ -4,6 +4,7 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
+# A framework agnostic browser detection and querying helper.
 module Brauser
   # The current version of brauser, according to semantic versioning.
   #
@@ -13,10 +14,10 @@ module Brauser
     MAJOR = 3
 
     # The minor version.
-    MINOR = 2
+    MINOR = 3
 
     # The patch version.
-    PATCH = 6
+    PATCH = 0
 
     # The current version of brauser.
     STRING = [MAJOR, MINOR, PATCH].compact.join(".")

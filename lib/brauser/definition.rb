@@ -38,12 +38,37 @@ module Brauser
     # @param args [Array] Arguments to pass to the matcher. The first is the definition itself.
     # @return [Object|NilClass] A match if matcher succeeded, `nil` otherwise.
     def match(type, *args)
-      matcher = self.send(type || :primary) rescue nil
-      target = args[1]
+      begin
+        matcher = send(type || :primary)
+      rescue NoMethodError
+        nil
+      end
 
-      if matcher.is_a?(::Regexp) then
+      perform_match(matcher, args[1], args)
+    end
+
+    private
+
+    # Recognizes a browser disambiguating against another.
+    #
+    # @param agent [String] The agent to match.
+    # @param positive_matcher [Regexp] The expression to match.
+    # @param negative_matcher [Regexp] The expression NOT to match.
+    # @return [Boolean] `true` if matching succeeded, `false otherwise`.
+    def self.disambiguate_browser(agent, positive_matcher, negative_matcher)
+      agent =~ positive_matcher && agent !~ negative_matcher
+    end
+
+    # Performs a match against a target.
+    #
+    # @param matcher [Object] The matcher to run, can be a `Regexp`, a `Proc` or a string.
+    # @param target [String] The string to match.
+    # @param args [Array] Arguments to pass to the matcher. The first is definition itself.
+    # @return [Object|NilClass] A match if matcher succeeded, `nil` otherwise.
+    def perform_match(matcher, target, args)
+      if matcher.is_a?(::Regexp)
         matcher.match(target)
-      elsif matcher.respond_to?(:call) then
+      elsif matcher.respond_to?(:call)
         matcher.call(*args)
       elsif target == matcher
         target

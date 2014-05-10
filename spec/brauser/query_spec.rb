@@ -24,17 +24,19 @@ describe Brauser::Query do
     end
   end
 
-  describe "#v" do
+  describe "#version" do
     it "should call the final corresponding method and then return self" do
-      expect(query).to receive(:v?).and_call_original
-      expect(query.v(">= 9")).to be(query)
+      expect(query).to receive(:version?).and_call_original
+      expect(query.version(">= 9")).to be(query)
     end
   end
 
-  describe "#v?" do
+  describe "#version?" do
     it "should call the browser's corresponding method and update the result" do
-      expect(browser).to receive(:v?).with(">= 9").and_call_original
-      expect(query.v?(">= 9")).to be_true
+      expect(browser).to receive(:version?).with(">= 9").and_call_original
+      expect(browser).to receive(:version?).with(">= 10").and_call_original
+      expect(query.version?(">= 9")).to be_true
+      expect(query.v?(">= 10")).to be_true
     end
   end
 
@@ -76,31 +78,31 @@ describe Brauser::Query do
 
     it "should call requested methods on the browser and return a query" do
       expect(browser).to receive(:is).and_call_original
-      expect(browser).to receive(:v?).and_call_original
+      expect(browser).to receive(:version?).and_call_original
       expect(browser).to receive(:on?).and_call_original
 
-      expect(browser.is(:chrome).v(">= 7").on(:osx)).to be_a(::Brauser::Query)
+      expect(browser.is(:chrome).version(">= 7").on(:osx)).to be_a(::Brauser::Query)
     end
 
     it "should call methods while result is true" do
       expect(browser).to receive(:is).and_call_original
-      expect(browser).to receive(:v?).and_call_original
+      expect(browser).to receive(:version?).and_call_original
       expect(browser).not_to receive(:on?)
 
-      expect(browser.is(:chrome).v(">= 9").on(:osx)).to be_a(::Brauser::Query)
+      expect(browser.is(:chrome).version(">= 9").on(:osx)).to be_a(::Brauser::Query)
     end
 
     it "when the last method is the question mark, it should return the evaluation to boolean" do
       expect(browser).to receive(:is).and_call_original
-      expect(browser).to receive(:v?).and_call_original
+      expect(browser).to receive(:version?).and_call_original
       expect(browser).to receive(:on?).and_call_original
 
-      expect(browser.is(:chrome).v(">= 7").on?(:osx)).to be_false
+      expect(browser.is(:chrome).version(">= 7").on?(:osx)).to be_false
     end
 
     it "should return the result when ending the query with #result" do
       expect(browser).to receive(:is).and_call_original
-      expect(browser).to receive(:v?).and_call_original
+      expect(browser).to receive(:version?).and_call_original
       expect(browser).not_to receive(:on?)
 
       expect(browser.is(:chrome).v(">= 9").on(:osx).result).to be_false
