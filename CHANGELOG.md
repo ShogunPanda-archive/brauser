@@ -1,3 +1,11 @@
+### 3.3.1 / 2014-05-11
+
+* Dropped support for Ruby < 2.1, even though the code is compatible yet.
+
+### 3.3.0 / 2014-05-10
+
+* Metrics and code style fixes.
+
 ### 3.2.6 / 2014-02-16
 
 * Update dependencies.
