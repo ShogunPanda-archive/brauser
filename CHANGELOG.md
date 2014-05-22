@@ -1,3 +1,7 @@
+### 3.3.2 / 2014-05-22
+
+* Added definitions for Microsoft Internet Explorer 11.
+
 ### 3.3.1 / 2014-05-11
 
 * Dropped support for Ruby < 2.1, even though the code is compatible yet.

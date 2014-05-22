@@ -52,7 +52,9 @@ module Brauser
           version[0] = version[0].to_integer + 4
           version.join(".")
         }],
-        [:msie, "Microsoft Internet Explorer", proc { |_, agent| Brauser::Definition.disambiguate_browser(agent, /msie/i, /opera/i) }, /(.+MSIE )([a-z0-9.]+)/i]
+        [:msie, "Microsoft Internet Explorer", proc {
+          |_, agent| Brauser::Definition.disambiguate_browser(agent, /trident|msie/i, /opera/i)
+        }, /(.+MSIE |trident.+rv:)([a-z0-9.]+)/i]
       ]
 
       # Default minor desktop browsers.
