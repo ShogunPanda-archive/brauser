@@ -21,7 +21,6 @@ module Brauser
       # @param id [Symbol] The platform id.
       # @param name [String] The platform name.
       # @param engine_matcher [Regexp|Proc] The pattern or the block to recognize the engine.
-      # @attribute [r] version_matcher
       # @param version_matcher [Regexp|Proc] The pattern or the block to recognize the version.
       def initialize(id, name, engine_matcher, version_matcher, **_)
         @id = id
@@ -55,6 +54,8 @@ module Brauser
         pattern.send(method, subject)
       end
 
+      # :nodoc:
+      # @private
       def extract_version(version)
         # Adjust version
         version = "0.0" if version.blank?

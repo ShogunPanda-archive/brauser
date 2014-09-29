@@ -11,19 +11,19 @@ module Brauser
   #   @return [String] The raw User-Agent HTTP header.
   # @attribute accept_language
   #   @return [String] The raw Accept-Language HTTP header.
-  # @attribute name
+  # @attribute [r] name
   #   @return [Symbol] The current browser name.
-  # @attribute human_name
+  # @attribute [r] human_name
   #   @return [String] The human-readable current browser name.
-  # @attribute version
+  # @attribute [r] version
   #   @return [Versionomy::Value] The current browser version.
-  # @attribute platform
+  # @attribute [r] platform
   #   @return [Symbol] The current browser platform.
-  # @attribute human_platform
+  # @attribute [r] human_platform
   #   @return [String] The human-readable current browser platform.
-  # @attribute languages
+  # @attribute [r] languages
   #   @return [Hash] The accepted languages.
-  # @attribute human_languages
+  # @attribute [r] human_languages
   #   @return [Hash] The human-readable list of accepted languages.
   class Browser
     attr_accessor :agent, :accept_language

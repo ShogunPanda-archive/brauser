@@ -4,9 +4,9 @@
 #
 
 module Brauser
-  # A defined entity, which support comparison against a single or multiple values.
+  # A defined entity, which supports comparison against a single or multiple values.
   #
-  # @attribute value
+  # @attribute [r] value
   #   @return [Object] The wrapped value.
   class Value
     attr_reader :value

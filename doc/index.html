@@ -82,7 +82,7 @@
 
 <h3 id="installation">Installation</h3>
 
-<p>Brauser comes with a Ruby on Rails hooks (more framework to follow), so for Rails you have just to add this to your Gemfile:</p>
+<p>Brauser comes with a Ruby on Rails hooks (more frameworks to follow), so for Rails you have just to add this to your Gemfile:</p>
 
 <p><code>ruby
 gem "brauser"
@@ -102,11 +102,15 @@ browser = Brauser::Browser.new(USER_AGENT_HEADER, ACCEPT_LANGUAGE_HEADER)
 
 <h3 id="getting-browser-information">Getting browser information</h3>
 
-<p>Once you instantiate the browser, you can query the browser about <code>name</code>, <code>version</code> and <code>platform</code>. You can also get readable name and platforms via <code>readable_name</code> and <code>platform_name</code>.</p>
+<p>Once you instantiate the browser, you can query the browser about <code>name</code>, <code>version</code>, <code>platform</code>, <code>languages</code>. </p>
 
-<p>The version is returned as a <code>String</code>, and you can use <code>Brauser::Browser.compare_versions</code> to compare against another version.</p>
+<p>You can also get readable name and platforms via <code>human_name</code>, <code>human_platform</code>, <code>human_languages</code>.</p>
 
-<p>The name and the platform are returned as <code>Symbol</code> and can be in the range of names and engines registered via <code>register_browser</code>, <code>register_default_browsers</code>, <code>register_platform</code> and <code>register_default_platforms</code>.</p>
+<p>The version is handle via the <a href="http://dazuma.github.io/versionomy/">versionomy</a> gem.</p>
+
+<p>The name and the platform are returned as <code>Symbol</code> and can be in the range of names and engines registered via <code>Brauser::Definitions.register</code>.</p>
+
+<p>The languages are returned as an hash where values are the priorities.</p>
 
 <p>Also, you can get global information using <code>browser.to_s</code> or <code>browser.classes</code>. This will return an array or a string already formatted to be used in your views to scope your CSS.</p>
 
@@ -128,126 +132,58 @@ browser = Brauser::Browser.new(USER_AGENT_HEADER, ACCEPT_LANGUAGE_HEADER)
 
 <h3 id="querying-the-browser">Querying the browser</h3>
 
-<p>Brauser supports querying about name (method <code>is</code>), version (method <code>v</code>), platform (method <code>on</code>) and language (method <code>accepts</code>).</p>
+<p>Brauser supports querying about name, version, platform, language.</p>
 
-<p>The <code>is</code> method queries about a browser name (or a list of names) and optionally by version and platform:</p>
+<p>name and platform support querying via the <code>==</code> operator, which supports a single value or a list of values. </p>
 
 <p><code>ruby
 # We talk about the ending ? later.
-browser.is?(:chrome)
+browser.name == :chrome
 # =&gt; true
-browser.is?([:msie, :firefox])
-# =&gt; false
-browser.is?(:chrome, {lt: "2"}, :osx)
-# =&gt; true
-browser.is?(:chrome, "&gt;= 3", :windows)
+browser.name == [:msie, :firefox]
 # =&gt; false
 </code></p>
 
-<p>The method <code>is</code> is the only which supports direct internal propagation to version and platform.</p>
-
-<p>The <code>version</code> (short: <code>v</code>) method queries about the browser version. You can specify the comparison with an hash or a little expression.</p>
-
-<p>In the case of hash, the syntax is <code>{:operator =&gt; value}</code>, where <code>:operator</code> is one of <code>[:lt, :lte, :eq, :gte, :gt]</code> and value can be a Float or a String.</p>
-
-<p>In the case of expression, the syntax is <code>OPERATOR VALUE &amp;&amp; ..</code>, where <code>OPERATOR</code> is one of <code>["&lt;", "&lt;=", "=", "==", "&gt;=", "&gt;"]</code> and value specifies the version.</p>
-
-<p>Examples:</p>
+<p>The version is delegated to the versionomy gem. You can use comparison operator. The right hand part must be either a <code>String</code> or a <code>Versionomy::Value</code>.</p>
 
 <p><code>ruby
-# Those two methods are equivalent.
-browser.version?({lt: "2", gt: 1})
-# =&gt; true
-browser.is?("&lt; 2 &amp;&amp; &gt; 1")
+browser.version == "3"
+# =&gt; false
+browser.version &gt;= "2"
 # =&gt; true
 </code></p>
 
-<p>The method <code>on</code> check is the current browser in one of the specified platform. The platform should be passed as <code>Symbol</code>.</p>
+<p>The language support querying via the <code>accepts?</code> method, which supports a single value or a list of values.</p>
 
 <p><code>ruby
-browser.on?(:osx)
+browser.accepts?(:it)
 # =&gt; true
-browser.on?([:windows, :ios])
+browser.accepts?(:it, :en)
+# =&gt; true
+</code></p>
+
+<p>All the querying can be combined in the single method <code>is?</code>:</p>
+
+<p><code>ruby
+browser.is?(name: :chrome, version: "&gt;= 4", platform: [:osx, :windows], languages: :it)
 # =&gt; false
 </code></p>
 
-<p>At the end, the method <code>accepts</code> checks if the browser accepts one of the specified languages. Languages should be passed as language codes in <code>String</code>.</p>
+<p>Name, platform and languages can be either symbols or array of symbols. Version must be a query in the form is <code>OPERATOR VALUE &amp;&amp; ..</code>, 
+where <code>OPERATOR</code> is one of <code>["&lt;", "&lt;=", "=", "==", "&gt;=", "&gt;"]</code> and value specifies the version.</p>
 
-<p><code>ruby
-browser.accepts?("en")
-# =&gt; true
-browser.accepts?(["de", "es"])
-# =&gt; false
-</code></p>
+<h3 id="adding-new-browsers-platform-and-languages">Adding new browsers, platform and languages.</h3>
 
-<p>Every query method exists in two forms: the concatenation one (the method name doesn’t end with a <code>?</code>.</p>
+<p>To add new browsers, simply call <code>::Brauser::Definitions.register(:browser, :id, ...)</code>.</p>
 
-<p>The former return a <code>Query</code> object, which supports the same query method of the browser and thus enables concatenation.</p>
-
-<p>The latter return a boolean object, and it’s equivalent to calling <code>result</code> on the query after concatenation.</p>
-
-<p>Ideally, you should use the <code>?</code> version to end the query and fetch the result.</p>
-
-<p><code>ruby
-# These expressions are equivalent.
-browser.is?(:chrome, {lt: "2"}, :osx)
-browser.is(:chrome, {lt: "2"}, :osx).result
-browser.is(:chrome).version({lt: "2"}).on?(:osx)
-browser.is(:chrome).version({lt: "2"}).on(:osx).result
-</code></p>
-
-<p>Finally, Brauser support dynamic query operator to write simple queries without using concatenation.</p>
-
-<p>You construct the method just using operator specified above, separating method name and method arguments with a <code>_</code>.</p>
-
-<p>For the version, use the expression form but use symbol operators and replace <code>.</code> with <code>_</code> and <code>&amp;&amp;</code> with <code>and</code>.</p>
-
-<p>Example:</p>
-
-<p>```ruby
-# These expressions are equivalent.
-browser.is(:chrome).version(“&lt; 2 &amp;&amp; &gt; 1.2”).on(:osx).result
-browser.is_chrome_v_lt_2_and_gt_1_2_on_osx.result</p>
-
-<h1 id="these-expressions-are-equivalent">These expressions are equivalent.</h1>
-<p>browser.is(:chrome).version(“&lt; 2 &amp;&amp; &gt; 1.2”).on?(:osx)
-browser.is_chrome_v_lt_2_and_gt_1_2_on_osx?
-```</p>
-
-<h3 id="adding-new-browsers">Adding new browsers</h3>
-
-<p>To add new browsers, simply call <code>::Brauser::Browser.add(:browsers, ...)</code>.</p>
-
-<p>This methods accepts a single instance or an array of instances of the <code>::Brauser::Definition</code> class.</p>
+<p>The first argument can be <code>:browser</code>, <code>:platform</code> or <code>:language</code>.
+The second argument is the id of the definition.
+The remaining argument will be passed to the definition constructor.</p>
 
 <p>For example, for Google Chrome the call should be:</p>
 
 <p><code>ruby
-Brauser::Browsers.add(:browsers, ::Brauser::Definition.new(:chrome, "Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i))
-</code></p>
-
-<h3 id="adding-new-platforms">Adding new platforms</h3>
-
-<p>To add new platforms, simply call <code>::Brauser::Browser.add(:platforms, ...)</code>.</p>
-
-<p>This methods accepts a single instance or an array of instances of the <code>::Brauser::Definition</code> class.</p>
-
-<p>For example, for Mac OS X the call should be:</p>
-
-<p><code>ruby
-Brauser::Browsers.add(:platforms, ::Brauser::Definition.new(:osx, /mac|macintosh|mac os x/i, "Apple MacOS X"))
-</code></p>
-
-<h3 id="adding-new-languages">Adding new languages</h3>
-
-<p>To add new languages, simply call <code>::Brauser::Browser.add(:languages, ...)</code>.</p>
-
-<p>This methods accepts a single instance or an array of instances of the <code>::Brauser::Definition</code> class.</p>
-
-<p>For example, for Italian the call should be:</p>
-
-<p><code>ruby
-Brauser::Browsers.add(:languages, ::Brauser::Definition.new(:it, "Italian"))
+Brauser::Definitions.register(:browsers, :chrome, "Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i)
 </code></p>
 
 <h2 id="contributing-to-brauser">Contributing to brauser</h2>
@@ -270,9 +206,9 @@ Brauser::Browsers.add(:languages, ::Brauser::Definition.new(:it, "Italian"))
 </div></div>
 
     <div id="footer">
-  Generated on Thu May 22 12:11:27 2014 by
+  Generated on Mon Sep 29 16:43:31 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.2).
+  0.8.7.4 (ruby-2.1.3).
 </div>
 
   </body>

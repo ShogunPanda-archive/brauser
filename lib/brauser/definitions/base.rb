@@ -4,14 +4,14 @@
 #
 
 module Brauser
-  # Definitions used by the {{Browser Browser}} class.
+  # Definitions used by brauser.
   module Definitions
     # Registers a new definition.
     #
     # @param type [Symbol] The type of the definition. Can be `:browser`, `:language`, `:platform`.
     # @param args [Array] The arguments of the definition.
-    # @param args [Hash] The keyword arguments of the definition.
-    # @param args [Proc] The block of the definition.
+    # @param kwargs [Hash] The keyword arguments of the definition.
+    # @param block [Proc] The block of the definition.
     def self.register(type, *args, **kwargs, &block)
       klass =
         case type

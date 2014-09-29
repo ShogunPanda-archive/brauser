@@ -18,7 +18,7 @@ module Brauser
 
     # Parses the User-Agent header.
     #
-    # @param agent [String] The User-Agent header.
+    # @param header [String] The User-Agent header.
     # @return [Array|NilClass] An array of engine, version and platform if the match succeeded, `nil` otherwise.
     def parse_agent(header)
       # First of all match the agent and the version
