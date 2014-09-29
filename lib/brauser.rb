@@ -6,6 +6,7 @@
 require "lazier"
 require "versionomy"
 
+::I18n.enforce_available_locales = false
 Lazier.load!(:object, :boolean, :string)
 
 require "brauser/version" unless defined?(Brauser::Version)
