@@ -10,11 +10,17 @@ BracesAroundHashParameters:
 CyclomaticComplexity:
   Max: 15
 
+EachWithObject:
+  Enabled: false
+
 IndentationConsistency:
   Enabled: false
 
 LineLength:
   Max: 160
+
+Metrics/ClassLength:
+  Max: 150
 
 ParameterLists:
   Max: 6

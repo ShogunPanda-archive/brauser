@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the brauser gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -9,7 +8,7 @@ require File.expand_path('../lib/brauser/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.name = "brauser"
   gem.version = Brauser::Version::STRING
-  gem.homepage = "http://sw.cow.tc/brauser"
+  gem.homepage = "http://sw.cowtech.it/brauser"
   gem.summary = %q{A framework agnostic browser detection and querying helper.}
   gem.description = %q{A framework agnostic browser detection and querying helper.}
   gem.rubyforge_project = "brauser"
@@ -23,7 +22,8 @@ Gem::Specification.new do |gem|
   gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.required_ruby_version = ">= 1.9.3"
+  gem.required_ruby_version = ">= 2.1.0"
 
-  gem.add_dependency("lazier", "~> 3.5.5")
+  gem.add_dependency("lazier", "~> 4.0")
+  gem.add_dependency("versionomy", "~> 0.4")
 end

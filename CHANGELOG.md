@@ -1,3 +1,7 @@
+### 4.0.0 / 2014-09-29
+
+* Full rewrite. See the README.md for more informations.
+
 ### 3.3.2 / 2014-05-22
 
 * Added definitions for Microsoft Internet Explorer 11.

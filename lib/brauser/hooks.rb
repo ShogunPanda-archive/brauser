@@ -1,4 +1,3 @@
-# encoding: utf-8
 #
 # This file is part of the brauser gem. Copyright (C) 2013 and above Shogun <shogun@cowtech.it>.
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
@@ -22,7 +21,7 @@ module Brauser
       # @return [Browser] The detected browser.
       def browser(force = false)
         @browser = nil if force
-        @browser ||= Browser.new(request.headers["User-Agent"], request.headers["Accept-Language"])
+        @browser ||= ::Brauser::Browser.new(request.headers["User-Agent"], request.headers["Accept-Language"])
       end
     end
   end
