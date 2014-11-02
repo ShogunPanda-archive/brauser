@@ -18,7 +18,7 @@ module Brauser
       #
       # @param id [Symbol] The platform id.
       # @param name [String] The platform name.
-      # @param matcher [Regexp|Proc] The pattern or the block to recognize the platform. **Ignore if a block is given**
+      # @param matcher [Regexp|Proc] The pattern or the block to recognize the platform. **Ignored if a block is given.**
       def initialize(id, name, matcher = /.*/, **_, &block)
         @id = id
         @name = name

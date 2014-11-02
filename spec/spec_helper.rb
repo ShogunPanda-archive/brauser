@@ -3,12 +3,5 @@
 # Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
 #
 
-require "rubygems"
 require "bundler/setup"
-require "brauser"
-
-RSpec.configure do |config|
-  config.expect_with :rspec do |c|
-    c.syntax = :expect
-  end
-end
+require File.dirname(__FILE__) + "/../lib/brauser"

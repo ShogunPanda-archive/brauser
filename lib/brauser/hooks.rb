@@ -4,7 +4,7 @@
 #
 
 module Brauser
-  # A set of Hooks for adding brauser to web frameworks.
+  # A set of hooks for adding brauser to web frameworks.
   module Hooks
     # Hook for integration with Ruby on Rails.
     module RubyOnRails

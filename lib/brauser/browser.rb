@@ -73,13 +73,13 @@ module Brauser
 
     # Checks if the browser matches a specific query.
     #
-    # @param name [Symbol|Array] The list of names to check. Also, this meta-name is supported: `:tablet`.
-    # @param engine [Symbol|Array] Alias for `name`, **which has precedence over this.**
-    # @param version [String] The query to match the version.
+    # @param name [Symbol|Array|NilClass] The list of names to check. Also, this meta-name is supported: `:tablet`.
+    # @param engine [Symbol|Array|NilClass] Alias for `name`, **which has precedence over this.**
+    # @param version [String|NilClass] The query to match the version.
     #   It must be a query in the form is `OPERATOR VALUE && ..`, where `OPERATOR` is one of `["<", "<=", "=", "==", ">=", ">"]`.
     #   You can also pass the value "capable", which will return true for Webkit browsers, IE 10 or above, Firefox 28 and above and Opera 15 and above.
-    # @param platform [Symbol|Array] The list of platforms to check.
-    # @param languages [Symbol|Array] The list of languages to check.
+    # @param platform [Symbol|Array|NilClass] The list of platforms to check.
+    # @param languages [Symbol|Array|NilClass] The list of languages to check.
     # @return [Boolean] `true` if browser match the query, `false` otherwise.
     def is?(name: nil, engine: nil, version: nil, platform: nil, languages: nil)
       name ||= engine

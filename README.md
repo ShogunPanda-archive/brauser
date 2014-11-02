@@ -71,10 +71,10 @@ And thus scoping your CSS will be trivial.
 
 Brauser supports querying about name, version, platform, language.
 
-name and platform support querying via the `==` operator, which supports a single value or a list of values. 
+Name and platform support querying via the `==` operator, which supports a single value or a list of values.
 
 ```ruby
-# We talk about the ending ? later.
+# We'll talk about the ending "?" later.
 browser.name == :chrome
 # => true
 browser.name == [:msie, :firefox]
