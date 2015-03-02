@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Documentation by YARD 0.8.7.6
   
 </title>
 
@@ -102,7 +102,7 @@ browser = Brauser::Browser.new(USER_AGENT_HEADER, ACCEPT_LANGUAGE_HEADER)
 
 <h3 id="getting-browser-information">Getting browser information</h3>
 
-<p>Once you instantiate the browser, you can query the browser about <code>name</code>, <code>version</code>, <code>platform</code>, <code>languages</code>. </p>
+<p>Once you instantiate the browser, you can query the browser about <code>name</code>, <code>version</code>, <code>platform</code>, <code>languages</code>.</p>
 
 <p>You can also get readable name and platforms via <code>human_name</code>, <code>human_platform</code>, <code>human_languages</code>.</p>
 
@@ -116,99 +116,126 @@ browser = Brauser::Browser.new(USER_AGENT_HEADER, ACCEPT_LANGUAGE_HEADER)
 
 <p>For example, if you do this in a ERB view:</p>
 
-<p><code>html
-&lt;body class="&lt;%= browser.classes %&gt;"&gt;
+<p>```html</p>
+<body class="&lt;%= browser.classes %&gt;">
 ...
-</code></p>
+```
 
-<p>The view will get compiled to this:</p>
+The view will get compiled to this:
 
-<p><code>html
-&lt;body class="chrome version-1 version-1_2 version-1_2_3 platform-osx"&gt;
+```html
+<body class="chrome version-1 version-1_2 version-1_2_3 platform-osx">
 ...
-</code></p>
+```
 
-<p>And thus scoping your CSS will be trivial.</p>
+And thus scoping your CSS will be trivial.
 
-<h3 id="querying-the-browser">Querying the browser</h3>
+### Querying the browser
 
-<p>Brauser supports querying about name, version, platform, language.</p>
+Brauser supports querying about name, version, platform, language.
 
-<p>Name and platform support querying via the <code>==</code> operator, which supports a single value or a list of values.</p>
+Name and platform support querying via the `==` operator, which supports a single value or a list of values.
 
-<p><code>ruby
+```ruby
 # We'll talk about the ending "?" later.
 browser.name == :chrome
 # =&gt; true
 browser.name == [:msie, :firefox]
 # =&gt; false
-</code></p>
+```
 
-<p>The version is delegated to the versionomy gem. You can use comparison operator. The right hand part must be either a <code>String</code> or a <code>Versionomy::Value</code>.</p>
+The version is delegated to the versionomy gem. You can use comparison operator. The right hand part must be either a `String` or a `Versionomy::Value`.
 
-<p><code>ruby
+```ruby
 browser.version == "3"
 # =&gt; false
 browser.version &gt;= "2"
 # =&gt; true
-</code></p>
+```
 
-<p>The language support querying via the <code>accepts?</code> method, which supports a single value or a list of values.</p>
+The language support querying via the `accepts?` method, which supports a single value or a list of values.
 
-<p><code>ruby
+```ruby
 browser.accepts?(:it)
 # =&gt; true
 browser.accepts?(:it, :en)
 # =&gt; true
-</code></p>
+```
 
-<p>All the querying can be combined in the single method <code>is?</code>:</p>
+All the querying can be combined in the single method `is?`:
 
-<p><code>ruby
+```ruby
 browser.is?(name: :chrome, version: "&gt;= 4", platform: [:osx, :windows], languages: :it)
 # =&gt; false
-</code></p>
+```
 
-<p>Name, platform and languages can be either symbols or array of symbols. Version must be a query in the form is <code>OPERATOR VALUE &amp;&amp; ..</code>, 
-where <code>OPERATOR</code> is one of <code>["&lt;", "&lt;=", "=", "==", "&gt;=", "&gt;"]</code> and value specifies the version.</p>
+Name, platform and languages can be either symbols or array of symbols. Version must be a query in the form is `OPERATOR VALUE &amp;&amp; ..`, 
+where `OPERATOR` is one of `["&lt;", "&lt;=", "=", "==", "&gt;=", "&gt;"]` and value specifies the version.
 
-<h3 id="adding-new-browsers-platform-and-languages">Adding new browsers, platform and languages.</h3>
+### Prevent old browsers to access the Rails application.
 
-<p>To add new browsers, simply call <code>::Brauser::Definitions.register(:browser, :id, ...)</code>.</p>
+If you want to easily prevent a legacy browser to open your application, create a file `supported-browsers.yml` in the `config` folder with a similar content:
 
-<p>The first argument can be <code>:browser</code>, <code>:platform</code> or <code>:language</code>.
+```yaml
+---
+chrome: 29
+firefox: 28
+safari: 6.1
+msie: 11
+```
+
+then create a filter in the `ApplicationController`:
+
+```ruby
+class ApplicationController &lt; ActionController::Base
+  # ...
+
+  before_filter do
+    redirect_to(URL) unless browser.supported?(Rails.root + "config/supported-browsers.yml")
+  end
+
+  # ...
+end
+```
+
+and you are set.
+
+### Adding new browsers, platform and languages.
+
+To add new browsers, simply call `::Brauser::Definitions.register(:browser, :id, ...)`.
+
+The first argument can be `:browser`, `:platform` or `:language`.
 The second argument is the id of the definition.
-The remaining argument will be passed to the definition constructor.</p>
+The remaining argument will be passed to the definition constructor.
 
-<p>For example, for Google Chrome the call should be:</p>
+For example, for Google Chrome the call should be:
 
-<p><code>ruby
+```ruby
 Brauser::Definitions.register(:browsers, :chrome, "Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i)
-</code></p>
+```
 
-<h2 id="contributing-to-brauser">Contributing to brauser</h2>
+## Contributing to brauser
+ 
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
+* Fork the project.
+* Start a feature/bugfix branch.
+* Commit and push until you are happy with your contribution.
+* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-<ul>
-  <li>Check out the latest master to make sure the feature hasn’t been implemented or the bug hasn’t been fixed yet.</li>
-  <li>Check out the issue tracker to make sure someone already hasn’t requested it and/or contributed it.</li>
-  <li>Fork the project.</li>
-  <li>Start a feature/bugfix branch.</li>
-  <li>Commit and push until you are happy with your contribution.</li>
-  <li>Make sure to add tests for it. This is important so I don’t break it in a future version unintentionally.</li>
-  <li>Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.</li>
-</ul>
+## Copyright
 
-<h2 id="copyright">Copyright</h2>
+Copyright (C) 2013 and above Shogun (shogun@cowtech.it).
 
-<p>Copyright (C) 2013 and above Shogun (shogun@cowtech.it).</p>
-
-<p>Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.</p>
+Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
+</body></body>
 </div></div>
 
     <div id="footer">
-  Generated on Sun Nov  2 11:37:47 2014 by
+  Generated on Mon Mar  2 13:10:30 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.3).
+  0.8.7.6 (ruby-2.2.0).
 </div>
 
   </body>

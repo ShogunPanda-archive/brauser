@@ -6,7 +6,7 @@
 <title>
   Class: Brauser::Definitions::Platform
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Documentation by YARD 0.8.7.6
   
 </title>
 
@@ -337,11 +337,12 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/definitions/platform.rb', line 22</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_matcher'>matcher</span> <span class='op'>=</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='ivar'>@id</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
-  <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
-  <span class='ivar'>@matcher</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span> <span class='op'>?</span> <span class='id identifier rubyid_block'>block</span> <span class='op'>:</span> <span class='id identifier rubyid_matcher'>matcher</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_id identifier id'>id</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_matcher identifier id'>matcher</span> <span class='assign token'>=</span> <span class='regexp val'>/.*/</span><span class='comma token'>,</span> <span class='pow op'>**</span><span class='rubyid__ identifier id'>_</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='rubyid_@id ivar id'>@id</span> <span class='assign token'>=</span> <span class='rubyid_id identifier id'>id</span>
+  <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span>
+  <span class='rubyid_@matcher ivar id'>@matcher</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span> <span class='integer val'>? </span><span class='rubyid_block identifier id'>block</span> <span class='colon op'>:</span> <span class='rubyid_matcher identifier id'>matcher</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -427,33 +428,34 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/definitions/platform.rb', line 14</span>
 
-<span class='kw'>class</span> <span class='const'>Platform</span> <span class='op'>&lt;</span> <span class='const'>Base</span>
-  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:matcher</span>
+<span class='rubyid_class class kw'>class</span> <span class='rubyid_Platform constant id'>Platform</span> <span class='lt op'>&lt;</span> <span class='rubyid_Base constant id'>Base</span>
+  <span class='rubyid_attr_reader identifier id'>attr_reader</span> <span class='symbol val'>:name</span><span class='comma token'>,</span> <span class='symbol val'>:matcher</span>
 
-  <span class='comment'># Creates a new definition.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @param id [Symbol] The platform id.
-</span>  <span class='comment'># @param name [String] The platform name.
-</span>  <span class='comment'># @param matcher [Regexp|Proc] The pattern or the block to recognize the platform. **Ignored if a block is given.**
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_matcher'>matcher</span> <span class='op'>=</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-    <span class='ivar'>@id</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
-    <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
-    <span class='ivar'>@matcher</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span> <span class='op'>?</span> <span class='id identifier rubyid_block'>block</span> <span class='op'>:</span> <span class='id identifier rubyid_matcher'>matcher</span>
-  <span class='kw'>end</span>
+  <span class='comment val'># Creates a new definition.</span>
+  <span class='comment val'>#</span>
+  <span class='comment val'># @param id [Symbol] The platform id.</span>
+  <span class='comment val'># @param name [String] The platform name.</span>
+  <span class='comment val'># @param matcher [Regexp|Proc] The pattern or the block to recognize the platform. **Ignored if a block is given.**</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_id identifier id'>id</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_matcher identifier id'>matcher</span> <span class='assign token'>=</span> <span class='regexp val'>/.*/</span><span class='comma token'>,</span> <span class='pow op'>**</span><span class='rubyid__ identifier id'>_</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+    <span class='rubyid_@id ivar id'>@id</span> <span class='assign token'>=</span> <span class='rubyid_id identifier id'>id</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span>
+    <span class='rubyid_@matcher ivar id'>@matcher</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span> <span class='integer val'>? </span><span class='rubyid_block identifier id'>block</span> <span class='colon op'>:</span> <span class='rubyid_matcher identifier id'>matcher</span>
+  <span class='rubyid_end end kw'>end</span>
 
-  <span class='comment'># Matches against an header.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @param header [String] The header to match.
-</span>  <span class='comment'># @param engine [Symbol] The engine to match.
-</span>  <span class='comment'># @return [Boolean|NilClass] True if match succeeded, `false` or `nil` otherwise.
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_engine'>engine</span><span class='rparen'>)</span>
-    <span class='kw'>if</span> <span class='ivar'>@matcher</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Regexp</span><span class='rparen'>)</span>
-      <span class='ivar'>@matcher</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
-    <span class='kw'>else</span>
-      <span class='ivar'>@matcher</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_engine'>engine</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
+  <span class='comment val'># Matches against an header.</span>
+  <span class='comment val'>#</span>
+  <span class='comment val'># @param header [String] The header to match.</span>
+  <span class='comment val'># @param engine [Symbol] The engine to match.</span>
+  <span class='comment val'># @return [Boolean|NilClass] True if match succeeded, `false` or `nil` otherwise.</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_match identifier id'>match</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='comma token'>,</span> <span class='rubyid_engine identifier id'>engine</span><span class='rparen token'>)</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_@matcher ivar id'>@matcher</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Regexp constant id'>Regexp</span><span class='rparen token'>)</span>
+      <span class='rubyid_@matcher ivar id'>@matcher</span><span class='dot token'>.</span><span class='rubyid_match identifier id'>match</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='rparen token'>)</span>
+    <span class='rubyid_else else kw'>else</span>
+      <span class='rubyid_@matcher ivar id'>@matcher</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='comma token'>,</span> <span class='rubyid_engine identifier id'>engine</span><span class='rparen token'>)</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -534,33 +536,34 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/definitions/platform.rb', line 14</span>
 
-<span class='kw'>class</span> <span class='const'>Platform</span> <span class='op'>&lt;</span> <span class='const'>Base</span>
-  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:matcher</span>
+<span class='rubyid_class class kw'>class</span> <span class='rubyid_Platform constant id'>Platform</span> <span class='lt op'>&lt;</span> <span class='rubyid_Base constant id'>Base</span>
+  <span class='rubyid_attr_reader identifier id'>attr_reader</span> <span class='symbol val'>:name</span><span class='comma token'>,</span> <span class='symbol val'>:matcher</span>
 
-  <span class='comment'># Creates a new definition.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @param id [Symbol] The platform id.
-</span>  <span class='comment'># @param name [String] The platform name.
-</span>  <span class='comment'># @param matcher [Regexp|Proc] The pattern or the block to recognize the platform. **Ignored if a block is given.**
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_matcher'>matcher</span> <span class='op'>=</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-    <span class='ivar'>@id</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
-    <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
-    <span class='ivar'>@matcher</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span> <span class='op'>?</span> <span class='id identifier rubyid_block'>block</span> <span class='op'>:</span> <span class='id identifier rubyid_matcher'>matcher</span>
-  <span class='kw'>end</span>
+  <span class='comment val'># Creates a new definition.</span>
+  <span class='comment val'>#</span>
+  <span class='comment val'># @param id [Symbol] The platform id.</span>
+  <span class='comment val'># @param name [String] The platform name.</span>
+  <span class='comment val'># @param matcher [Regexp|Proc] The pattern or the block to recognize the platform. **Ignored if a block is given.**</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_id identifier id'>id</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_matcher identifier id'>matcher</span> <span class='assign token'>=</span> <span class='regexp val'>/.*/</span><span class='comma token'>,</span> <span class='pow op'>**</span><span class='rubyid__ identifier id'>_</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+    <span class='rubyid_@id ivar id'>@id</span> <span class='assign token'>=</span> <span class='rubyid_id identifier id'>id</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span>
+    <span class='rubyid_@matcher ivar id'>@matcher</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span> <span class='integer val'>? </span><span class='rubyid_block identifier id'>block</span> <span class='colon op'>:</span> <span class='rubyid_matcher identifier id'>matcher</span>
+  <span class='rubyid_end end kw'>end</span>
 
-  <span class='comment'># Matches against an header.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @param header [String] The header to match.
-</span>  <span class='comment'># @param engine [Symbol] The engine to match.
-</span>  <span class='comment'># @return [Boolean|NilClass] True if match succeeded, `false` or `nil` otherwise.
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_engine'>engine</span><span class='rparen'>)</span>
-    <span class='kw'>if</span> <span class='ivar'>@matcher</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Regexp</span><span class='rparen'>)</span>
-      <span class='ivar'>@matcher</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
-    <span class='kw'>else</span>
-      <span class='ivar'>@matcher</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_engine'>engine</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
+  <span class='comment val'># Matches against an header.</span>
+  <span class='comment val'>#</span>
+  <span class='comment val'># @param header [String] The header to match.</span>
+  <span class='comment val'># @param engine [Symbol] The engine to match.</span>
+  <span class='comment val'># @return [Boolean|NilClass] True if match succeeded, `false` or `nil` otherwise.</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_match identifier id'>match</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='comma token'>,</span> <span class='rubyid_engine identifier id'>engine</span><span class='rparen token'>)</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_@matcher ivar id'>@matcher</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Regexp constant id'>Regexp</span><span class='rparen token'>)</span>
+      <span class='rubyid_@matcher ivar id'>@matcher</span><span class='dot token'>.</span><span class='rubyid_match identifier id'>match</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='rparen token'>)</span>
+    <span class='rubyid_else else kw'>else</span>
+      <span class='rubyid_@matcher ivar id'>@matcher</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='comma token'>,</span> <span class='rubyid_engine identifier id'>engine</span><span class='rparen token'>)</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -660,13 +663,14 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/definitions/platform.rb', line 33</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_engine'>engine</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='ivar'>@matcher</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Regexp</span><span class='rparen'>)</span>
-    <span class='ivar'>@matcher</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='ivar'>@matcher</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_engine'>engine</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_match identifier id'>match</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='comma token'>,</span> <span class='rubyid_engine identifier id'>engine</span><span class='rparen token'>)</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@matcher ivar id'>@matcher</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Regexp constant id'>Regexp</span><span class='rparen token'>)</span>
+    <span class='rubyid_@matcher ivar id'>@matcher</span><span class='dot token'>.</span><span class='rubyid_match identifier id'>match</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='rparen token'>)</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_@matcher ivar id'>@matcher</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='comma token'>,</span> <span class='rubyid_engine identifier id'>engine</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -677,9 +681,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Nov  2 11:37:48 2014 by
+  Generated on Mon Mar  2 13:10:31 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.3).
+  0.8.7.6 (ruby-2.2.0).
 </div>
 
   </body>

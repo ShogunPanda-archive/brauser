@@ -6,7 +6,7 @@
 <title>
   Class: Brauser::Value
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Documentation by YARD 0.8.7.6
   
 </title>
 
@@ -285,9 +285,10 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/value.rb', line 18</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-  <span class='ivar'>@value</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_value identifier id'>value</span><span class='rparen token'>)</span>
+  <span class='rubyid_@value ivar id'>@value</span> <span class='assign token'>=</span> <span class='rubyid_value identifier id'>value</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -382,9 +383,10 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/value.rb', line 35</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='ivar'>@value</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_method_missing identifier id'>method_missing</span><span class='lparen token'>(</span><span class='rubyid_method identifier id'>method</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='rubyid_@value ivar id'>@value</span><span class='dot token'>.</span><span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='rubyid_method identifier id'>method</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -471,34 +473,35 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/value.rb', line 11</span>
 
-<span class='kw'>class</span> <span class='const'>Value</span>
-  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:value</span>
-  <span class='id identifier rubyid_delegate'>delegate</span> <span class='symbol'>:to_s</span><span class='comma'>,</span> <span class='symbol'>:inspect</span><span class='comma'>,</span> <span class='label'>to:</span> <span class='symbol'>:value</span>
+<span class='rubyid_class class kw'>class</span> <span class='rubyid_Value constant id'>Value</span>
+  <span class='rubyid_attr_reader identifier id'>attr_reader</span> <span class='symbol val'>:value</span>
+  <span class='rubyid_delegate identifier id'>delegate</span> <span class='symbol val'>:to_s</span><span class='comma token'>,</span> <span class='symbol val'>:inspect</span><span class='comma token'>,</span> <span class='label val'>to:</span> <span class='symbol val'>:value</span>
 
-  <span class='comment'># Creates a new value
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @param value [Object] The wrapped value.
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-    <span class='ivar'>@value</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='kw'>end</span>
+  <span class='comment val'># Creates a new value</span>
+  <span class='comment val'>#</span>
+  <span class='comment val'># @param value [Object] The wrapped value.</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_value identifier id'>value</span><span class='rparen token'>)</span>
+    <span class='rubyid_@value ivar id'>@value</span> <span class='assign token'>=</span> <span class='rubyid_value identifier id'>value</span>
+  <span class='rubyid_end end kw'>end</span>
 
-  <span class='comment'># Check if an object is equal to another object or if it is contained in a list of objects.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @param other [Array|Object] The other object to match.
-</span>  <span class='comment'># @return [Boolean] `true` if the current object is either equal or contained in the other object, `false` otherwise.
-</span>  <span class='kw'>def</span> <span class='op'>==</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='ivar'>@value</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>==</span> <span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+  <span class='comment val'># Check if an object is equal to another object or if it is contained in a list of objects.</span>
+  <span class='comment val'>#</span>
+  <span class='comment val'># @param other [Array|Object] The other object to match.</span>
+  <span class='comment val'># @return [Boolean] `true` if the current object is either equal or contained in the other object, `false` otherwise.</span>
+  <span class='rubyid_def def kw'>def</span> <span class='eq op'>==</span><span class='lparen token'>(</span><span class='rubyid_other identifier id'>other</span><span class='rparen token'>)</span>
+    <span class='rubyid_other identifier id'>other</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Array constant id'>Array</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='rubyid_other identifier id'>other</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_@value ivar id'>@value</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='lparen token'>(</span><span class='rubyid_@value ivar id'>@value</span> <span class='eq op'>==</span> <span class='rubyid_other identifier id'>other</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
 
-  <span class='comment'># Delegates all the other values to the wrapped value.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @param method [Symbol] The method to call.
-</span>  <span class='comment'># @param args [Array] The arguments to pass to the method.
-</span>  <span class='comment'># @param block [Proc] The block to pass to the method.
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-    <span class='ivar'>@value</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
+  <span class='comment val'># Delegates all the other values to the wrapped value.</span>
+  <span class='comment val'>#</span>
+  <span class='comment val'># @param method [Symbol] The method to call.</span>
+  <span class='comment val'># @param args [Array] The arguments to pass to the method.</span>
+  <span class='comment val'># @param block [Proc] The block to pass to the method.</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_method_missing identifier id'>method_missing</span><span class='lparen token'>(</span><span class='rubyid_method identifier id'>method</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+    <span class='rubyid_@value ivar id'>@value</span><span class='dot token'>.</span><span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='rubyid_method identifier id'>method</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -579,9 +582,10 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/value.rb', line 26</span>
 
-<span class='kw'>def</span> <span class='op'>==</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='ivar'>@value</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='ivar'>@value</span> <span class='op'>==</span> <span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='rubyid_def def kw'>def</span> <span class='eq op'>==</span><span class='lparen token'>(</span><span class='rubyid_other identifier id'>other</span><span class='rparen token'>)</span>
+  <span class='rubyid_other identifier id'>other</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Array constant id'>Array</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='rubyid_other identifier id'>other</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_@value ivar id'>@value</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='lparen token'>(</span><span class='rubyid_@value ivar id'>@value</span> <span class='eq op'>==</span> <span class='rubyid_other identifier id'>other</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
     </td>
   </tr>
 </table>
@@ -592,9 +596,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sun Nov  2 11:37:48 2014 by
+  Generated on Mon Mar  2 13:10:31 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.3).
+  0.8.7.6 (ruby-2.2.0).
 </div>
 
   </body>

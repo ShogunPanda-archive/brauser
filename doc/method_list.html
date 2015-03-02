@@ -20,7 +20,11 @@
   </head>
   <body>
     <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) {
+      var hasFrames = false;
+      try {
+        hasFrames = window.top.frames.main ? true : false;
+      } catch (e) { }
+      if (hasFrames) {
         document.getElementById('base_target').target = 'main';
         document.body.className = 'frames';
       }
@@ -138,20 +142,20 @@
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Brauser/Definitions/Platform.html#initialize-instance_method" title="Brauser::Definitions::Platform#initialize (method)">#initialize</a></span>
+    <small>Brauser::Definitions::Platform</small>
+  </li>
+  
+
+  <li class="r1 ">
     <span class='object_link'><a href="Brauser/Value.html#initialize-instance_method" title="Brauser::Value#initialize (method)">#initialize</a></span>
     <small>Brauser::Value</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Brauser/Definitions/Browser.html#initialize-instance_method" title="Brauser::Definitions::Browser#initialize (method)">#initialize</a></span>
     <small>Brauser::Definitions::Browser</small>
-  </li>
-  
-
-  <li class="r2 ">
-    <span class='object_link'><a href="Brauser/Definitions/Platform.html#initialize-instance_method" title="Brauser::Definitions::Platform#initialize (method)">#initialize</a></span>
-    <small>Brauser::Definitions::Platform</small>
   </li>
   
 
@@ -192,14 +196,14 @@
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Brauser/Definitions/Browser.html#match-instance_method" title="Brauser::Definitions::Browser#match (method)">#match</a></span>
-    <small>Brauser::Definitions::Browser</small>
+    <span class='object_link'><a href="Brauser/Definitions/Platform.html#match-instance_method" title="Brauser::Definitions::Platform#match (method)">#match</a></span>
+    <small>Brauser::Definitions::Platform</small>
   </li>
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Brauser/Definitions/Platform.html#match-instance_method" title="Brauser::Definitions::Platform#match (method)">#match</a></span>
-    <small>Brauser::Definitions::Platform</small>
+    <span class='object_link'><a href="Brauser/Definitions/Browser.html#match-instance_method" title="Brauser::Definitions::Browser#match (method)">#match</a></span>
+    <small>Brauser::Definitions::Browser</small>
   </li>
   
 
@@ -210,20 +214,20 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Brauser/Value.html#method_missing-instance_method" title="Brauser::Value#method_missing (method)">#method_missing</a></span>
-    <small>Brauser::Value</small>
-  </li>
-  
-
-  <li class="r1 ">
     <span class='object_link'><a href="Brauser/Browser.html#method_missing-instance_method" title="Brauser::Browser#method_missing (method)">#method_missing</a></span>
     <small>Brauser::Browser</small>
   </li>
   
 
+  <li class="r1 ">
+    <span class='object_link'><a href="Brauser/Value.html#method_missing-instance_method" title="Brauser::Value#method_missing (method)">#method_missing</a></span>
+    <small>Brauser::Value</small>
+  </li>
+  
+
   <li class="r2 ">
-    <span class='object_link'><a href="Brauser/Definitions/Language.html#name-instance_method" title="Brauser::Definitions::Language#name (method)">#name</a></span>
-    <small>Brauser::Definitions::Language</small>
+    <span class='object_link'><a href="Brauser/Definitions/Platform.html#name-instance_method" title="Brauser::Definitions::Platform#name (method)">#name</a></span>
+    <small>Brauser::Definitions::Platform</small>
   </li>
   
 
@@ -234,8 +238,8 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Brauser/Definitions/Platform.html#name-instance_method" title="Brauser::Definitions::Platform#name (method)">#name</a></span>
-    <small>Brauser::Definitions::Platform</small>
+    <span class='object_link'><a href="Brauser/Definitions/Language.html#name-instance_method" title="Brauser::Definitions::Language#name (method)">#name</a></span>
+    <small>Brauser::Definitions::Language</small>
   </li>
   
 
@@ -276,18 +280,24 @@
   
 
   <li class="r1 ">
+    <span class='object_link'><a href="Brauser/Browser.html#supported%3F-instance_method" title="Brauser::Browser#supported? (method)">#supported?</a></span>
+    <small>Brauser::Browser</small>
+  </li>
+  
+
+  <li class="r2 ">
     <span class='object_link'><a href="Brauser/Value.html#value-instance_method" title="Brauser::Value#value (method)">#value</a></span>
     <small>Brauser::Value</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Brauser/Browser.html#version-instance_method" title="Brauser::Browser#version (method)">#version</a></span>
     <small>Brauser::Browser</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Brauser/Definitions/Browser.html#version_matcher-instance_method" title="Brauser::Definitions::Browser#version_matcher (method)">#version_matcher</a></span>
     <small>Brauser::Definitions::Browser</small>
   </li>
