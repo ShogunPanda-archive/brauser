@@ -8,13 +8,13 @@ source "http://rubygems.org"
 gemspec
 
 # Testing
-gem "rspec", "~> 3.1"
-gem "rake", "~> 10.3"
+gem "rspec", "~> 3.2"
+gem "rake", "~> 10.4"
 
 # Documentation
 gem "simplecov", ">= 0.9"
 gem "coveralls", ">= 0.7", require: false
 gem "pry", ">= 0"
 gem "yard", ">= 0.8"
-gem "kramdown", ">= 1.4"
+gem "kramdown", ">= 1.6"
 gem "github-markup", ">= 1.3"

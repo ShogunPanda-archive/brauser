@@ -109,6 +109,34 @@ browser.is?(name: :chrome, version: ">= 4", platform: [:osx, :windows], language
 Name, platform and languages can be either symbols or array of symbols. Version must be a query in the form is `OPERATOR VALUE && ..`, 
 where `OPERATOR` is one of `["<", "<=", "=", "==", ">=", ">"]` and value specifies the version.
 
+### Prevent old browsers to access the Rails application.
+
+If you want to easily prevent a legacy browser to open your application, create a file `supported-browsers.yml` in the `config` folder with a similar content:
+
+```yaml
+---
+chrome: 29
+firefox: 28
+safari: 6.1
+msie: 11
+```
+
+then create a filter in the `ApplicationController`:
+
+```ruby
+class ApplicationController < ActionController::Base
+  # ...
+
+  before_filter do
+    redirect_to(URL) unless browser.supported?(Rails.root + "config/supported-browsers.yml")
+  end
+
+  # ...
+end
+```
+
+and you are set.
+
 ### Adding new browsers, platform and languages.
 
 To add new browsers, simply call `::Brauser::Definitions.register(:browser, :id, ...)`.

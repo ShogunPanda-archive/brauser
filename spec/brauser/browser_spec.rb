@@ -101,6 +101,20 @@ describe Brauser::Browser do
     end
   end
 
+  describe "#supported?" do
+    it "should check whether the browser is supported" do
+      expect(subject.supported?({chrome: 21})).to be_truthy
+      expect(subject.supported?({chrome: 20})).to be_truthy
+      expect(subject.supported?({chrome: 22})).to be_falsey
+      expect(subject.supported?({})).to be_falsey
+    end
+
+    it "should load from a file" do
+      expect(YAML).to receive(:load_file).with("/dev/null").and_return({chrome: 21})
+      expect(subject.supported?("/dev/null")).to be_truthy
+    end
+  end
+
   describe "#method_missing" do
     it "should attempt to run #is? with the method as name if it ends with a ?" do
       expect(subject.chrome?).to be_truthy

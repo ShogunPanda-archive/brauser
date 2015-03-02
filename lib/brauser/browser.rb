@@ -90,6 +90,16 @@ module Brauser
       rv
     end
 
+    # Check if the browser is supported.
+    #
+    # @param browsers [Hash|String] A map of name and minimum supported major version, or a path to YAML file containing the map.
+    # @return [Boolean] `true` if current browser is supported, `false` otherwise. If the name is not found in the map, `false` is returned.
+    def supported?(browsers = {})
+      browsers = YAML.load_file(browsers.to_s).symbolize_keys unless browsers.is_a?(Hash)
+      minimum_version = browsers.with_indifferent_access[name.value]
+      minimum_version ? is?(version: ">= #{minimum_version}") : false
+    end
+
     # Check if the browser is a specific one
     #
     # @param method The browser engine to check.

@@ -1,9 +1,7 @@
 language: ruby
 rvm:
   - 2.1.2
-  #- jruby-head
-  #- rbx-2.2.7
-script: bundle exec rake spec:coverage
+script: bundle exec rake ci
 gemfile: .travis-gemfile
 notifications:
   email: false

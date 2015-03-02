@@ -6,8 +6,20 @@
 require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 
-RSpec::Core::RakeTask.new("spec")
-RSpec::Core::RakeTask.new("spec:coverage") { |t| t.ruby_opts = "-r./spec/coverage_helper" }
+RSpec::Core::RakeTask.new("spec") do |t|
+  t.ruby_opts = ENV.fetch("RUBY_OPTS", "").to_s
+  t.rspec_opts = ENV.fetch("RSPEC_OPTS", "").to_s
+end
+
+RSpec::Core::RakeTask.new("spec:coverage") do |t|
+  t.ruby_opts = ENV.fetch("RUBY_OPTS", "").to_s + " -r./spec/coverage_helper"
+  t.rspec_opts = ENV.fetch("RSPEC_OPTS", "").to_s
+end
+
+RSpec::Core::RakeTask.new("ci") do |t|
+  t.ruby_opts = ENV.fetch("RUBY_OPTS", "").to_s + " -r./spec/coverage_helper"
+  t.rspec_opts = ENV.fetch("RSPEC_OPTS", "-f d").to_s + " --no-color"
+end
 
 desc "Generate the documentation"
 task :docs do

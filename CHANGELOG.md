@@ -1,3 +1,7 @@
+### 4.1.0 / 2014-03-02
+
+* Added `Browser#supported?` method.
+
 ### 4.0.0 / 2014-09-29
 
 * Full rewrite. See the README.md for more informations.
