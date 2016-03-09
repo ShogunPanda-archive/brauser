@@ -6,6 +6,9 @@
 require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 
+# Compatibility layer for Rake 11.0
+Rake.application.class.send(:alias_method, :last_comment, :last_description) unless Rake.application.respond_to?(:last_comment)
+
 RSpec::Core::RakeTask.new("spec") do |t|
   t.ruby_opts = ENV.fetch("RUBY_OPTS", "").to_s
   t.rspec_opts = ENV.fetch("RSPEC_OPTS", "").to_s

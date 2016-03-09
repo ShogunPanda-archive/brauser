@@ -1,3 +1,7 @@
+### 4.1.1 / 2016-03-09
+
+* Updated dependencies to make it work with Ruby 2.3.0
+
 ### 4.1.0 / 2014-03-02
 
 * Added `Browser#supported?` method.
