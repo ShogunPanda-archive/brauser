@@ -397,11 +397,11 @@
       <pre class="code"><span class="info file"># File 'lib/brauser/parser.rb', line 39</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_accept_language identifier id'>parse_accept_language</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='rparen token'>)</span>
-  <span class='rubyid_header identifier id'>header</span><span class='dot token'>.</span><span class='rubyid_ensure_string identifier id'>ensure_string</span><span class='dot token'>.</span><span class='rubyid_tokenize identifier id'>tokenize</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_token identifier id'>token</span><span class='bitor op'>|</span>
+  <span class='rubyid_header identifier id'>header</span><span class='dot token'>.</span><span class='rubyid_ensure_string identifier id'>ensure_string</span><span class='dot token'>.</span><span class='rubyid_tokenize identifier id'>tokenize</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_token identifier id'>token</span><span class='bitor op'>|</span>
     <span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span> <span class='assign token'>=</span> <span class='rubyid_token identifier id'>token</span><span class='dot token'>.</span><span class='rubyid_split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;;q=&quot;</span><span class='rparen token'>)</span>
     <span class='rubyid_rv identifier id'>rv</span><span class='lbrack token'>[</span><span class='rubyid_code identifier id'>code</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;-&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_priority identifier id'>priority</span><span class='dot token'>.</span><span class='rubyid_to_float identifier id'>to_float</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_code identifier id'>code</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_priority identifier id'>priority</span>
     <span class='rubyid_rv identifier id'>rv</span>
-  <span class='rbrace token'>}</span>
+  <span class='rubyid_end end kw'>end</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -487,14 +487,14 @@
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_agent identifier id'>parse_agent</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='rparen token'>)</span>
   <span class='comment val'># First of all match the agent and the version</span>
-  <span class='rubyid_catch identifier id'>catch</span><span class='lparen token'>(</span><span class='symbol val'>:result</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span>
+  <span class='rubyid_catch identifier id'>catch</span><span class='lparen token'>(</span><span class='symbol val'>:result</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span>
     <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_browsers identifier id'>browsers</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid__ identifier id'>_</span><span class='comma token'>,</span> <span class='rubyid_definition identifier id'>definition</span><span class='bitor op'>|</span>
       <span class='rubyid_result identifier id'>result</span> <span class='assign token'>=</span> <span class='rubyid_definition identifier id'>definition</span><span class='dot token'>.</span><span class='rubyid_match identifier id'>match</span><span class='lparen token'>(</span><span class='rubyid_header identifier id'>header</span><span class='rparen token'>)</span>
       <span class='rubyid_throw identifier id'>throw</span><span class='lparen token'>(</span><span class='symbol val'>:result</span><span class='comma token'>,</span> <span class='rubyid_result identifier id'>result</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_result identifier id'>result</span>
     <span class='rubyid_end end kw'>end</span>
 
     <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rbrace token'>}</span>
+  <span class='rubyid_end end kw'>end</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -507,7 +507,7 @@
 </div>
 
     <div id="footer">
-  Generated on Wed Mar  9 10:29:04 2016 by
+  Generated on Tue Mar 29 11:20:20 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>

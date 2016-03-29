@@ -989,9 +989,7 @@
 239
 240
 241
-242
-243
-244</pre>
+242</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 28</span>
@@ -1102,20 +1100,25 @@
       <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_browsers identifier id'>browsers</span><span class='lbrack token'>[</span><span class='rubyid_@name ivar id'>@name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Browser&quot;</span>
       <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_platforms identifier id'>platforms</span><span class='lbrack token'>[</span><span class='rubyid_@platform ivar id'>@platform</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Platform&quot;</span>
     <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
-      <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
-      <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
     <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='comment val'># :nodoc:</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
+    <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
+    <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_languages identifier id'>parse_languages</span><span class='lparen token'>(</span><span class='rubyid_parser identifier id'>parser</span><span class='rparen token'>)</span>
     <span class='rubyid_languages identifier id'>languages</span> <span class='assign token'>=</span> <span class='rubyid_parser identifier id'>parser</span><span class='dot token'>.</span><span class='rubyid_parse_accept_language identifier id'>parse_accept_language</span><span class='lparen token'>(</span><span class='rubyid_@accept_language ivar id'>@accept_language</span><span class='rparen token'>)</span>
     <span class='rubyid_@languages ivar id'>@languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span>
-    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
+    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='lbrack token'>[</span><span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_languages identifier id'>languages</span><span class='lbrack token'>[</span><span class='rubyid_code identifier id'>code</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_priority identifier id'>priority</span>
       <span class='rubyid_rv identifier id'>rv</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -1125,8 +1128,6 @@
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_@name ivar id'>@name</span>
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='symbol val'>:msie_compatibility</span><span class='comma token'>,</span> <span class='symbol val'>:msie</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_rv identifier id'>rv</span> <span class='eq op'>==</span> <span class='symbol val'>:msie_compatibility</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='lparen token'>(</span><span class='label val'>no_duplicates:</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_n identifier id'>n</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{name}#{n}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
@@ -1134,25 +1135,20 @@
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_version_to_str identifier id'>version_to_str</span><span class='lparen token'>(</span><span class='rubyid_version identifier id'>version</span><span class='rparen token'>)</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_version identifier id'>version</span>
       <span class='rubyid_version identifier id'>version</span> <span class='assign token'>=</span> <span class='string val'>&quot;version-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_version identifier id'>version</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
+      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
         <span class='rubyid_rv identifier id'>rv</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span>
         <span class='rubyid_rv identifier id'>rv</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
 
       <span class='rubyid_version_str identifier id'>version_str</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{version}#{v}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_platform_to_str identifier id'>platform_to_str</span><span class='lparen token'>(</span><span class='rubyid_platform identifier id'>platform</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_platform identifier id'>platform</span>
-      <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_platform identifier id'>platform</span>
+    <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
+    <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -1477,9 +1473,7 @@
 239
 240
 241
-242
-243
-244</pre>
+242</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 28</span>
@@ -1590,20 +1584,25 @@
       <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_browsers identifier id'>browsers</span><span class='lbrack token'>[</span><span class='rubyid_@name ivar id'>@name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Browser&quot;</span>
       <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_platforms identifier id'>platforms</span><span class='lbrack token'>[</span><span class='rubyid_@platform ivar id'>@platform</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Platform&quot;</span>
     <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
-      <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
-      <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
     <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='comment val'># :nodoc:</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
+    <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
+    <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_languages identifier id'>parse_languages</span><span class='lparen token'>(</span><span class='rubyid_parser identifier id'>parser</span><span class='rparen token'>)</span>
     <span class='rubyid_languages identifier id'>languages</span> <span class='assign token'>=</span> <span class='rubyid_parser identifier id'>parser</span><span class='dot token'>.</span><span class='rubyid_parse_accept_language identifier id'>parse_accept_language</span><span class='lparen token'>(</span><span class='rubyid_@accept_language ivar id'>@accept_language</span><span class='rparen token'>)</span>
     <span class='rubyid_@languages ivar id'>@languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span>
-    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
+    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='lbrack token'>[</span><span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_languages identifier id'>languages</span><span class='lbrack token'>[</span><span class='rubyid_code identifier id'>code</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_priority identifier id'>priority</span>
       <span class='rubyid_rv identifier id'>rv</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -1613,8 +1612,6 @@
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_@name ivar id'>@name</span>
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='symbol val'>:msie_compatibility</span><span class='comma token'>,</span> <span class='symbol val'>:msie</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_rv identifier id'>rv</span> <span class='eq op'>==</span> <span class='symbol val'>:msie_compatibility</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='lparen token'>(</span><span class='label val'>no_duplicates:</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_n identifier id'>n</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{name}#{n}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
@@ -1622,25 +1619,20 @@
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_version_to_str identifier id'>version_to_str</span><span class='lparen token'>(</span><span class='rubyid_version identifier id'>version</span><span class='rparen token'>)</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_version identifier id'>version</span>
       <span class='rubyid_version identifier id'>version</span> <span class='assign token'>=</span> <span class='string val'>&quot;version-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_version identifier id'>version</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
+      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
         <span class='rubyid_rv identifier id'>rv</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span>
         <span class='rubyid_rv identifier id'>rv</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
 
       <span class='rubyid_version_str identifier id'>version_str</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{version}#{v}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_platform_to_str identifier id'>platform_to_str</span><span class='lparen token'>(</span><span class='rubyid_platform identifier id'>platform</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_platform identifier id'>platform</span>
-      <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_platform identifier id'>platform</span>
+    <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
+    <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -1965,9 +1957,7 @@
 239
 240
 241
-242
-243
-244</pre>
+242</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 28</span>
@@ -2078,20 +2068,25 @@
       <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_browsers identifier id'>browsers</span><span class='lbrack token'>[</span><span class='rubyid_@name ivar id'>@name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Browser&quot;</span>
       <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_platforms identifier id'>platforms</span><span class='lbrack token'>[</span><span class='rubyid_@platform ivar id'>@platform</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Platform&quot;</span>
     <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
-      <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
-      <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
     <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='comment val'># :nodoc:</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
+    <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
+    <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_languages identifier id'>parse_languages</span><span class='lparen token'>(</span><span class='rubyid_parser identifier id'>parser</span><span class='rparen token'>)</span>
     <span class='rubyid_languages identifier id'>languages</span> <span class='assign token'>=</span> <span class='rubyid_parser identifier id'>parser</span><span class='dot token'>.</span><span class='rubyid_parse_accept_language identifier id'>parse_accept_language</span><span class='lparen token'>(</span><span class='rubyid_@accept_language ivar id'>@accept_language</span><span class='rparen token'>)</span>
     <span class='rubyid_@languages ivar id'>@languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span>
-    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
+    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='lbrack token'>[</span><span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_languages identifier id'>languages</span><span class='lbrack token'>[</span><span class='rubyid_code identifier id'>code</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_priority identifier id'>priority</span>
       <span class='rubyid_rv identifier id'>rv</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -2101,8 +2096,6 @@
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_@name ivar id'>@name</span>
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='symbol val'>:msie_compatibility</span><span class='comma token'>,</span> <span class='symbol val'>:msie</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_rv identifier id'>rv</span> <span class='eq op'>==</span> <span class='symbol val'>:msie_compatibility</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='lparen token'>(</span><span class='label val'>no_duplicates:</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_n identifier id'>n</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{name}#{n}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
@@ -2110,25 +2103,20 @@
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_version_to_str identifier id'>version_to_str</span><span class='lparen token'>(</span><span class='rubyid_version identifier id'>version</span><span class='rparen token'>)</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_version identifier id'>version</span>
       <span class='rubyid_version identifier id'>version</span> <span class='assign token'>=</span> <span class='string val'>&quot;version-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_version identifier id'>version</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
+      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
         <span class='rubyid_rv identifier id'>rv</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span>
         <span class='rubyid_rv identifier id'>rv</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
 
       <span class='rubyid_version_str identifier id'>version_str</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{version}#{v}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_platform_to_str identifier id'>platform_to_str</span><span class='lparen token'>(</span><span class='rubyid_platform identifier id'>platform</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_platform identifier id'>platform</span>
-      <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_platform identifier id'>platform</span>
+    <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
+    <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -2453,9 +2441,7 @@
 239
 240
 241
-242
-243
-244</pre>
+242</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 28</span>
@@ -2566,20 +2552,25 @@
       <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_browsers identifier id'>browsers</span><span class='lbrack token'>[</span><span class='rubyid_@name ivar id'>@name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Browser&quot;</span>
       <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_platforms identifier id'>platforms</span><span class='lbrack token'>[</span><span class='rubyid_@platform ivar id'>@platform</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Platform&quot;</span>
     <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
-      <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
-      <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
     <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='comment val'># :nodoc:</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
+    <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
+    <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_languages identifier id'>parse_languages</span><span class='lparen token'>(</span><span class='rubyid_parser identifier id'>parser</span><span class='rparen token'>)</span>
     <span class='rubyid_languages identifier id'>languages</span> <span class='assign token'>=</span> <span class='rubyid_parser identifier id'>parser</span><span class='dot token'>.</span><span class='rubyid_parse_accept_language identifier id'>parse_accept_language</span><span class='lparen token'>(</span><span class='rubyid_@accept_language ivar id'>@accept_language</span><span class='rparen token'>)</span>
     <span class='rubyid_@languages ivar id'>@languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span>
-    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
+    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='lbrack token'>[</span><span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_languages identifier id'>languages</span><span class='lbrack token'>[</span><span class='rubyid_code identifier id'>code</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_priority identifier id'>priority</span>
       <span class='rubyid_rv identifier id'>rv</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -2589,8 +2580,6 @@
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_@name ivar id'>@name</span>
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='symbol val'>:msie_compatibility</span><span class='comma token'>,</span> <span class='symbol val'>:msie</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_rv identifier id'>rv</span> <span class='eq op'>==</span> <span class='symbol val'>:msie_compatibility</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='lparen token'>(</span><span class='label val'>no_duplicates:</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_n identifier id'>n</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{name}#{n}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
@@ -2598,25 +2587,20 @@
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_version_to_str identifier id'>version_to_str</span><span class='lparen token'>(</span><span class='rubyid_version identifier id'>version</span><span class='rparen token'>)</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_version identifier id'>version</span>
       <span class='rubyid_version identifier id'>version</span> <span class='assign token'>=</span> <span class='string val'>&quot;version-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_version identifier id'>version</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
+      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
         <span class='rubyid_rv identifier id'>rv</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span>
         <span class='rubyid_rv identifier id'>rv</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
 
       <span class='rubyid_version_str identifier id'>version_str</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{version}#{v}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_platform_to_str identifier id'>platform_to_str</span><span class='lparen token'>(</span><span class='rubyid_platform identifier id'>platform</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_platform identifier id'>platform</span>
-      <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_platform identifier id'>platform</span>
+    <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
+    <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -2941,9 +2925,7 @@
 239
 240
 241
-242
-243
-244</pre>
+242</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 28</span>
@@ -3054,20 +3036,25 @@
       <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_browsers identifier id'>browsers</span><span class='lbrack token'>[</span><span class='rubyid_@name ivar id'>@name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Browser&quot;</span>
       <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_platforms identifier id'>platforms</span><span class='lbrack token'>[</span><span class='rubyid_@platform ivar id'>@platform</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Platform&quot;</span>
     <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
-      <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
-      <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
     <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='comment val'># :nodoc:</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
+    <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
+    <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_languages identifier id'>parse_languages</span><span class='lparen token'>(</span><span class='rubyid_parser identifier id'>parser</span><span class='rparen token'>)</span>
     <span class='rubyid_languages identifier id'>languages</span> <span class='assign token'>=</span> <span class='rubyid_parser identifier id'>parser</span><span class='dot token'>.</span><span class='rubyid_parse_accept_language identifier id'>parse_accept_language</span><span class='lparen token'>(</span><span class='rubyid_@accept_language ivar id'>@accept_language</span><span class='rparen token'>)</span>
     <span class='rubyid_@languages ivar id'>@languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span>
-    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
+    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='lbrack token'>[</span><span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_languages identifier id'>languages</span><span class='lbrack token'>[</span><span class='rubyid_code identifier id'>code</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_priority identifier id'>priority</span>
       <span class='rubyid_rv identifier id'>rv</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -3077,8 +3064,6 @@
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_@name ivar id'>@name</span>
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='symbol val'>:msie_compatibility</span><span class='comma token'>,</span> <span class='symbol val'>:msie</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_rv identifier id'>rv</span> <span class='eq op'>==</span> <span class='symbol val'>:msie_compatibility</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='lparen token'>(</span><span class='label val'>no_duplicates:</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_n identifier id'>n</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{name}#{n}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
@@ -3086,25 +3071,20 @@
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_version_to_str identifier id'>version_to_str</span><span class='lparen token'>(</span><span class='rubyid_version identifier id'>version</span><span class='rparen token'>)</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_version identifier id'>version</span>
       <span class='rubyid_version identifier id'>version</span> <span class='assign token'>=</span> <span class='string val'>&quot;version-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_version identifier id'>version</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
+      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
         <span class='rubyid_rv identifier id'>rv</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span>
         <span class='rubyid_rv identifier id'>rv</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
 
       <span class='rubyid_version_str identifier id'>version_str</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{version}#{v}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_platform_to_str identifier id'>platform_to_str</span><span class='lparen token'>(</span><span class='rubyid_platform identifier id'>platform</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_platform identifier id'>platform</span>
-      <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_platform identifier id'>platform</span>
+    <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
+    <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -3429,9 +3409,7 @@
 239
 240
 241
-242
-243
-244</pre>
+242</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 28</span>
@@ -3542,20 +3520,25 @@
       <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_browsers identifier id'>browsers</span><span class='lbrack token'>[</span><span class='rubyid_@name ivar id'>@name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Browser&quot;</span>
       <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_platforms identifier id'>platforms</span><span class='lbrack token'>[</span><span class='rubyid_@platform ivar id'>@platform</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Platform&quot;</span>
     <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
-      <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
-      <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
     <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='comment val'># :nodoc:</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
+    <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
+    <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_languages identifier id'>parse_languages</span><span class='lparen token'>(</span><span class='rubyid_parser identifier id'>parser</span><span class='rparen token'>)</span>
     <span class='rubyid_languages identifier id'>languages</span> <span class='assign token'>=</span> <span class='rubyid_parser identifier id'>parser</span><span class='dot token'>.</span><span class='rubyid_parse_accept_language identifier id'>parse_accept_language</span><span class='lparen token'>(</span><span class='rubyid_@accept_language ivar id'>@accept_language</span><span class='rparen token'>)</span>
     <span class='rubyid_@languages ivar id'>@languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span>
-    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
+    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='lbrack token'>[</span><span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_languages identifier id'>languages</span><span class='lbrack token'>[</span><span class='rubyid_code identifier id'>code</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_priority identifier id'>priority</span>
       <span class='rubyid_rv identifier id'>rv</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -3565,8 +3548,6 @@
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_@name ivar id'>@name</span>
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='symbol val'>:msie_compatibility</span><span class='comma token'>,</span> <span class='symbol val'>:msie</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_rv identifier id'>rv</span> <span class='eq op'>==</span> <span class='symbol val'>:msie_compatibility</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='lparen token'>(</span><span class='label val'>no_duplicates:</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_n identifier id'>n</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{name}#{n}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
@@ -3574,25 +3555,20 @@
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_version_to_str identifier id'>version_to_str</span><span class='lparen token'>(</span><span class='rubyid_version identifier id'>version</span><span class='rparen token'>)</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_version identifier id'>version</span>
       <span class='rubyid_version identifier id'>version</span> <span class='assign token'>=</span> <span class='string val'>&quot;version-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_version identifier id'>version</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
+      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
         <span class='rubyid_rv identifier id'>rv</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span>
         <span class='rubyid_rv identifier id'>rv</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
 
       <span class='rubyid_version_str identifier id'>version_str</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{version}#{v}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_platform_to_str identifier id'>platform_to_str</span><span class='lparen token'>(</span><span class='rubyid_platform identifier id'>platform</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_platform identifier id'>platform</span>
-      <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_platform identifier id'>platform</span>
+    <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
+    <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -3917,9 +3893,7 @@
 239
 240
 241
-242
-243
-244</pre>
+242</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 28</span>
@@ -4030,20 +4004,25 @@
       <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_browsers identifier id'>browsers</span><span class='lbrack token'>[</span><span class='rubyid_@name ivar id'>@name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Browser&quot;</span>
       <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_platforms identifier id'>platforms</span><span class='lbrack token'>[</span><span class='rubyid_@platform ivar id'>@platform</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Platform&quot;</span>
     <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
-      <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
-      <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
     <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='comment val'># :nodoc:</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
+    <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
+    <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_languages identifier id'>parse_languages</span><span class='lparen token'>(</span><span class='rubyid_parser identifier id'>parser</span><span class='rparen token'>)</span>
     <span class='rubyid_languages identifier id'>languages</span> <span class='assign token'>=</span> <span class='rubyid_parser identifier id'>parser</span><span class='dot token'>.</span><span class='rubyid_parse_accept_language identifier id'>parse_accept_language</span><span class='lparen token'>(</span><span class='rubyid_@accept_language ivar id'>@accept_language</span><span class='rparen token'>)</span>
     <span class='rubyid_@languages ivar id'>@languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span>
-    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
+    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='lbrack token'>[</span><span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_languages identifier id'>languages</span><span class='lbrack token'>[</span><span class='rubyid_code identifier id'>code</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_priority identifier id'>priority</span>
       <span class='rubyid_rv identifier id'>rv</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -4053,8 +4032,6 @@
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_@name ivar id'>@name</span>
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='symbol val'>:msie_compatibility</span><span class='comma token'>,</span> <span class='symbol val'>:msie</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_rv identifier id'>rv</span> <span class='eq op'>==</span> <span class='symbol val'>:msie_compatibility</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='lparen token'>(</span><span class='label val'>no_duplicates:</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_n identifier id'>n</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{name}#{n}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
@@ -4062,25 +4039,20 @@
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_version_to_str identifier id'>version_to_str</span><span class='lparen token'>(</span><span class='rubyid_version identifier id'>version</span><span class='rparen token'>)</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_version identifier id'>version</span>
       <span class='rubyid_version identifier id'>version</span> <span class='assign token'>=</span> <span class='string val'>&quot;version-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_version identifier id'>version</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
+      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
         <span class='rubyid_rv identifier id'>rv</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span>
         <span class='rubyid_rv identifier id'>rv</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
 
       <span class='rubyid_version_str identifier id'>version_str</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{version}#{v}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_platform_to_str identifier id'>platform_to_str</span><span class='lparen token'>(</span><span class='rubyid_platform identifier id'>platform</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_platform identifier id'>platform</span>
-      <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_platform identifier id'>platform</span>
+    <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
+    <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -4405,9 +4377,7 @@
 239
 240
 241
-242
-243
-244</pre>
+242</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 28</span>
@@ -4518,20 +4488,25 @@
       <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_browsers identifier id'>browsers</span><span class='lbrack token'>[</span><span class='rubyid_@name ivar id'>@name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Browser&quot;</span>
       <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_platforms identifier id'>platforms</span><span class='lbrack token'>[</span><span class='rubyid_@platform ivar id'>@platform</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Platform&quot;</span>
     <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
-      <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
-      <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
     <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='comment val'># :nodoc:</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
+    <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
+    <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_languages identifier id'>parse_languages</span><span class='lparen token'>(</span><span class='rubyid_parser identifier id'>parser</span><span class='rparen token'>)</span>
     <span class='rubyid_languages identifier id'>languages</span> <span class='assign token'>=</span> <span class='rubyid_parser identifier id'>parser</span><span class='dot token'>.</span><span class='rubyid_parse_accept_language identifier id'>parse_accept_language</span><span class='lparen token'>(</span><span class='rubyid_@accept_language ivar id'>@accept_language</span><span class='rparen token'>)</span>
     <span class='rubyid_@languages ivar id'>@languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span>
-    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
+    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='lbrack token'>[</span><span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_languages identifier id'>languages</span><span class='lbrack token'>[</span><span class='rubyid_code identifier id'>code</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_priority identifier id'>priority</span>
       <span class='rubyid_rv identifier id'>rv</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -4541,8 +4516,6 @@
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_@name ivar id'>@name</span>
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='symbol val'>:msie_compatibility</span><span class='comma token'>,</span> <span class='symbol val'>:msie</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_rv identifier id'>rv</span> <span class='eq op'>==</span> <span class='symbol val'>:msie_compatibility</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='lparen token'>(</span><span class='label val'>no_duplicates:</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_n identifier id'>n</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{name}#{n}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
@@ -4550,25 +4523,20 @@
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_version_to_str identifier id'>version_to_str</span><span class='lparen token'>(</span><span class='rubyid_version identifier id'>version</span><span class='rparen token'>)</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_version identifier id'>version</span>
       <span class='rubyid_version identifier id'>version</span> <span class='assign token'>=</span> <span class='string val'>&quot;version-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_version identifier id'>version</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
+      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
         <span class='rubyid_rv identifier id'>rv</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span>
         <span class='rubyid_rv identifier id'>rv</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
 
       <span class='rubyid_version_str identifier id'>version_str</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{version}#{v}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_platform_to_str identifier id'>platform_to_str</span><span class='lparen token'>(</span><span class='rubyid_platform identifier id'>platform</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_platform identifier id'>platform</span>
-      <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_platform identifier id'>platform</span>
+    <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
+    <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -4893,9 +4861,7 @@
 239
 240
 241
-242
-243
-244</pre>
+242</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/browser.rb', line 28</span>
@@ -5006,20 +4972,25 @@
       <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_browsers identifier id'>browsers</span><span class='lbrack token'>[</span><span class='rubyid_@name ivar id'>@name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Browser&quot;</span>
       <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_platforms identifier id'>platforms</span><span class='lbrack token'>[</span><span class='rubyid_@platform ivar id'>@platform</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_try identifier id'>try</span><span class='lparen token'>(</span><span class='symbol val'>:name</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='string val'>&quot;Unknown Platform&quot;</span>
     <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
-      <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
-      <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
     <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='comment val'># :nodoc:</span>
+  <span class='rubyid_def def kw'>def</span> <span class='rubyid_sanitize_agent identifier id'>sanitize_agent</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_@platform ivar id'>@platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:unknown</span><span class='rparen token'>)</span>
+    <span class='rubyid_@human_name ivar id'>@human_name</span> <span class='assign token'>=</span> <span class='rubyid_@human_platform ivar id'>@human_platform</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;Unknown&quot;</span><span class='rparen token'>)</span>
+    <span class='rubyid_@version ivar id'>@version</span> <span class='assign token'>=</span> <span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Value constant id'>Value</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_Versionomy constant id'>Versionomy</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='string val'>&quot;0.0&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse_languages identifier id'>parse_languages</span><span class='lparen token'>(</span><span class='rubyid_parser identifier id'>parser</span><span class='rparen token'>)</span>
     <span class='rubyid_languages identifier id'>languages</span> <span class='assign token'>=</span> <span class='rubyid_parser identifier id'>parser</span><span class='dot token'>.</span><span class='rubyid_parse_accept_language identifier id'>parse_accept_language</span><span class='lparen token'>(</span><span class='rubyid_@accept_language ivar id'>@accept_language</span><span class='rparen token'>)</span>
     <span class='rubyid_@languages ivar id'>@languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span>
-    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
+    <span class='rubyid_@human_languages ivar id'>@human_languages</span> <span class='assign token'>=</span> <span class='rubyid_languages identifier id'>languages</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_priority identifier id'>priority</span><span class='rparen token'>)</span><span class='bitor op'>|</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='lbrack token'>[</span><span class='rubyid_Brauser constant id'>Brauser</span><span class='colon2 op'>::</span><span class='rubyid_Definitions constant id'>Definitions</span><span class='dot token'>.</span><span class='rubyid_languages identifier id'>languages</span><span class='lbrack token'>[</span><span class='rubyid_code identifier id'>code</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_priority identifier id'>priority</span>
       <span class='rubyid_rv identifier id'>rv</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -5029,8 +5000,6 @@
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_@name ivar id'>@name</span>
       <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='symbol val'>:msie_compatibility</span><span class='comma token'>,</span> <span class='symbol val'>:msie</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_rv identifier id'>rv</span> <span class='eq op'>==</span> <span class='symbol val'>:msie_compatibility</span>
       <span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_ensure_array identifier id'>ensure_array</span><span class='lparen token'>(</span><span class='label val'>no_duplicates:</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_n identifier id'>n</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{name}#{n}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
@@ -5038,25 +5007,20 @@
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_version_to_str identifier id'>version_to_str</span><span class='lparen token'>(</span><span class='rubyid_version identifier id'>version</span><span class='rparen token'>)</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_version identifier id'>version</span>
       <span class='rubyid_version identifier id'>version</span> <span class='assign token'>=</span> <span class='string val'>&quot;version-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_version identifier id'>version</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
+      <span class='rubyid_version_str identifier id'>version_str</span> <span class='assign token'>=</span> <span class='rubyid_@version ivar id'>@version</span><span class='dot token'>.</span><span class='rubyid_values_array identifier id'>values_array</span><span class='dot token'>.</span><span class='rubyid_reduce identifier id'>reduce</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_rv identifier id'>rv</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='bitor op'>|</span>
         <span class='rubyid_rv identifier id'>rv</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='rubyid_rv identifier id'>rv</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span><span class='comma token'>,</span> <span class='rubyid_current identifier id'>current</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span>
         <span class='rubyid_rv identifier id'>rv</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
 
       <span class='rubyid_version_str identifier id'>version_str</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{version}#{v}&quot;</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_platform_to_str identifier id'>platform_to_str</span><span class='lparen token'>(</span><span class='rubyid_platform identifier id'>platform</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_platform identifier id'>platform</span>
-      <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
-      <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_nil nil kw'>nil</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_platform identifier id'>platform</span>
+    <span class='rubyid_platform identifier id'>platform</span> <span class='assign token'>=</span> <span class='string val'>&quot;platform-&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_platform identifier id'>platform</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='rparen token'>)</span>
+    <span class='dstring node'>&quot;#{platform}#{@platform}&quot;</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># :nodoc:</span>
@@ -5584,7 +5548,7 @@ You can also pass the value “capable”, which will return true for Webkit bro
 </div>
 
     <div id="footer">
-  Generated on Wed Mar  9 10:29:04 2016 by
+  Generated on Tue Mar 29 11:20:20 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>
