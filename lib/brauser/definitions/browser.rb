@@ -41,8 +41,6 @@ module Brauser
           version = extract_version(perform_match(@version_matcher, header))
           platform = extract_platform(header, engine)
           [Brauser::Value.new(engine), Brauser::Value.new(version), Brauser::Value.new(platform)]
-        else
-          nil
         end
       end
 
@@ -67,13 +65,13 @@ module Brauser
 
       # :nodoc:
       def extract_platform(header, engine)
-        catch(:result) {
+        catch(:result) do
           Brauser::Definitions.platforms.each do |platform, definition|
             throw(:result, platform) if definition.match(header, engine)
           end
 
           nil
-        }
+        end
       end
     end
   end

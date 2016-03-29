@@ -131,20 +131,25 @@ module Brauser
         @human_name = Brauser::Definitions.browsers[@name].try(:name) || "Unknown Browser"
         @human_platform = Brauser::Definitions.platforms[@platform].try(:name) || "Unknown Platform"
       else
-        @name = @platform = Brauser::Value.new(:unknown)
-        @human_name = @human_platform = Brauser::Value.new("Unknown")
-        @version = Brauser::Value.new(Versionomy.parse("0.0"))
+        sanitize_agent
       end
+    end
+
+    # :nodoc:
+    def sanitize_agent
+      @name = @platform = Brauser::Value.new(:unknown)
+      @human_name = @human_platform = Brauser::Value.new("Unknown")
+      @version = Brauser::Value.new(Versionomy.parse("0.0"))
     end
 
     # :nodoc:
     def parse_languages(parser)
       languages = parser.parse_accept_language(@accept_language)
       @languages = languages
-      @human_languages = languages.reduce({}) { |rv, (code, priority)|
+      @human_languages = languages.reduce({}) do |rv, (code, priority)|
         rv[Brauser::Definitions.languages[code].name] = priority
         rv
-      }
+      end
     end
 
     # :nodoc:
@@ -154,8 +159,6 @@ module Brauser
         rv = @name
         rv = [:msie_compatibility, :msie] if rv == :msie_compatibility
         rv.ensure_array(no_duplicates: true) { |n| "#{name}#{n}" }
-      else
-        nil
       end
     end
 
@@ -163,25 +166,20 @@ module Brauser
     def version_to_str(version)
       if version
         version = "version-" if version.is_a?(TrueClass)
-        version_str = @version.values_array.reduce([]) { |rv, current|
+        version_str = @version.values_array.reduce([]) do |rv, current|
           rv << [rv.last, current].compact.join("_")
           rv
-        }
+        end
 
         version_str.map { |v| "#{version}#{v}" }
-      else
-        nil
       end
     end
 
     # :nodoc:
     def platform_to_str(platform)
-      if platform
-        platform = "platform-" if platform.is_a?(TrueClass)
-        "#{platform}#{@platform}"
-      else
-        nil
-      end
+      return nil unless platform
+      platform = "platform-" if platform.is_a?(TrueClass)
+      "#{platform}#{@platform}"
     end
 
     # :nodoc:

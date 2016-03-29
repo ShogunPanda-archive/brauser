@@ -22,14 +22,14 @@ module Brauser
     # @return [Array|NilClass] An array of engine, version and platform if the match succeeded, `nil` otherwise.
     def parse_agent(header)
       # First of all match the agent and the version
-      catch(:result) {
+      catch(:result) do
         Brauser::Definitions.browsers.each do |_, definition|
           result = definition.match(header)
           throw(:result, result) if result
         end
 
         nil
-      }
+      end
     end
 
     # Parses a Accept-Language header.
@@ -37,11 +37,11 @@ module Brauser
     # @param header [String] The Accept-Language header.
     # @return [Hash] The list of accepted languages with their priorities.
     def parse_accept_language(header)
-      header.ensure_string.tokenize.reduce({}) { |rv, token|
+      header.ensure_string.tokenize.reduce({}) do |rv, token|
         code, priority = token.split(";q=")
         rv[code.downcase.gsub("_", "-").to_sym] = priority.to_float if code && priority
         rv
-      }
+      end
     end
   end
 end
