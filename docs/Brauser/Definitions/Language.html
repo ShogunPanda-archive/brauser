@@ -303,13 +303,12 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/definitions/language.rb', line 21</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='pow op'>**</span><span class='rubyid__ identifier id'>_</span><span class='rparen token'>)</span>
-  <span class='rubyid_code identifier id'>code</span> <span class='assign token'>=</span> <span class='rubyid_code identifier id'>code</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;-&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_@id ivar id'>@id</span> <span class='assign token'>=</span> <span class='rubyid_code identifier id'>code</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span>
-  <span class='rubyid_@code ivar id'>@code</span> <span class='assign token'>=</span> <span class='rubyid_code identifier id'>code</span>
-  <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid__'>_</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@id</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='ivar'>@code</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span>
+  <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -382,21 +381,20 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/definitions/language.rb', line 14</span>
 
-<span class='rubyid_class class kw'>class</span> <span class='rubyid_Language constant id'>Language</span> <span class='lt op'>&lt;</span> <span class='rubyid_Base constant id'>Base</span>
-  <span class='rubyid_attr_reader identifier id'>attr_reader</span> <span class='symbol val'>:code</span><span class='comma token'>,</span> <span class='symbol val'>:name</span>
+<span class='kw'>class</span> <span class='const'>Language</span> <span class='op'>&lt;</span> <span class='const'>Base</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:code</span><span class='comma'>,</span> <span class='symbol'>:name</span>
 
-  <span class='comment val'># Creates a new definition.</span>
-  <span class='comment val'>#</span>
-  <span class='comment val'># @param code [String] The language code.</span>
-  <span class='comment val'># @param name [String] The language name.</span>
-  <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='pow op'>**</span><span class='rubyid__ identifier id'>_</span><span class='rparen token'>)</span>
-    <span class='rubyid_code identifier id'>code</span> <span class='assign token'>=</span> <span class='rubyid_code identifier id'>code</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;-&quot;</span><span class='rparen token'>)</span>
-    <span class='rubyid_@id ivar id'>@id</span> <span class='assign token'>=</span> <span class='rubyid_code identifier id'>code</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span>
-    <span class='rubyid_@code ivar id'>@code</span> <span class='assign token'>=</span> <span class='rubyid_code identifier id'>code</span>
-    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='comment'># Creates a new definition.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param code [String] The language code.
+</span>  <span class='comment'># @param name [String] The language name.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid__'>_</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@id</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+    <span class='ivar'>@code</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span>
+    <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -464,21 +462,20 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/brauser/definitions/language.rb', line 14</span>
 
-<span class='rubyid_class class kw'>class</span> <span class='rubyid_Language constant id'>Language</span> <span class='lt op'>&lt;</span> <span class='rubyid_Base constant id'>Base</span>
-  <span class='rubyid_attr_reader identifier id'>attr_reader</span> <span class='symbol val'>:code</span><span class='comma token'>,</span> <span class='symbol val'>:name</span>
+<span class='kw'>class</span> <span class='const'>Language</span> <span class='op'>&lt;</span> <span class='const'>Base</span>
+  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:code</span><span class='comma'>,</span> <span class='symbol'>:name</span>
 
-  <span class='comment val'># Creates a new definition.</span>
-  <span class='comment val'>#</span>
-  <span class='comment val'># @param code [String] The language code.</span>
-  <span class='comment val'># @param name [String] The language name.</span>
-  <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_code identifier id'>code</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='pow op'>**</span><span class='rubyid__ identifier id'>_</span><span class='rparen token'>)</span>
-    <span class='rubyid_code identifier id'>code</span> <span class='assign token'>=</span> <span class='rubyid_code identifier id'>code</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>&quot;_&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;-&quot;</span><span class='rparen token'>)</span>
-    <span class='rubyid_@id ivar id'>@id</span> <span class='assign token'>=</span> <span class='rubyid_code identifier id'>code</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span>
-    <span class='rubyid_@code ivar id'>@code</span> <span class='assign token'>=</span> <span class='rubyid_code identifier id'>code</span>
-    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='comment'># Creates a new definition.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param code [String] The language code.
+</span>  <span class='comment'># @param name [String] The language name.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid__'>_</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@id</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+    <span class='ivar'>@code</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span>
+    <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -490,7 +487,7 @@
 </div>
 
     <div id="footer">
-  Generated on Thu Aug 18 15:37:37 2016 by
+  Generated on Thu Aug 18 15:49:54 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>
