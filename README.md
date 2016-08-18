@@ -4,13 +4,11 @@
 [![Dependency Status](https://gemnasium.com/ShogunPanda/brauser.png?travis)](https://gemnasium.com/ShogunPanda/brauser)
 [![Build Status](https://secure.travis-ci.org/ShogunPanda/brauser.png?branch=master)](http://travis-ci.org/ShogunPanda/brauser)
 [![Code Climate](https://codeclimate.com/github/ShogunPanda/brauser.png)](https://codeclimate.com/github/ShogunPanda/brauser)
-[![Coverage Status](https://coveralls.io/repos/ShogunPanda/brauser/badge.png)](https://coveralls.io/r/ShogunPanda/brauser)
+[![Coverage Status](https://coveralls.io/repos/github/ShogunPanda/brauser/badge.svg?branch=master)](https://coveralls.io/github/ShogunPanda/brauser?branch=master)
 
 A framework agnostic browser detection and querying helper.
 
-http://sw.cowtech.it/brauser
-
-http://rdoc.info/gems/brauser
+https://sw.cowtech.it/brauser
 
 ## Description
 
@@ -38,7 +36,7 @@ For the rest of this document, let's assume you use Chrome 1.2.3 on Mac OS X.
 
 ### Getting browser information
 
-Once you instantiate the browser, you can query the browser about `name`, `version`, `platform`, `languages`. 
+Once you instantiate the browser, you can query the browser about `name`, `version`, `platform`, `languages`.
 
 You can also get readable name and platforms via `human_name`, `human_platform`, `human_languages`.
 
@@ -105,7 +103,7 @@ browser.is?(name: :chrome, version: ">= 4", platform: [:osx, :windows], language
 # => false
 ```
 
-Name, platform and languages can be either symbols or array of symbols. Version must be a query in the form is `OPERATOR VALUE && ..`, 
+Name, platform and languages can be either symbols or array of symbols. Version must be a query in the form is `OPERATOR VALUE && ..`,
 where `OPERATOR` is one of `["<", "<=", "=", "==", ">=", ">"]` and value specifies the version.
 
 ### Prevent old browsers to access the Rails application.
@@ -150,8 +148,12 @@ For example, for Google Chrome the call should be:
 Brauser::Definitions.register(:browsers, :chrome, "Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i)
 ```
 
+## API Documentation
+
+The API documentation can be found [here](https://sw.cowtech.it/brauser/docs).
+
 ## Contributing to brauser
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 * Fork the project.

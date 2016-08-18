@@ -67,13 +67,11 @@
 <a href="https://gemnasium.com/ShogunPanda/brauser"><img src="https://gemnasium.com/ShogunPanda/brauser.png?travis" alt="Dependency Status" /></a>
 <a href="http://travis-ci.org/ShogunPanda/brauser"><img src="https://secure.travis-ci.org/ShogunPanda/brauser.png?branch=master" alt="Build Status" /></a>
 <a href="https://codeclimate.com/github/ShogunPanda/brauser"><img src="https://codeclimate.com/github/ShogunPanda/brauser.png" alt="Code Climate" /></a>
-<a href="https://coveralls.io/r/ShogunPanda/brauser"><img src="https://coveralls.io/repos/ShogunPanda/brauser/badge.png" alt="Coverage Status" /></a></p>
+<a href="https://coveralls.io/github/ShogunPanda/brauser?branch=master"><img src="https://coveralls.io/repos/github/ShogunPanda/brauser/badge.svg?branch=master" alt="Coverage Status" /></a></p>
 
 <p>A framework agnostic browser detection and querying helper.</p>
 
-<p>http://sw.cowtech.it/brauser</p>
-
-<p>http://rdoc.info/gems/brauser</p>
+<p>https://sw.cowtech.it/brauser</p>
 
 <h2 id="description">Description</h2>
 
@@ -168,7 +166,7 @@ browser.is?(name: :chrome, version: "&gt;= 4", platform: [:osx, :windows], langu
 # =&gt; false
 ```
 
-Name, platform and languages can be either symbols or array of symbols. Version must be a query in the form is `OPERATOR VALUE &amp;&amp; ..`, 
+Name, platform and languages can be either symbols or array of symbols. Version must be a query in the form is `OPERATOR VALUE &amp;&amp; ..`,
 where `OPERATOR` is one of `["&lt;", "&lt;=", "=", "==", "&gt;=", "&gt;"]` and value specifies the version.
 
 ### Prevent old browsers to access the Rails application.
@@ -213,8 +211,12 @@ For example, for Google Chrome the call should be:
 Brauser::Definitions.register(:browsers, :chrome, "Chrome", /((chrome)|(chromium))/i, /(.+Chrom[a-z]+\/)([a-z0-9.]+)/i)
 ```
 
+## API Documentation
+
+The API documentation can be found [here](https://sw.cowtech.it/brauser/docs).
+
 ## Contributing to brauser
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 * Fork the project.
@@ -232,7 +234,7 @@ Licensed under the MIT license, which can be found at http://www.opensource.org/
 </div></div>
 
     <div id="footer">
-  Generated on Tue Mar 29 11:20:20 2016 by
+  Generated on Thu Aug 18 15:37:36 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>
