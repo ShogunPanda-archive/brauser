@@ -1,10 +1,9 @@
 # brauser
 
-[![Gem Version](https://badge.fury.io/rb/brauser.png)](http://badge.fury.io/rb/brauser)
-[![Dependency Status](https://gemnasium.com/ShogunPanda/brauser.png?travis)](https://gemnasium.com/ShogunPanda/brauser)
-[![Build Status](https://secure.travis-ci.org/ShogunPanda/brauser.png?branch=master)](http://travis-ci.org/ShogunPanda/brauser)
-[![Code Climate](https://codeclimate.com/github/ShogunPanda/brauser.png)](https://codeclimate.com/github/ShogunPanda/brauser)
-[![Coverage Status](https://coveralls.io/repos/github/ShogunPanda/brauser/badge.svg?branch=master)](https://coveralls.io/github/ShogunPanda/brauser?branch=master)
+[![Gem Version](https://img.shields.io/gem/v/brauser.svg)](https://rubygems.org/gems/brauser)
+[![Dependency Status](https://img.shields.io/gemnasium/ShogunPanda/brauser.svg)](https://gemnasium.com/ShogunPanda/brauser)
+[![Build Status](https://img.shields.io/travis/ShogunPanda/brauser.svg)](http://travis-ci.org/ShogunPanda/brauser)
+[![Coverage Status](https://img.shields.io/coveralls/github/ShogunPanda/brauser.svg)](https://coveralls.io/github/ShogunPanda/brauser)
 
 A framework agnostic browser detection and querying helper.
 
@@ -166,4 +165,4 @@ The API documentation can be found [here](https://sw.cowtech.it/brauser/docs).
 
 Copyright (C) 2013 and above Shogun (shogun@cowtech.it).
 
-Licensed under the MIT license, which can be found at http://www.opensource.org/licenses/mit-license.php.
+Licensed under the MIT license, which can be found at https://choosealicense.com/licenses/mit.
