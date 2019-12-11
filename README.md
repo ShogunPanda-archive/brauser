@@ -1,13 +1,8 @@
 # brauser
 
-[![Gem Version](https://img.shields.io/gem/v/brauser.svg)](https://rubygems.org/gems/brauser)
-[![Dependency Status](https://img.shields.io/gemnasium/ShogunPanda/brauser.svg)](https://gemnasium.com/ShogunPanda/brauser)
-[![Build Status](https://img.shields.io/travis/ShogunPanda/brauser.svg)](http://travis-ci.org/ShogunPanda/brauser)
-[![Coverage Status](https://img.shields.io/coveralls/github/ShogunPanda/brauser.svg)](https://coveralls.io/github/ShogunPanda/brauser)
+## END OF DEVELOPMENT NOTICE - This gem has been discontinued
 
 A framework agnostic browser detection and querying helper.
-
-https://sw.cowtech.it/brauser
 
 ## Description
 
@@ -51,14 +46,16 @@ For example, if you do this in a ERB view:
 
 ```html
 <body class="<%= browser.classes %>">
-...
+  ...
+</body>
 ```
 
 The view will get compiled to this:
 
 ```html
 <body class="chrome version-1 version-1_2 version-1_2_3 platform-osx">
-...
+  ...
+</body>
 ```
 
 And thus scoping your CSS will be trivial.
@@ -153,13 +150,13 @@ The API documentation can be found [here](https://sw.cowtech.it/brauser/docs).
 
 ## Contributing to brauser
 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
-* Fork the project.
-* Start a feature/bugfix branch.
-* Commit and push until you are happy with your contribution.
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+- Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
+- Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
+- Fork the project.
+- Start a feature/bugfix branch.
+- Commit and push until you are happy with your contribution.
+- Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+- Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
 ## Copyright
 
